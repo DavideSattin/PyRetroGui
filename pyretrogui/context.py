@@ -6,6 +6,7 @@
 # Description:
 # ==========================================
 from pyretrogui.graphic_context import GraphicContext
+from pyretrogui.location import Location
 
 
 class Context:
@@ -18,6 +19,7 @@ class Context:
           self.rows = int(normalized_size[1] / font_size[1])
           self.cols = int(normalized_size[0] / font_size[0])
           self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
+          self.set_cursor_position = Location(0,0)
           self.clear()
 
       def clear(self):
@@ -52,3 +54,6 @@ class Context:
               if x >= len(matrix_line):
                   break
               matrix_line[x] = char
+
+      def set_cursor_position(self, cursor_position):
+          pass
