@@ -38,7 +38,7 @@ class App:
       def run(self,startup_widget) -> None:
           self.widget = startup_widget(self.root)
 
-
+          #Running Cycle.
           while self.running:
               self.handle_events()
               self.update()
