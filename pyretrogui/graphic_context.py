@@ -15,7 +15,7 @@ class GraphicContext:
           self.clock = pygame.time.Clock()
 
           self.main_font = pygame.font.Font(
-              "../assets/Ac437_IBM_VGA_8x16.ttf",
+              "../assets/px437_IBM_VGA_8x16.ttf",
               16
           )
 
