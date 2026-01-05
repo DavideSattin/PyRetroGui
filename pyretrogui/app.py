@@ -9,6 +9,7 @@ import pygame
 
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
+from pyretrogui.ui_panel import UIPanel, UIElement
 
 
 class App:
@@ -20,6 +21,13 @@ class App:
           height = int(size[1] / font_size[1]) * font_size[1]
           normalized_size = (width, height)
 
+          #Virtual Root control.
+          self.root = UIPanel(None)
+          self.root.margin = False
+          self.root.border = False
+          self.root.location = (0,0)
+          self.root.size = normalized_size
+
           # Open the window
           self.grp_ctx.open_window(title, normalized_size)
 
@@ -28,7 +36,8 @@ class App:
           self.context = Context(size, font_size, normalized_size)
 
       def run(self,startup_widget) -> None:
-          self.widget = startup_widget()
+          self.widget = startup_widget(self.root)
+
 
           while self.running:
               self.handle_events()
@@ -36,6 +45,7 @@ class App:
               self.draw()
               self.grp_ctx.set_clock_tick(60)
 
+          #Exit
           self.grp_ctx.quit()
 
       def handle_events(self):
@@ -50,9 +60,8 @@ class App:
           #Draw background
           self.grp_ctx.fill()
 
-
+          #Draw the widget
           self.context.draw(self.grp_ctx)
-
 
           # Draw all.
           self.grp_ctx.flush()

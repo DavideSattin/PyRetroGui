@@ -17,7 +17,7 @@ class Context:
 
           self.rows = int(normalized_size[1] / font_size[1])
           self.cols = int(normalized_size[0] / font_size[0])
-          self.matrix = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
+          self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
           self.clear()
 
       def clear(self):
@@ -39,3 +39,16 @@ class Context:
                 graphics.draw_char(str(char), x, y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
+      def draw_text(self, view_port_location, view_port_size, current_line:str):
+          current_line = current_line[:view_port_size[0]]
+
+          row_offset = view_port_location[1]
+          col_offset = view_port_location[0]
+
+          matrix_line = self.matrix[row_offset]
+
+          for col, char in enumerate(current_line):
+              x = col_offset + col
+              if x >= len(matrix_line):
+                  break
+              matrix_line[x] = char
