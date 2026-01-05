@@ -9,5 +9,5 @@ from pyretrogui.ui_panel import TextWidget
 from pyretrogui.app import App
 
 #Create the Main screen.
-app = App("Main Screen", (300,300), (8,16))
+app = App("Main Screen", (600,600), (8,16))
 app.run(TextWidget)
