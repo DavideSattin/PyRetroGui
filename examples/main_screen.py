@@ -5,7 +5,7 @@
 # Created: 04/01/2026 11:00
 # Description:
 # ==========================================
-from pyretrogui.UIPanel import TextWidget
+from pyretrogui.ui_panel import TextWidget
 from pyretrogui.app import App
 
 # width = int(300 / 8) * 8
