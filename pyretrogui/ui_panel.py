@@ -57,15 +57,15 @@ class UIElement(ABC):
 
           parent_viewport_location, parent_viewport_size =  self.parent.get_viewport()
 
-          view_port_location = parent_viewport_location
-          view_port_size = parent_viewport_size
+          # view_port_location = parent_viewport_location
+          # view_port_size = parent_viewport_size
 
           # view_port_location = (0,0)
           # view_port_size = (0,0)
-          off_set = 2
 
-          # view_port_location = (self.location[0]+off_set, self.location[1]+off_set)
-          # view_port_size = (self.size[0] - off_set *2 , self.size[1] -  off_set *2)
+
+          view_port_location = (parent_viewport_location[0]+off_set, parent_viewport_location[1]+off_set)
+          view_port_size = (parent_viewport_size[0] - off_set *2 , parent_viewport_size[1] -  off_set *2)
 
 
           return view_port_location, view_port_size
@@ -114,6 +114,8 @@ class UIPanel(UIElement):
 class TextWidget(UIPanel):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
+          self.margin = False
+          self.border = True
           self.text = "Hello World!"
 
 
