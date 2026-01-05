@@ -10,17 +10,77 @@ from encodings import search_function
 from pyretrogui.charset import CHAR_CLASSES
 from abc import ABC, abstractmethod
 from pyretrogui.context import Context
+from enum import Enum
+
+class WindowPosition:
+      Free = 0,
+      CenterParent = 1,
+      CenterScreen = 2,
 
 
-class UIPanel(ABC):
-      def __init__(self):
+class WindowSize:
+      Dock = 0
+      Free = 1
+
+
+class UIElement(ABC):
+      def __init__(self,  parent: "UIElement" = None):
+          self.parent = parent
           self.visibile = True
           self.enabled = True
+          self.location = (0,0)
+          self.size = (10,10)
           self.margin = True
+          self.border = True
+          self.panel_position = WindowPosition.Free
+          self.panel_size = WindowSize.Dock
+
 
       @abstractmethod
       def update(self,context: Context):
           pass
+
+      def get_viewport(self):
+          off_set = 0
+          if self.margin:
+              off_set+=1
+
+          if self.border:
+              off_set+=1
+
+          #Manage the dock mode.
+          if self.panel_size != WindowSize.Dock:
+             raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+
+          if self.parent is None:
+             return self.location, self.size
+
+          parent_viewport_location, parent_viewport_size =  self.parent.get_viewport()
+
+          view_port_location = parent_viewport_location
+          view_port_size = parent_viewport_size
+
+          # view_port_location = (0,0)
+          # view_port_size = (0,0)
+          off_set = 2
+
+          # view_port_location = (self.location[0]+off_set, self.location[1]+off_set)
+          # view_port_size = (self.size[0] - off_set *2 , self.size[1] -  off_set *2)
+
+
+          return view_port_location, view_port_size
+
+
+
+class UIPanel(UIElement):
+
+
+      def __init__(self,parent: "UIElement" = None):
+          super().__init__(parent)
+
+      def update(self, context: Context):
+          pass
+
 
       def draw_border(self, context: Context):
           context.matrix[0][0] = CHAR_CLASSES["corner_tl"]
@@ -33,16 +93,30 @@ class UIPanel(ABC):
               context.matrix[y][0] = CHAR_CLASSES["line_v"]
               context.matrix[y][-1] = CHAR_CLASSES["line_v"]
 
-          # Draw orizzontal lines.
+          # Draw horizontal lines.
           for x in range(1, context.cols - 1):
               context.matrix[0][x] = CHAR_CLASSES["line_h"]
               context.matrix[-1][x] = CHAR_CLASSES["line_h"]
 
+      def draw_text(self,context: Context, text_content:str):
+
+          #Get the viewport location and size.
+          view_port_location, view_port_size = self.get_viewport()
+
+          view_port_line = 0
+          for current_line in text_content.split("\n"):
+
+              context.draw_text(view_port_location, view_port_size, current_line)
+
+              view_port_line += 1
+
 
 class TextWidget(UIPanel):
-      def __init__(self):
-          super().__init__()
-          self.text = None
+      def __init__(self,parent: "UIElement" = None):
+          super().__init__(parent)
+          self.text = "Hello World!"
+
 
       def update(self,context: Context):
           super().draw_border(context)
+          super().draw_text(context, self.text)
