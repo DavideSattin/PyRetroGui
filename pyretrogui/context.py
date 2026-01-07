@@ -11,7 +11,7 @@ from pyretrogui.location import Location
 
 
 class Context:
-      def __init__(self, size, font_size, normalized_size):
+      def __init__(self, size:tuple[int, int], font_size: tuple[int, int], normalized_size):
           self.font = None
           self.size = size
           self.font_size = font_size
