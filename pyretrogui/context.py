@@ -5,6 +5,7 @@
 # Created: 04/01/2026 18:02
 # Description:
 # ==========================================
+from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.location import Location
 
@@ -19,7 +20,7 @@ class Context:
           self.rows = int(normalized_size[1] / font_size[1])
           self.cols = int(normalized_size[0] / font_size[0])
           self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
-          self.set_cursor_position = Location(0,0)
+          self.cursor = CursorContext(0,0)
           self.clear()
 
       def clear(self):
@@ -39,6 +40,8 @@ class Context:
 
 
                 graphics.draw_char(str(char), x, y)
+                if self.cursor.cursor_visible:
+                    graphics.draw_char(self.cursor.get_cursor_char() , x, y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
       def draw_text(self, view_port_location, view_port_size, current_line:str):
@@ -55,5 +58,7 @@ class Context:
                   break
               matrix_line[x] = char
 
-      def set_cursor_position(self, cursor_position):
-          pass
+      def draw_cursor(self, cursor_position):
+          self.cursor.start_cursor()
+          self.cursor.x = cursor_position[0]
+          self.cursor.y = cursor_position[1]
