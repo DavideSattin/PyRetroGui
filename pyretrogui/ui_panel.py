@@ -29,7 +29,7 @@ class WindowSize:
 class UIElement(ABC):
       def __init__(self,  parent: "UIElement" = None):
           self.parent = parent
-          self.visibile = True
+          self.visible = True
           self.enabled = True
           self.location = (0,0)
           self.size = (10,10)
@@ -38,6 +38,7 @@ class UIElement(ABC):
           self.panel_position = WindowPosition.Free
           self.panel_size = WindowSize.Dock
 
+      def OnKeyEvent(self,event:Event):
 
       @abstractmethod
       def update(self,context: Context):

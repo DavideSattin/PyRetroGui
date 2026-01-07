@@ -5,8 +5,8 @@
 # Created: 04/01/2026 10:45
 # Description: The main app for UI.
 # ==========================================
+from typing import Optional
 import pygame
-
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.ui_panel import UIPanel, UIElement
@@ -32,7 +32,7 @@ class App:
           self.grp_ctx.open_window(title, normalized_size)
 
           self.running = True
-          self.widget = None
+          self.widget: Optional[UIPanel] = None
           self.context = Context(size, font_size, normalized_size)
 
       def run(self,startup_widget) -> None:
