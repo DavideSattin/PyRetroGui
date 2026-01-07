@@ -50,8 +50,14 @@ class App:
 
       def handle_events(self):
           for event in self.grp_ctx.get_events():
-              if event.type == pygame.QUIT:
-                  self.running = False
+              match event.type:
+                  case pygame.QUIT:
+                      self.running = False
+                  case pygame.KEYDOWN | pygame.KEYUP:
+                       self.widget.OnKeyEvent(event)
+
+              # if event.type == pygame.QUIT:
+              #     self.running = False
 
       def update(self):
           self.widget.update(self.context)
