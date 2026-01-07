@@ -13,7 +13,7 @@ from pyretrogui.ui_panel import UIPanel, UIElement
 
 
 class App:
-      def __init__(self, title:str, size=(100,200), font_size=(8,16)):
+      def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
           self.grp_ctx = GraphicContext()
 
           #Calculate the font perfect size
@@ -54,7 +54,7 @@ class App:
                   case pygame.QUIT:
                       self.running = False
                   case pygame.KEYDOWN | pygame.KEYUP:
-                       self.widget.OnKeyEvent(event)
+                       self.widget.on_key_event(event)
 
               # if event.type == pygame.QUIT:
               #     self.running = False

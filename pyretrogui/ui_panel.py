@@ -13,41 +13,46 @@ from pyretrogui.charset import CHAR_CLASSES
 from abc import ABC, abstractmethod
 from pyretrogui.context import Context
 from enum import Enum
-
 from pyretrogui.io.file_reader import FileReader
+from dataclasses import  dataclass
 
-
-class WindowPosition:
+class WindowPosition(Enum):
       Free = 0,
       CenterParent = 1,
       CenterScreen = 2,
 
 
-class WindowSize:
+class WindowSize(Enum):
       Dock = 0
       Free = 1
 
+
+@dataclass
+class ViewPort:
+      location: tuple[int,int]
+      size: tuple[int,int]
 
 class UIElement(ABC):
       def __init__(self,  parent: "UIElement" = None):
           self.parent = parent
           self.visible = True
           self.enabled = True
-          self.location = (0,0)
-          self.size = (10,10)
+          self.location:tuple[int, int] = (0,0)
+          self.size:tuple[int, int] = (10,10)
           self.margin = True
           self.border = True
           self.panel_position = WindowPosition.Free
           self.panel_size = WindowSize.Dock
 
-      def OnKeyEvent(self,event:Event):
+      @abstractmethod
+      def on_key_event(self,event:Event):
           pass
 
       @abstractmethod
       def update(self,context: Context):
           pass
 
-      def get_viewport(self, context: Context):
+      def get_viewport(self, context: Context) -> ViewPort:
           off_set = 0
           if self.margin:
               off_set+=1
@@ -60,7 +65,9 @@ class UIElement(ABC):
              raise Exception(f"Panel Mode: {self.panel_size} not supported.")
 
           if self.parent is None:
-             return self.location, ( int(self.size[0] / context.font_size[0]), int(self.size[1] / context.font_size[1]))
+
+              return ViewPort(location=self.location,size=(int(self.size[0] / context.font_size[0]), int(self.size[1] / context.font_size[1])))
+
 
           parent_viewport_location, parent_viewport_size =  self.parent.get_viewport(context)
 
@@ -82,10 +89,11 @@ class UIElement(ABC):
 
 
 class UIPanel(UIElement):
-
-
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
+
+      def on_key_event(self, event: Event):
+          pass
 
       def update(self, context: Context):
           pass
