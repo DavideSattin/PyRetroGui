@@ -41,7 +41,9 @@ class Context:
 
                 graphics.draw_char(str(char), x, y)
                 if self.cursor.cursor_visible:
-                    graphics.draw_char(self.cursor.get_cursor_char() , self.cursor.location.x, self.cursor.location.y)
+                    cursor_x = self.cursor.location.x * cell_w
+                    cursor_y = self.cursor.location.y * cell_h
+                    graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
       def draw_text(self, view_port_location, view_port_size, current_line:str):
@@ -60,5 +62,5 @@ class Context:
 
       def draw_cursor(self, cursor_position):
           self.cursor.start_cursor()
-          self.cursor.x = cursor_position[0]
-          self.cursor.y = cursor_position[1]
+          self.cursor.location.x = cursor_position[0]
+          self.cursor.location.y = cursor_position[1]
