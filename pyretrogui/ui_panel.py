@@ -117,7 +117,7 @@ class UIPanel(UIElement):
               current_location = (view_port_location[0], view_port_location[1] + view_port_line)
 
       def draw_cursor(self, context: Context, cursor_position):
-          context.set_cursor_position(cursor_position)
+          context.draw_cursor(cursor_position)
 
 
 class TextWidget(UIPanel):
