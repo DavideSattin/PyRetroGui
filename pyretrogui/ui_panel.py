@@ -7,6 +7,8 @@
 # ==========================================
 from encodings import search_function
 
+from pygame.event import Event
+
 from pyretrogui.charset import CHAR_CLASSES
 from abc import ABC, abstractmethod
 from pyretrogui.context import Context
@@ -39,6 +41,7 @@ class UIElement(ABC):
           self.panel_size = WindowSize.Dock
 
       def OnKeyEvent(self,event:Event):
+          pass
 
       @abstractmethod
       def update(self,context: Context):
