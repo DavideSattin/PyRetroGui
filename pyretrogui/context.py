@@ -41,7 +41,7 @@ class Context:
 
                 graphics.draw_char(str(char), x, y)
                 if self.cursor.cursor_visible:
-                    graphics.draw_char(self.cursor.get_cursor_char() , x, y)
+                    graphics.draw_char(self.cursor.get_cursor_char() , self.cursor.location.x, self.cursor.location.y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
       def draw_text(self, view_port_location, view_port_size, current_line:str):
