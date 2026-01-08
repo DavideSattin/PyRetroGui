@@ -70,7 +70,6 @@ class UIElement(ABC):
               #when??
               return ViewPort(location=self.location,size=(int(self.size[0] / context.font_size[0]), int(self.size[1] / context.font_size[1])))
 
-
           #The parent ViewPort.
           parent_viewport =  self.parent.get_viewport(context)
 
@@ -136,8 +135,12 @@ class TextWidget(UIPanel):
           super().__init__(parent)
           self.margin = False
           self.border = True
+          self.cursor_position: tuple[int,int] = (0,0)
+
           # self.text = "Hello World!"
           self.text = FileReader.read_text_file("lorem_ipsum.txt")
+
+
 
       def update(self,context: Context):
           super().draw_border(context)
