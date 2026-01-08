@@ -54,6 +54,8 @@ class UIElement(ABC):
 
       def get_viewport(self, context: Context) -> ViewPort:
           off_set = 0
+
+          #If the panel have a margin or/and a border we need to calculate an offset of 1 box.
           if self.margin:
               off_set+=1
 
@@ -65,26 +67,23 @@ class UIElement(ABC):
              raise Exception(f"Panel Mode: {self.panel_size} not supported.")
 
           if self.parent is None:
-
+              #when??
               return ViewPort(location=self.location,size=(int(self.size[0] / context.font_size[0]), int(self.size[1] / context.font_size[1])))
 
 
-          parent_viewport_location, parent_viewport_size =  self.parent.get_viewport(context)
+          #The parent ViewPort.
+          parent_viewport =  self.parent.get_viewport(context)
 
-          # view_port_location = parent_viewport_location
-          # view_port_size = parent_viewport_size
+          view_port_location_x = parent_viewport.location[0] + off_set
+          view_port_location_y = parent_viewport.location[1] + off_set
 
-          # view_port_location = (0,0)
-          # view_port_size = (0,0)
+          view_port_size_x = parent_viewport.size[0] - off_set * 2
+          view_port_size_y = parent_viewport.size[1] - off_set * 2
 
-
-          view_port_location = (parent_viewport_location[0]+off_set, parent_viewport_location[1]+off_set)
-
-
-          view_port_size = (parent_viewport_size[0] - off_set *2 , parent_viewport_size[1] -  off_set *2)
+          #my viewport
+          return ViewPort(location=(view_port_location_x, view_port_location_y),size=(view_port_size_x, view_port_size_y))
 
 
-          return view_port_location, view_port_size
 
 
 
@@ -118,15 +117,15 @@ class UIPanel(UIElement):
       def draw_text(self,context: Context, text_content:str):
 
           #Get the viewport location and size.
-          view_port_location, view_port_size = self.get_viewport(context)
+          view_port = self.get_viewport(context)
 
           view_port_line = 0
-          current_location = view_port_location
+          current_location = view_port.location
           for current_line in text_content.split("\n"):
 
-              context.draw_text(current_location, view_port_size, current_line)
+              context.draw_text(current_location, view_port.size, current_line)
               view_port_line += 1
-              current_location = (view_port_location[0], view_port_location[1] + view_port_line)
+              current_location = (view_port.location[0], view_port.location[1] + view_port_line)
 
       def draw_cursor(self, context: Context, cursor_position):
           context.draw_cursor(cursor_position)

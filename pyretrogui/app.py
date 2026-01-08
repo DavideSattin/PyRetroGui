@@ -9,7 +9,7 @@ from typing import Optional
 import pygame
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
-from pyretrogui.ui_panel import UIPanel, UIElement
+from pyretrogui.ui_elements.ui_panel import UIPanel
 
 
 class App:
