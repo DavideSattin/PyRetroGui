@@ -35,6 +35,7 @@ class ViewPort:
 class UIElement(ABC):
       def __init__(self,  parent: "UIElement" = None):
           self.parent = parent
+          self.id : int = 0
           self.visible = True
           self.enabled = True
           self.location:tuple[int, int] = (0,0)
@@ -43,6 +44,10 @@ class UIElement(ABC):
           self.border = True
           self.panel_position = WindowPosition.Free
           self.panel_size = WindowSize.Dock
+
+      @abstractmethod
+      def init(self):
+          pass
 
       @abstractmethod
       def on_key_event(self,event:Event):
@@ -87,6 +92,8 @@ class UIElement(ABC):
 
 
 class UIPanel(UIElement):
+
+
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
 
@@ -96,6 +103,8 @@ class UIPanel(UIElement):
       def update(self, context: Context):
           pass
 
+      def init(self):
+          pass
 
       def draw_border(self, context: Context):
           context.matrix[0][0] = CHAR_CLASSES["corner_tl"]
@@ -140,6 +149,21 @@ class TextWidget(UIPanel):
           # self.text = "Hello World!"
           self.text = FileReader.read_text_file("lorem_ipsum.txt")
 
+      def on_key_event(self, event: Event):
+          if event is None:
+              raise Exception("Event cannot be None.")
+
+          match event.keysym:
+              case "Up":
+                  self.move_up()
+              case "Down":
+                  self.move_down()
+              case "Left":
+                  self.move_left()
+              case "Right":
+                  self.move_right()
+              case _:
+                  pass
 
 
       def update(self,context: Context):

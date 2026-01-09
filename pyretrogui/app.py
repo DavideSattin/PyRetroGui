@@ -35,8 +35,18 @@ class App:
           self.widget: Optional[UIPanel] = None
           self.context = Context(size, font_size, normalized_size)
 
+      def _element_factory(self, element):
+          if element is None:
+              raise ValueError('element cannot be None')
+
+          ui_element = element(self.root)
+          ui_element.id = 1
+          ui_element.init()
+          return ui_element
+
+
       def run(self,startup_widget) -> None:
-          self.widget = startup_widget(self.root)
+          self.widget = self._element_factory(startup_widget)
 
           #Running Cycle.
           while self.running:
