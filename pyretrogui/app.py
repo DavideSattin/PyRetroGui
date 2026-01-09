@@ -41,7 +41,7 @@ class App:
 
           ui_element = element(self.root)
           ui_element.id = 1
-          ui_element.init()
+          ui_element.init(self.context)
           return ui_element
 
 

@@ -5,16 +5,17 @@
 # Created: 04/01/2026 17:47
 # Description:Base class for UI panels.
 # ==========================================
-from encodings import search_function
 
 from pygame.event import Event
-
 from pyretrogui.charset import CHAR_CLASSES
 from abc import ABC, abstractmethod
 from pyretrogui.context import Context
 from enum import Enum
 from pyretrogui.io.file_reader import FileReader
 from dataclasses import  dataclass
+
+from pyretrogui.location import Location
+
 
 class WindowPosition(Enum):
       Free = 0,
@@ -46,7 +47,7 @@ class UIElement(ABC):
           self.panel_size = WindowSize.Dock
 
       @abstractmethod
-      def init(self):
+      def init(self,context: Context):
           pass
 
       @abstractmethod
@@ -103,7 +104,7 @@ class UIPanel(UIElement):
       def update(self, context: Context):
           pass
 
-      def init(self):
+      def init(self,context: Context):
           pass
 
       def draw_border(self, context: Context):
@@ -144,10 +145,15 @@ class TextWidget(UIPanel):
           super().__init__(parent)
           self.margin = False
           self.border = True
-          self.cursor_position: tuple[int,int] = (0,0)
+          self.cursor_position:Location =Location(0,0)
 
           # self.text = "Hello World!"
           self.text = FileReader.read_text_file("lorem_ipsum.txt")
+
+
+      def init(self,context: Context):
+          view_port = self.get_viewport(context)
+
 
       def on_key_event(self, event: Event):
           if event is None:
