@@ -5,7 +5,7 @@
 # Created: 04/01/2026 11:00
 # Description:Example Create the main screen.
 # ==========================================
-from pyretrogui.ui_elements.ui_panel import TextWidget
+from pyretrogui.ui_elements.text_widget import TextWidget
 from pyretrogui.app import App
 
 #Create the Main screen.
