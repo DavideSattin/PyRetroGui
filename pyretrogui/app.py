@@ -9,6 +9,8 @@ from typing import Optional
 import pygame
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
+from pyretrogui.location import Location
+from pyretrogui.size import Size
 from pyretrogui.ui_elements.ui_panel import UIPanel
 
 
@@ -19,16 +21,16 @@ class App:
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
           height = int(size[1] / font_size[1]) * font_size[1]
-          normalized_size = (width, height)
 
           #Virtual Root control.
           self.root = UIPanel(None)
           self.root.margin = False
           self.root.border = False
-          self.root.location = (0,0)
-          self.root.size = normalized_size
+          self.root.location = Location(0,0)
+          self.root.size = Size(int(width / font_size[0]), int(height/font_size[1]))
 
           # Open the window
+          normalized_size = (width, height)
           self.grp_ctx.open_window(title, normalized_size)
 
           self.running = True
@@ -64,7 +66,7 @@ class App:
                   case pygame.QUIT:
                       self.running = False
                   case pygame.KEYDOWN | pygame.KEYUP:
-                       self.widget.on_key_event(event)
+                       self.widget.on_key_event(event, self.context)
 
               # if event.type == pygame.QUIT:
               #     self.running = False
