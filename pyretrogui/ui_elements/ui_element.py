@@ -3,7 +3,9 @@ from pygame.event import Event
 from pyretrogui.context import Context
 from pyretrogui.location import Location
 from pyretrogui.size import Size
-from pyretrogui.ui_elements.ui_panel import WindowPosition, WindowSize, ViewPort
+from pyretrogui.ui_elements.window_position import WindowPosition
+from pyretrogui.ui_elements.window_size import WindowSize
+from pyretrogui.ui_elements.view_port import ViewPort
 
 
 class UIElement(ABC):

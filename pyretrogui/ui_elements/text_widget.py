@@ -18,10 +18,9 @@ class TextWidget(UIPanel):
           self.text = FileReader.read_text_file("lorem_ipsum.txt")
 
 
-      def init(self,context: Context):
-          view_port = self.get_viewport(context)
-          self.cursor_position.x = view_port.location[0]
-          self.cursor_position.y = view_port.location[1]
+      # def init(self,context: Context):
+      #     view_port = self.get_viewport(context)
+
 
       def on_key_event(self, event: Event,context: Context):
           if event is None:
@@ -41,6 +40,7 @@ class TextWidget(UIPanel):
 
 
       def update(self,context: Context):
-          super().draw_border(context)
+          #Draw the panel border, of the specified size. The location it's local 0,0.
+          super().draw_border(self.size, context)
           super().draw_text(context, self.text)
           super().draw_cursor(context, (1,1))
