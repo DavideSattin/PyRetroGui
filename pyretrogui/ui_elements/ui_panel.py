@@ -7,29 +7,12 @@
 # ==========================================
 
 from pygame.event import Event
+
+from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.context import Context
-from enum import Enum
-from dataclasses import  dataclass
 from pyretrogui.location import Location
 from pyretrogui.size import Size
 from pyretrogui.ui_elements.ui_element import UIElement
-
-
-class WindowPosition(Enum):
-      FREE = 0,
-      CENTER_PARENT = 1,
-      CENTER_SCREEN = 2,
-
-
-class WindowSize(Enum):
-      DOCK = 0
-      FREE = 1
-
-
-@dataclass
-class ViewPort:
-      location: Location = Location(0,0)
-      size: Size = Size(0,0)
 
 
 class UIPanel(UIElement):
@@ -46,7 +29,45 @@ class UIPanel(UIElement):
       def init(self,context: Context):
           pass
 
-      def draw_border(self, context: Context):
+      def draw_border(self, size: Size, context: Context):
+          if size is None:
+              raise ValueError("The size cannon be None.")
+
+          if context is None:
+              raise ValueError("The size cannon be None.")
+
+          # we assume that a border it's a rectangle with
+          # starting relative location ad 0,0 with the size of the panel.
+          # So we need to translate the relative location 0,0 to the absolute window location.
+          # the self.location of a panel is always an absolute location, because the framework need to
+          # know the real position to draw.
+
+          relative_location = Location(0,0)
+
+          # Calculate top_left
+          absolute_top_left =  relative_location.translate_to(self.location)
+
+          # Calculate top_right
+          absolute_top_right = absolute_top_left.add_x(self.size.width)
+
+          # Calculate bottom_left
+          absolute_bottom_left = absolute_top_left.add_y(self.size.height)
+
+          # Calculate bottom_right
+          absolute_bottom_right = absolute_bottom_left.add_x(size.width)
+
+          # Draw top_left border
+          context.draw_char(absolute_top_left, CHAR_CLASSES["corner_tl"])
+
+          # Draw top_right border
+          context.draw_char(absolute_top_right, CHAR_CLASSES["corner_tr"])
+
+          # Draw bottom_left border
+          context.draw_char(absolute_bottom_left, CHAR_CLASSES["corner_bl"])
+
+          # Draw bottom_right border
+          context.draw_char(absolute_bottom_right, CHAR_CLASSES["corner_br"])
+
 
 
           # context.matrix[0][0] = CHAR_CLASSES["corner_tl"]
@@ -75,7 +96,8 @@ class UIPanel(UIElement):
 
               context.draw_text(current_location, view_port.size, current_line)
               view_port_line += 1
-              current_location = (view_port.location[0], view_port.location[1] + view_port_line)
+              #current_location = (view_port.location[0], view_port.location[1] + view_port_line)
+              current_location = current_location.add_y(view_port_line)
 
       def draw_cursor(self, context: Context, cursor_position):
           context.draw_cursor(cursor_position)

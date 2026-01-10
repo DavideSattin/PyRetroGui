@@ -8,6 +8,7 @@
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.location import Location
+from pyretrogui.size import Size
 
 
 class Context:
@@ -46,11 +47,26 @@ class Context:
                     graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
-      def draw_text(self, view_port_location, view_port_size, current_line:str):
-          current_line = current_line[:view_port_size[0]]
+      def draw_char(self, location:Location, char: str) -> None:
+          if location is None:
+              raise  ValueError("Parameter: location cannot be None.")
 
-          row_offset = view_port_location[1]
-          col_offset = view_port_location[0]
+          if char is None:
+              raise ValueError("Parameter: char cannot be None.")
+
+          if len(char) > 1:
+              raise ValueError("Parameter: char cannot be more than one character.")
+
+          self.matrix[location.x][location.y] = char
+
+
+
+      def draw_text(self, view_port_location:Location, view_port_size:Size, current_line:str):
+          # The size it's necessary....
+          current_line = current_line[:view_port_size.width]
+
+          row_offset = view_port_location.y
+          col_offset = view_port_location.x
 
           matrix_line = self.matrix[row_offset]
 
