@@ -72,7 +72,11 @@ class Context:
           col_offset = view_port_location.x
 
           # Error here!
-          matrix_line = self.matrix[row_offset]
+          try:
+            matrix_line = self.matrix[row_offset]
+          except Exception as e:
+              print(e)
+
 
           for col, char in enumerate(current_line):
               x = col_offset + col
