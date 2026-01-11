@@ -7,8 +7,8 @@
 # ==========================================
 from dataclasses import dataclass
 
-from pyretrogui.location import Location
-from pyretrogui.size import Size
+from pyretrogui.primitives.location import Location
+from pyretrogui.primitives.size import Size
 
 
 @dataclass

@@ -5,6 +5,8 @@
 # Created: 05/01/2026 17:01
 # Description: This class manages a 2D location
 # ==========================================
+from pyretrogui.primitives.size import Size
+
 
 class Location:
     """
@@ -21,17 +23,28 @@ class Location:
         self.x = x
         self.y = y
 
-    def __add__(self, other: "Location") -> "Location":
+    def __add__(self, other: object) -> "Location":
         """
-        Adds another Location to this one and returns a new Location.
+        Returns a new Location resulting from the addition of another object.
 
-        :param other: The Location to add
-        :return: A new Location resulting from the addition
-        :raises TypeError: If other is not a Location instance
+        Supported operands:
+        - Location: component-wise addition (x + x, y + y)
+        - Size: translates the location by the size (width, height)
+        - Size: translates the location by (width - 1, height - 1)
+
+        :param other: A Location or Size to add
+        :return: A new Location instance
         """
-        if not isinstance(other, Location):
-            return NotImplemented
-        return Location(self.x + other.x, self.y + other.y)
+        if isinstance(other, Location):
+            return Location(self.x + other.x, self.y + other.y)
+
+        if isinstance(other, Size):
+            return Location(
+                self.x + other.width - 1,
+                self.y + other.height - 1
+            )
+
+        return NotImplemented
 
     def translate_to(self, location: "Location") -> "Location":
         """

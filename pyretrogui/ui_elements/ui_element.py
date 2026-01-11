@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from pygame.event import Event
 from pyretrogui.context import Context
-from pyretrogui.location import Location
-from pyretrogui.size import Size
+from pyretrogui.primitives.location import Location
+from pyretrogui.primitives.size import Size
 from pyretrogui.ui_elements.window_position import WindowPosition
 from pyretrogui.ui_elements.window_size import WindowSize
-from pyretrogui.ui_elements.view_port import ViewPort
+from pyretrogui.primitives.view_port import ViewPort
 
 
 class UIElement(ABC):
@@ -21,9 +21,11 @@ class UIElement(ABC):
           self.panel_position = WindowPosition.FREE
           self.panel_size = WindowSize.DOCK
 
-      @abstractmethod
+
       def init(self,context: Context):
-          pass
+          size = self.get_size(context)
+          self.location = size.location
+          self.size = size.size
 
       @abstractmethod
       def on_key_event(self,event:Event,context: Context):
@@ -32,6 +34,18 @@ class UIElement(ABC):
       @abstractmethod
       def update(self,context: Context):
           pass
+
+
+      def get_size(self,context: Context) -> ViewPort:
+          # Manage the dock mode.
+          if self.panel_size != WindowSize.DOCK:
+              raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+
+          if self.parent is None:
+              raise Exception(f"Parent must be initialized.Id:{self.id}")
+
+          return self.parent.get_viewport(context)
+
 
       def get_viewport(self, context: Context) -> ViewPort:
           off_set = 0

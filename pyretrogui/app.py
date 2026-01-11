@@ -9,8 +9,8 @@ from typing import Optional
 import pygame
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
-from pyretrogui.location import Location
-from pyretrogui.size import Size
+from pyretrogui.primitives.location import Location
+from pyretrogui.primitives.size import Size
 from pyretrogui.ui_elements.ui_panel import UIPanel
 
 
@@ -32,6 +32,9 @@ class App:
           # Open the window
           normalized_size = (width, height)
           self.grp_ctx.open_window(title, normalized_size)
+
+          print(f"Normalized size: {normalized_size}")
+          print(self.root.size)
 
           self.running = True
           self.widget: Optional[UIPanel] = None
