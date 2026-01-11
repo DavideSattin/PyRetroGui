@@ -9,7 +9,7 @@ import threading
 import time
 
 from pyretrogui.charset import CHAR_CLASSES
-from pyretrogui.location import Location
+from pyretrogui.primitives.location import Location
 
 
 class CursorContext:

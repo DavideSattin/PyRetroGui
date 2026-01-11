@@ -7,8 +7,8 @@
 # ==========================================
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
-from pyretrogui.location import Location
-from pyretrogui.size import Size
+from pyretrogui.primitives.location import Location
+from pyretrogui.primitives.size import Size
 
 
 class Context:
@@ -57,7 +57,10 @@ class Context:
           if len(char) > 1:
               raise ValueError("Parameter: char cannot be more than one character.")
 
-          self.matrix[location.x][location.y] = char
+          if location.x >= self.cols or location.y >= self.rows:
+              raise ValueError("Location is out of bounds.")
+
+          self.matrix[location.y][location.x] = char
 
 
 
@@ -68,12 +71,11 @@ class Context:
           row_offset = view_port_location.y
           col_offset = view_port_location.x
 
+          # Error here!
           matrix_line = self.matrix[row_offset]
 
           for col, char in enumerate(current_line):
               x = col_offset + col
-              if x >= len(matrix_line):
-                  break
               matrix_line[x] = char
 
       def draw_cursor(self, cursor_position):
