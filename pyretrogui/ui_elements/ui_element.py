@@ -24,7 +24,7 @@ class UIElement(ABC):
 
       def init(self,context: Context):
           size = self.get_size(context)
-          self.location = size.location
+          self.location = size.absolute_location
           self.size = size.size
 
       @abstractmethod
@@ -44,10 +44,13 @@ class UIElement(ABC):
           if self.parent is None:
               raise Exception(f"Parent must be initialized.Id:{self.id}")
 
-          return self.parent.get_viewport(context)
+          return self.parent.get_internal_viewport(context)
 
 
-      def get_viewport(self, context: Context) -> ViewPort:
+      def get_internal_viewport(self, context: Context) -> ViewPort:
+          # The internal viewport is an internal control area, without margin or border.
+          # It tell how much space the control have to draw itself.
+
           off_set = 0
 
           #If the panel have a margin or/and a border we need to calculate an offset of 1 box.
@@ -57,23 +60,35 @@ class UIElement(ABC):
           if self.border:
               off_set+=1
 
-          #Manage the dock mode.
-          if self.panel_size != WindowSize.DOCK:
-             raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+          # The location of the view port are relative of the control in itself.
+          start_relative_location = Location(off_set,off_set)
 
-          if self.parent is None:
-              #when??
-              #check this case.
-              return ViewPort(location=self.location,size=self.size)
+          # Recalculate the Size.
+          width  = self.size.width - off_set * 2
+          height = self.size.height - off_set * 2
 
-          #The parent ViewPort.
-          parent_viewport =  self.parent.get_viewport(context)
+          return ViewPort(absolute_location=Location(off_set, off_set),size=Size(width, height))
 
-          location_x = parent_viewport.location.x + off_set
-          location_y = parent_viewport.location.y + off_set
-
-          width  = parent_viewport.size.width - off_set * 2
-          height = parent_viewport.size.height - off_set * 2
-
-          #my viewport
-          return ViewPort(location=Location(location_x, location_y),size=Size(width, height))
+          # #Manage the dock mode.
+          # if self.panel_size != WindowSize.DOCK:
+          #    raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+          #
+          # relative_location = Location(off_set, off_set)
+          #
+          # if self.parent is None:
+          #     #when??
+          #     #check this case.
+          #
+          #     return ViewPort(absolute_location=self.location, relative_location=relative_location, size=self.size)
+          #
+          # #The parent ViewPort.
+          # parent_viewport =  self.parent.get_internal_viewport(context)
+          #
+          # location_x = parent_viewport.absolute_location.x + off_set
+          # location_y = parent_viewport.absolute_location.y + off_set
+          #
+          # width  = parent_viewport.size.width - off_set * 2
+          # height = parent_viewport.size.height - off_set * 2
+          #
+          # #my viewport
+          # return ViewPort(absolute_location=Location(location_x, location_y), relative_location=relative_location,size=Size(width, height))

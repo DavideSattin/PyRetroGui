@@ -12,7 +12,7 @@ from pyretrogui.primitives.view_port import ViewPort
 
 class Area:
     def __init__(self, view_port: ViewPort):
-        self.top_left: Location = view_port.location
+        self.top_left: Location = view_port.absolute_location
         self.top_right: Location = self.top_left.add_x(view_port.size.width - 1)
         self.bottom_left = self.top_left.add_y(view_port.size.height - 1)
         self.bottom_right = self.bottom_left.add_x(view_port.size.width - 1)
@@ -21,4 +21,4 @@ class Area:
 
     @staticmethod
     def create_area(location: Location, size: Size) -> "Area":
-        return Area(ViewPort(location, size))
+        return Area(ViewPort(absolute_location= location, size= size))

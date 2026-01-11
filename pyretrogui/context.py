@@ -74,13 +74,17 @@ class Context:
           # Error here!
           try:
             matrix_line = self.matrix[row_offset]
+            for col, char in enumerate(current_line):
+                x = col_offset + col
+                matrix_line[x] = char
           except Exception as e:
-              print(e)
+              print(f"ERRORE INDICE: {row_offset}")
 
 
-          for col, char in enumerate(current_line):
-              x = col_offset + col
-              matrix_line[x] = char
+          #
+
+
+
 
       def draw_cursor(self, cursor_position):
           self.cursor.start_cursor()

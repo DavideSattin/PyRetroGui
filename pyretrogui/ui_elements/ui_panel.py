@@ -44,19 +44,6 @@ class UIPanel(UIElement):
           relative_location = Location(0,0)
           rect_area = Area.create_area(relative_location, size)
 
-
-          # # Calculate top_left
-          # absolute_top_left =  relative_location.translate_to(self.location)
-          #
-          # # Calculate top_right
-          # absolute_top_right = relative_location.add_x(self.size.width).translate_to(self.location)
-          #
-          # # Calculate bottom_left
-          # absolute_bottom_left = absolute_top_left.add_y(self.size.height)
-          #
-          # # Calculate bottom_right
-          # absolute_bottom_right = absolute_bottom_left.add_x(size.width)
-
           # Draw top_left border
           context.draw_char(rect_area.top_left, CHAR_CLASSES["corner_tl"])
 
@@ -88,21 +75,32 @@ class UIPanel(UIElement):
 
       def draw_text(self,context: Context, text_content:str):
 
-          #Get the viewport location and size.
-          view_port = self.get_viewport(context)
+          # #Get the viewport location and size.
+          view_port = self.get_internal_viewport(context)
 
-          view_port_line = 0
-          current_location = view_port.location.translate_to(self.location)
+          current_location = view_port.absolute_location.translate_to(self.location)
+
           for current_line in text_content.split("\n"):
+            if current_location.y < view_port.size.height:
+                context.draw_text(current_location, view_port.size, current_line)
+                current_location = current_location.add_y(1)
 
-              context.draw_text(current_location, view_port.size, current_line)
-              view_port_line += 1
-              #current_location = (view_port.location[0], view_port.location[1] + view_port_line)
-              current_location = current_location.add_y(view_port_line)
-
-              # Prevent to draw outside the panel.
-              if current_location.y >  self.size.height:
-                  break
+          # #Get the viewport location and size.
+          # view_port = self.get_viewport(context)
+          #
+          # view_port_line = 0
+          # current_location = view_port.absolute_location.translate_to(self.location)
+          #
+          # for current_line in text_content.split("\n"):
+          #
+          #     context.draw_text(current_location, view_port.size, current_line)
+          #     view_port_line += 1
+          #     #current_location = (view_port.location[0], view_port.location[1] + view_port_line)
+          #     current_location = current_location.add_y(view_port_line)
+          #
+          #     # Prevent to draw outside the panel.
+          #     if current_location.y >  self.size.height:
+          #         break
 
 
       def draw_cursor(self, context: Context, cursor_position):
