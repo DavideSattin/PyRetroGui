@@ -13,5 +13,5 @@ from pyretrogui.primitives.size import Size
 
 @dataclass
 class ViewPort:
-      absolute_location: Location = Location(0, 0)
+      location: Location = Location(0, 0)
       size: Size = Size(0,0)

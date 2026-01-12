@@ -86,7 +86,6 @@ class Context:
 
 
 
-      def draw_cursor(self, cursor_position):
+      def draw_cursor(self, cursor_position:Location):
           self.cursor.start_cursor()
-          self.cursor.location.x = cursor_position[0]
-          self.cursor.location.y = cursor_position[1]
+          self.cursor.location = cursor_position
