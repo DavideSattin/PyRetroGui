@@ -67,7 +67,7 @@ class UIElement(ABC):
           width  = self.size.width - off_set * 2
           height = self.size.height - off_set * 2
 
-          return ViewPort(absolute_location=Location(off_set, off_set),size=Size(width, height))
+          return ViewPort(location=Location(off_set, off_set),size=Size(width, height))
 
           # #Manage the dock mode.
           # if self.panel_size != WindowSize.DOCK:

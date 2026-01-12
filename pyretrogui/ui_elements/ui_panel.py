@@ -78,7 +78,7 @@ class UIPanel(UIElement):
           # #Get the viewport location and size.
           view_port = self.get_internal_viewport(context)
 
-          current_location = view_port.absolute_location.translate_to(self.location)
+          current_location = view_port.location.translate_to(self.location)
 
           for current_line in text_content.split("\n"):
             if current_location.y <= view_port.size.height:
