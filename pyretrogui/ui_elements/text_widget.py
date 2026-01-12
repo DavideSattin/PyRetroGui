@@ -52,4 +52,4 @@ class TextWidget(UIPanel):
           super().draw_text(context, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)
-          super().draw_cursor(context, self.cursor_management.location)
+          #super().draw_cursor(context, self.cursor_management.location)
