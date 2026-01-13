@@ -4,7 +4,6 @@ from pygame.event import Event
 from pyretrogui.context import Context
 from pyretrogui.cursor_management import CursorManagement
 from pyretrogui.io.file_reader import FileReader
-from pyretrogui.primitives.location import Location
 from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.ui_elements.ui_element import UIElement
 
@@ -21,6 +20,11 @@ class TextWidget(UIPanel):
 
 
       def init(self,context: Context):
+          # Refactor this!
+          # We need to write the panel location and size
+          # based on his behaviour  self.panel_position = WindowPosition.FREE
+          #           self.panel_size = WindowSize.DOCK
+
           super().init(context)
           view_port = self.get_internal_viewport(context)
           # Set the cursor position with the location of the internal viewport.
