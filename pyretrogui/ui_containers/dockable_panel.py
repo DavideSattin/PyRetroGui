@@ -20,13 +20,21 @@ class DockableContainer(UIElement):
         self.containers: List[DockablePanel] = []
 
       def update(self, context: Context):
-          pass
+          for container in self.containers:
+              container.update(context)
 
+      #remove this.
       def on_key_event(self, event: Event, context: Context):
           pass
 
 
 class DockablePanel(UIElement):
+      def update(self, context: Context):
+          pass
+
+      def on_key_event(self, event: Event, context: Context):
+          pass
+
       def __init__(self, parent):
           super().__init__(parent)
           self.dock_mode: DockMode = DockMode.NONE
