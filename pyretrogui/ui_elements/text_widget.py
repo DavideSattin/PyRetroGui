@@ -21,6 +21,7 @@ class TextWidget(UIPanel):
 
 
       def init(self,context: Context):
+          super().init(context)
           view_port = self.get_internal_viewport(context)
           # Set the cursor position with the location of the internal viewport.
           self.cursor_management.location = view_port.location
