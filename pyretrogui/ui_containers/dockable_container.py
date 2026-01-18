@@ -16,7 +16,7 @@ from pyretrogui.ui_elements.ui_element import UIElement
 
 class DockableContainer(UIElement):
 
-      def __init__(self, parent):
+      def __init__(self, parent:UIElement):
         super().__init__(parent)
         self.containers: List[DockablePanel] = []
 

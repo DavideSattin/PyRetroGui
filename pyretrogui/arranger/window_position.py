@@ -12,3 +12,5 @@ class WindowPosition(Enum):
       FREE = 0,
       CENTER_PARENT = 1,
       CENTER_SCREEN = 2,
+      DOCKED = 3
+

@@ -1,6 +1,6 @@
 from pygame.event import Event
 from pyretrogui.context import Context
-from pyretrogui.ui_containers.dock_mode import DockMode
+from pyretrogui.arranger.dock_mode import DockMode
 from pyretrogui.ui_elements.ui_element import UIElement
 
 
