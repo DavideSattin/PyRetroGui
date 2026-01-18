@@ -1,2 +1,22 @@
-The function\method on_key_event cannot be set as abstract, but we need to
-implement a real event/subscribe management.
+Backlog
+
+Event Management
+    The on_key_event function/method cannot be declared as abstract.
+    A proper event subscription and notification system must be designed and implemented to handle input events.
+
+Container Control
+
+    Create the Container control, responsible for hosting and managing child controls.
+
+Panel Arranger
+
+    Create the Panel Arranger control, responsible for calculating and managing panel sizes and positions within the container.
+
+Panel Behaviour
+
+    Create the Panel Behaviour class, which encapsulates all panel-related information, including:
+
+    size
+    layout/disposition
+    behaviour rules
+    additional layout constraints or properties
