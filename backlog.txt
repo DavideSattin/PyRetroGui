@@ -20,3 +20,9 @@ Panel Behaviour
     layout/disposition
     behaviour rules
     additional layout constraints or properties
+
+Control Factory
+    Currently, the UI factory logic is delegated to the application class.
+    This responsibility should be extracted into a dedicated singleton Control Factory.
+    The factory will provide a simpler and more direct access point for creating UI controls, avoiding the need to access the application container object.
+    The singleton factory will also be responsible for tracking and storing all generated control IDs.

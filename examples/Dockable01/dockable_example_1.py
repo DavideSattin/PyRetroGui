@@ -10,4 +10,5 @@ from pyretrogui.app import App
 
 #Create the Main screen.
 app = App("Main Screen", (600,600), (8,16))
+
 app.run(TextWidget)
