@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 from pygame.event import Event
+
+from pyretrogui.arranger.ui_behaviour import UIBehaviour
 from pyretrogui.context import Context
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
-from pyretrogui.ui_elements.window_position import WindowPosition
-from pyretrogui.ui_elements.window_size import WindowSize
+from pyretrogui.arranger.window_position import WindowPosition
+from pyretrogui.arranger.window_size import WindowSize
 from pyretrogui.primitives.view_port import ViewPort
 
 
@@ -18,8 +20,8 @@ class UIElement(ABC):
           self.size:Size = Size(0,0)
           self.margin = True
           self.border = True
-          self.panel_position = WindowPosition.FREE
-          self.panel_size = WindowSize.DOCK
+          self.behaviour: UIBehaviour = UIBehaviour()
+
 
 
       def init(self,context: Context):
@@ -38,8 +40,8 @@ class UIElement(ABC):
 
       def get_size(self,context: Context) -> ViewPort:
           # Manage the dock mode.
-          if self.panel_size != WindowSize.DOCK:
-              raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+          if self.behaviour.panel_size != WindowSize.DOCK:
+              raise Exception(f"Panel Mode: {self.behaviour.panel_size} not supported.")
 
           if self.parent is None:
               raise Exception(f"Parent must be initialized.Id:{self.id}")
