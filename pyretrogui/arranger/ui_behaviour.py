@@ -10,6 +10,10 @@ from pyretrogui.arranger.window_size import WindowSize
 
 
 class UIBehaviour:
-      def __init(self):
+      def __init__(self):
           self.panel_position = WindowPosition.FREE
           self.panel_size = WindowSize.DOCK
+
+      def set_dockable_width(self):
+          self.panel_position = WindowPosition.DOCKED
+          self.panel_size = WindowSize.DOCk_WIDTH

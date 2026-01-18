@@ -5,7 +5,6 @@ from pyretrogui.arranger.ui_behaviour import UIBehaviour
 from pyretrogui.context import Context
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
-from pyretrogui.arranger.window_position import WindowPosition
 from pyretrogui.arranger.window_size import WindowSize
 from pyretrogui.primitives.view_port import ViewPort
 
