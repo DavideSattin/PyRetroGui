@@ -8,6 +8,7 @@
 from typing import Optional
 import pygame
 
+from pyretrogui.apparence.theme_loader import ThemeLoader
 from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.configuration.configuration_manager import Configuration
 from pyretrogui.context import Context
@@ -34,7 +35,7 @@ class App:
           self.mouse_pos: Optional[tuple[int, int]] = None
 
           #Load Theme.
-          self.theme = ThemeLoader.load(self.config.get_data("application","theme", default= "ide_classic"))
+          self.theme = ThemeLoader.load(self.config.get_data("application","theme", default= None))
 
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
