@@ -50,3 +50,6 @@ class GraphicContext:
       def quit(self):
           if pygame.get_init():
               pygame.quit()
+
+      def enable_pointer(self, mouse_pointer: bool):
+          pygame.mouse.set_visible(mouse_pointer)

@@ -9,6 +9,7 @@ from typing import Optional
 import pygame
 
 from pyretrogui.charset import CHAR_CLASSES
+from pyretrogui.configuration.configuration_manager import Configuration
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -18,9 +19,20 @@ from pyretrogui.ui_elements.ui_panel import UIPanel
 
 class App:
       def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
-          self.grp_ctx = GraphicContext()
+          #Configuration.
+          self.config = Configuration()
+          self.config.load()
+
+          #Set from configuration or default.
+          self.title = self.config.get_data("application","title", default= title)
+          self.size = self.config.get_data("application","size", default= size)
+          self.font_size = self.config.get_data("application","font","font_size", default= font_size)
+
+          #Mouse Management.
+          self.mouse_enable = self.config.get_data("application","mouse","enabled", default= True)
+          self.mouse_pointer = self.config.get_data("application","mouse","pointer", default= True)
           self.mouse_pos: Optional[tuple[int, int]] = None
-          self.font_size = font_size
+
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
           height = int(size[1] / font_size[1]) * font_size[1]
@@ -34,6 +46,8 @@ class App:
 
           # Open the window
           normalized_size = (width, height)
+
+          self.grp_ctx = GraphicContext()
           self.grp_ctx.open_window(title, normalized_size)
 
           print(f"Normalized size: {normalized_size}")
@@ -41,7 +55,7 @@ class App:
 
           self.running = True
           self.widget: Optional[UIPanel] = None
-          self.context = Context(size, font_size, normalized_size)
+          self.context = Context(self.size, self.font_size, normalized_size)
 
       def _element_factory(self, element):
           if element is None:
@@ -80,6 +94,7 @@ class App:
 
       def update(self):
           self.widget.update(self.context)
+          self.grp_ctx.enable_pointer(self.mouse_pointer)
 
       def draw(self):
           #Draw background
@@ -95,13 +110,13 @@ class App:
           self.grp_ctx.flush()
 
       def draw_mouse_pointer(self):
-          self.mouse_pos = pygame.mouse.get_pos()
-          if self.mouse_pos is not None:
-             pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0) * self.font_size[0]
-             pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0) * self.font_size[1]
+          if self.mouse_enable:
+              self.mouse_pos =  self.grp_ctx.get_mouse_pos()
+              pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0) * self.font_size[0]
+              pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0) * self.font_size[1]
 
-             print(pos_x, pos_y)
-             mouse_location = Location(pos_x, pos_y)
-             #self.context.draw_char(mouse_location, CHAR_CLASSES["fill_full"])
-             color = (255, 255, 255)
-             self.context.draw_char_overlap(self.grp_ctx, mouse_location, color)
+              print(pos_x, pos_y)
+              mouse_location = Location(pos_x, pos_y)
+
+              color = (255, 255, 255)
+              self.context.draw_char_overlap(self.grp_ctx, mouse_location, color)
