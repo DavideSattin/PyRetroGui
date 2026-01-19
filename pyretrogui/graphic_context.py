@@ -32,6 +32,9 @@ class GraphicContext:
       def get_events(self):
           return pygame.event.get()
 
+      def get_mouse_pos(self):
+          return pygame.mouse.get_pos()
+
       def flush(self):
           if self.screen is None:
               return
