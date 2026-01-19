@@ -19,6 +19,6 @@ class MainContainer(DockableContainer):
           #Create the menu container.
           menu_container = DockablePanel(self)
           menu_container.behaviour.set_dockable_width()
-          self.size.height = 1
+          menu_container.size.height = 1
 
           super().containers.append(menu_container)

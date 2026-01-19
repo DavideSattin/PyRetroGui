@@ -33,6 +33,9 @@ class App:
           self.mouse_pointer = self.config.get_data("application","mouse","pointer", default= True)
           self.mouse_pos: Optional[tuple[int, int]] = None
 
+          #Load Theme.
+          self.theme = ThemeLoader.load(self.config.get_data("application","theme", default= "ide_classic"))
+
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
           height = int(size[1] / font_size[1]) * font_size[1]

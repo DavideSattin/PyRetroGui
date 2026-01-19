@@ -1,0 +1,27 @@
+name: IDE Classic
+
+background_color: [30, 30, 30]
+foreground_color: [220, 220, 220]
+cursor_color: [255, 255, 255]
+pointer_color: [200, 200, 200]
+
+primary:
+  background: [50, 50, 50]
+  foreground: [255, 255, 0]
+  hover: [70, 70, 70]
+  active: [100, 100, 0]
+  disabled: [80, 80, 80]
+  focus: [255, 255, 255]
+
+secondary:
+  background: [40, 40, 40]
+  foreground: [180, 180, 180]
+  hover: [60, 60, 60]
+  active: [90, 90, 90]
+  disabled: [70, 70, 70]
+  focus: [200, 200, 200]
+
+hover_color: [70, 70, 70]
+active_color: [100, 100, 100]
+disabled_color: [80, 80, 80]
+focus_color: [255, 255, 255]
