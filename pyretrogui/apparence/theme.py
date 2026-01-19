@@ -5,7 +5,7 @@
 # Created: 19/01/2026 22:09
 # Description: This file is a dataclass for theme.
 # ==========================================
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional, Tuple
 
 Color = Optional[Tuple[int, int, int]]
@@ -28,8 +28,8 @@ class Theme:
     cursor_color: Color = None
     pointer_color: Color = None
 
-    primary: ThemeState = ThemeState()
-    secondary: ThemeState = ThemeState()
+    primary: ThemeState = field(default_factory=ThemeState)
+    secondary: ThemeState = field(default_factory=ThemeState)
 
     hover_color: Color = None
     active_color: Color = None

@@ -21,11 +21,45 @@ class ThemeLoader:
             return tuple(val)
         return val
 
+    @staticmethod
+    def default_theme() ->Theme:
+        primary_state = ThemeState(
+            background=(0,0,0),
+            foreground=(255,255,255),
+            hover=(0,0,0),
+            active=(0,0,0),
+            disabled=(0,0,0),
+            focus=(0,0,0),
+        )
+        secondary_state = ThemeState(
+            background=(0, 0, 0),
+            foreground=(255, 255, 255),
+            hover=(0, 0, 0),
+            active=(0, 0, 0),
+            disabled=(0, 0, 0),
+            focus=(0, 0, 0),
+        )
+        # Create the default Theme.
+        theme = Theme(
+            name="default",
+            primary=primary_state,
+            secondary=secondary_state,
+            background_color=(0,0,0),
+            foreground_color=(255,255,255),
+            cursor_color=(255,255,255),
+            pointer_color=(255,165,0),
+            hover_color=(255,165,0),
+            active_color=(255,165,0),
+            disabled_color=(125,125,125),
+            focus_color=(255,165,0),
+        )
+        return theme
+
 
     @staticmethod
     def load(theme_name: str) -> Theme:
         if theme_name is None:
-            raise ValueError('theme_name cannot be None')
+           return ThemeLoader.default_theme()
 
         yaml = YAML()
         theme_name = theme_name.lower()
