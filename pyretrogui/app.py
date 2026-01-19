@@ -7,6 +7,8 @@
 # ==========================================
 from typing import Optional
 import pygame
+
+from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -17,7 +19,8 @@ from pyretrogui.ui_elements.ui_panel import UIPanel
 class App:
       def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
           self.grp_ctx = GraphicContext()
-
+          self.mouse_pos: Optional[tuple[int, int]] = None
+          self.font_size = font_size
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
           height = int(size[1] / font_size[1]) * font_size[1]
@@ -59,20 +62,21 @@ class App:
               self.update()
               self.draw()
               self.grp_ctx.set_clock_tick(60)
+              self.draw_mouse_pointer()
 
           #Exit
           self.grp_ctx.quit()
 
       def handle_events(self):
           for event in self.grp_ctx.get_events():
+
               match event.type:
                   case pygame.QUIT:
                       self.running = False
                   case pygame.KEYDOWN | pygame.KEYUP:
                        self.widget.on_key_event(event, self.context)
 
-              # if event.type == pygame.QUIT:
-              #     self.running = False
+
 
       def update(self):
           self.widget.update(self.context)
@@ -86,3 +90,12 @@ class App:
 
           # Draw all.
           self.grp_ctx.flush()
+
+      def draw_mouse_pointer(self):
+          self.mouse_pos = pygame.mouse.get_pos()
+          if self.mouse_pos is not None:
+             pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0)
+             pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0)
+
+             mouse_location = Location(pos_x, pos_y)
+             self.context.draw_char(mouse_location, CHAR_CLASSES["fill_full"])
