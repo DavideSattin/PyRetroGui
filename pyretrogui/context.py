@@ -47,6 +47,9 @@ class Context:
                     graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
                 # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
+      def draw_char_overlap(self, graphics: GraphicContext, location: Location, color=(255, 255, 255)):
+          graphics.draw_char(self.cursor.get_cursor_char(), location.x, location.y, color)
+
       def draw_char(self, location:Location, char: str) -> None:
           if location is None:
               raise  ValueError("Parameter: location cannot be None.")

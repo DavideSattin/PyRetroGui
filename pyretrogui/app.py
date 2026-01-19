@@ -97,8 +97,11 @@ class App:
       def draw_mouse_pointer(self):
           self.mouse_pos = pygame.mouse.get_pos()
           if self.mouse_pos is not None:
-             pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0)
-             pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0)
+             pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0) * self.font_size[0]
+             pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0) * self.font_size[1]
 
+             print(pos_x, pos_y)
              mouse_location = Location(pos_x, pos_y)
-             self.context.draw_char(mouse_location, CHAR_CLASSES["fill_full"])
+             #self.context.draw_char(mouse_location, CHAR_CLASSES["fill_full"])
+             color = (255, 255, 255)
+             self.context.draw_char_overlap(self.grp_ctx, mouse_location, color)
