@@ -62,7 +62,7 @@ class App:
               self.update()
               self.draw()
               self.grp_ctx.set_clock_tick(60)
-              self.draw_mouse_pointer()
+
 
           #Exit
           self.grp_ctx.quit()
@@ -87,6 +87,9 @@ class App:
 
           #Draw the widget
           self.context.draw(self.grp_ctx)
+
+          #Draw the mouse pointer
+          self.draw_mouse_pointer()
 
           # Draw all.
           self.grp_ctx.flush()
