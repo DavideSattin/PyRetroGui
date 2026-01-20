@@ -53,6 +53,8 @@ class TextWidget(UIPanel):
 
       def update(self,context: Context):
           #Draw the panel border, of the specified size. The location it's local 0,0.
+
+          super().draw_background(context)
           super().draw_border(self.size, context)
           super().draw_text(context, self.text)
 
