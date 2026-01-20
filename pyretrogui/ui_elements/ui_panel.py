@@ -27,6 +27,9 @@ class UIPanel(UIElement):
           pass
 
 
+      def draw_Background(self, context: Context):
+          context.
+
 
       def draw_border(self, size: Size, context: Context) -> None:
           if size is None:
