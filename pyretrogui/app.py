@@ -9,9 +9,8 @@ from typing import Optional
 import pygame
 
 from pyretrogui.apparence.theme_loader import ThemeLoader
-from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.configuration.configuration_manager import Configuration
-from pyretrogui.context import Context
+from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size

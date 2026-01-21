@@ -18,6 +18,8 @@ class Context:
           self.font_size = font_size
           self.normalized_size = normalized_size
 
+          #We start maybe from the wrong assumption that the size it's static
+          #but in the case we have a floating and resizable windows container, the context must be recreated.
           self.rows = int(normalized_size[1] / font_size[1])
           self.cols = int(normalized_size[0] / font_size[0])
           self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
@@ -29,6 +31,7 @@ class Context:
               for col_idx in range(len(row)):
                   row[col_idx] = ' '  # oppure 0 o None
 
+      #This function will be renamed in raster or paint.
       def draw(self, graphics: GraphicContext):
           cell_w, cell_h = self.font_size
           for  row_idx, row in enumerate(self.matrix):

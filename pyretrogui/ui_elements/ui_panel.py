@@ -8,7 +8,7 @@
 
 from pygame.event import Event
 from pyretrogui.charset import CHAR_CLASSES
-from pyretrogui.context import Context
+from pyretrogui.video.context import Context
 from pyretrogui.primitives.area import Area
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
@@ -27,8 +27,8 @@ class UIPanel(UIElement):
           pass
 
 
-      def draw_Background(self, context: Context):
-          context.
+      #def draw_Background(self, context: Context):
+      #    context.
 
 
       def draw_border(self, size: Size, context: Context) -> None:

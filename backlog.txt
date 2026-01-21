@@ -1,4 +1,6 @@
 Backlog
+   Create the class for VideoLogicBuffer
+
 
 Event Management
     The on_key_event function/method cannot be declared as abstract.

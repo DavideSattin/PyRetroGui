@@ -1,7 +1,7 @@
 import pygame
 from pygame.event import Event
 
-from pyretrogui.context import Context
+from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
 from pyretrogui.io.file_reader import FileReader
 from pyretrogui.ui_elements.ui_panel import UIPanel
@@ -54,7 +54,7 @@ class TextWidget(UIPanel):
       def update(self,context: Context):
           #Draw the panel border, of the specified size. The location it's local 0,0.
 
-          super().draw_background(context)
+          #super().draw_background(context)
           super().draw_border(self.size, context)
           super().draw_text(context, self.text)
 

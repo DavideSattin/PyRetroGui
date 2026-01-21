@@ -6,7 +6,7 @@
 # Description: The Main panel container.
 # ==========================================
 
-from pyretrogui.context import Context
+from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_container import DockableContainer
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
 from pyretrogui.ui_elements.ui_element import UIElement
