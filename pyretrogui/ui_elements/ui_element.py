@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from pygame.event import Event
 
 from pyretrogui.arranger.ui_behaviour import UIBehaviour
-from pyretrogui.context import Context
+from pyretrogui.video.context import Context
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
 from pyretrogui.arranger.window_size import WindowSize
