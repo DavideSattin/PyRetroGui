@@ -5,10 +5,13 @@
 # Created: 04/01/2026 18:02
 # Description:
 # ==========================================
+from socket import send_fds
+
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
+from pyretrogui.video.video_buffer import VideoBuffer
 
 
 class Context:
@@ -22,17 +25,52 @@ class Context:
           #but in the case we have a floating and resizable windows container, the context must be recreated.
           self.rows = int(normalized_size[1] / font_size[1])
           self.cols = int(normalized_size[0] / font_size[0])
-          self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
+
+          self.video_buffer : VideoBuffer = VideoBuffer(self.cols, self.rows)
+          #self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]
+
           self.cursor = CursorContext(0,0)
           self.clear()
 
       def clear(self):
-          for row_idx, row in enumerate(self.matrix):
-              for col_idx in range(len(row)):
-                  row[col_idx] = ' '  # oppure 0 o None
+          self.video_buffer.clear()
+
+      # def clear(self):
+      #     """
+      #     DEPRECATED: use video buffer clear.
+      #     """
+      #     for row_idx, row in enumerate(self.matrix):
+      #         for col_idx in range(len(row)):
+      #             row[col_idx] = ' '  # oppure 0 o None
+
+      def paint(self, graphics: GraphicContext) -> None :
+          cell_w, cell_h = self.font_size
+          for row_idx in range(self.rows):
+              for col_idx in range(self.cols):
+                  if self.video_buffer.is_dirty(row_idx, col_idx):
+                      x = col_idx * cell_w
+                      y = row_idx * cell_h
+
+                      #draw background color.
+                      back_color = self.video_buffer.get_background_color(row_idx, col_idx)
+
+                      current_char = self.video_buffer.get_char(row_idx, col_idx)
+
+
+
+                      graphics.draw_char(str(char), x, y)
+                      if self.cursor.cursor_visible:
+                        cursor_x = self.cursor.location.x * cell_w
+                        cursor_y = self.cursor.location.y * cell_h
+                        graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
+
+
 
       #This function will be renamed in raster or paint.
       def draw(self, graphics: GraphicContext):
+          """
+          DEPRECATED: it will renammed and use the buffer clear.
+          """
           cell_w, cell_h = self.font_size
           for  row_idx, row in enumerate(self.matrix):
             for col_idx, char in enumerate(row):

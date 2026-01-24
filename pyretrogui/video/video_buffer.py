@@ -16,6 +16,17 @@ class VideoBuffer:
         self.cols = cols
         self.rows = rows
 
+        # Background color buffers (None = no color / transparent)
+        self.back_colors_buffer_prev: list[list[Optional[Color]]] = [
+            [None for _ in range(cols)]
+            for _ in range(rows)
+        ]
+
+        self.back_colors_buffer_curr: list[list[Optional[Color]]] = [
+            [None for _ in range(cols)]
+            for _ in range(rows)
+        ]
+
         # Character buffers
         self.chars_buffer_prev: list[list[str]] = [
             [" " for _ in range(cols)]
@@ -27,13 +38,30 @@ class VideoBuffer:
             for _ in range(rows)
         ]
 
-        # Background color buffers (None = no color / transparent)
-        self.back_colors_buffer_prev: list[list[Optional[Color]]] = [
+        # Foreground color buffers (None = no color / transparent)
+        self.foreground_colors_buffer_prev: list[list[Optional[Color]]] = [
             [None for _ in range(cols)]
             for _ in range(rows)
         ]
 
-        self.back_colors_buffer_curr: list[list[Optional[Color]]] = [
+        self.foreground_colors_buffer_curr: list[list[Optional[Color]]] = [
             [None for _ in range(cols)]
             for _ in range(rows)
         ]
+
+
+    def clear(self):
+        for row_ixd in range(self.rows):
+            for col_idx in range(self.cols):
+
+                self.back_colors_buffer_prev[row_ixd][col_idx] = None
+                self.back_colors_buffer_curr[row_ixd][col_idx] = None
+
+                self.chars_buffer_prev[row_ixd][col_idx] =" "
+                self.chars_buffer_prev[row_ixd][col_idx] =" "
+
+                self.foreground_colors_buffer_curr[row_ixd][col_idx] = None
+                self.foreground_colors_buffer_curr[row_ixd][col_idx] = None
+
+
+
