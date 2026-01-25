@@ -3,19 +3,18 @@
 # File: test_configuration
 # Author: Davide Sattin 
 # Created: 25/01/2026 18:11
-# Description:
+# Description:Unit test for yaml reading and configuration managements.
 # ==========================================
-
 import unittest
-from pyretrogui.configuration.configuration_manager import Configuration
+from pyretrogui.configuration.yaml_manager import YamlManager
 
 
 class test_configuration(unittest.TestCase):
 
-    def test_something(self):
+    def test_yaml_reading(self):
         error = False
         try:
-            cfg= Configuration()
+            cfg= YamlManager()
             cfg.load()
         except Exception as e:
             error = True

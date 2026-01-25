@@ -1,17 +1,15 @@
 # ==========================================
 # Project: PyRetroGUI
-# File: configuration_manager
+# File: yaml_manager
 # Author: Davide Sattin 
 # Created: 19/01/2026 21:25
 # Description: Save and Load the configuration
 # ==========================================
 from ruamel.yaml import YAML
-
 from pyretrogui.io.utils import asset_path
 
 
-# TODO: Rename this class
-class Configuration:
+class YamlManager:
       def __init__(self):
           self.data = None
 
