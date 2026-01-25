@@ -8,6 +8,8 @@
 
 from typing import Optional
 
+from pyretrogui.primitives.location import Location
+
 Color = tuple[int, int, int]
 
 
@@ -84,8 +86,34 @@ class VideoBuffer:
         if self.chars_buffer_prev[row_idx][col_idx] != self.chars_buffer_curr[row_idx][col_idx]:
             return True
 
-        if self.foreground_colors_buffer_prev[row_idx][col_idx] != self.foreground_colors_buffer_curr[row_idx][col_idx]:
+        if self.foreground_colors_buffer_prev[row_idx][col_idx]!= self.foreground_colors_buffer_curr[row_idx][col_idx]:
             return True
 
         return False
 
+    def write(self, value: str, location:Location, background_color, foreground_color):
+        if value is None:
+            raise ValueError("value cannot be None")
+
+        if location is None:
+            raise ValueError("location cannot be None")
+
+        if background_color is None:
+            raise ValueError("background_color cannot be None")
+
+        if foreground_color is None:
+            raise ValueError("foreground_color cannot be None")
+
+        x,y = location
+        test = len( self.back_colors_buffer_curr)
+
+        self.back_colors_buffer_curr[y][x] = background_color
+        self.foreground_colors_buffer_curr[y][x] = foreground_color
+        self.chars_buffer_curr[y][x] = value
+
+    def invalidate(self, x:int, y:int) -> None:
+
+        # TODO: Check limits.
+        self.back_colors_buffer_prev[y][x]  = self.back_colors_buffer_curr[y][x]
+        self.foreground_colors_buffer_prev[y][x] = self.foreground_colors_buffer_curr[y][x]
+        self.chars_buffer_prev[y][x] = self.chars_buffer_curr[y][x]
