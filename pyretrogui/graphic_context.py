@@ -6,6 +6,8 @@
 # Description: The graphic context is wrapper of py game
 # ==========================================
 import pygame
+from typing import Tuple
+
 
 
 class GraphicContext:
@@ -40,8 +42,8 @@ class GraphicContext:
               return
           pygame.display.flip()
 
-      def draw_char(self, char:str, x: int, y: int, color=(255, 255, 255)):
-          surface = self.main_font.render(str(char), True, color)
+      def draw_char(self, char:str, x: int, y: int, foreground_color: tuple[int,int ,int] =(255, 255, 255), background_color: tuple[int,int ,int] = (0,0,0)):
+          surface = self.main_font.render(char, True, foreground_color, background_color)
           self.screen.blit(surface, (x, y))
 
       def fill(self, color=(0, 0, 0)):

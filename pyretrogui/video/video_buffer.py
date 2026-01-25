@@ -64,4 +64,28 @@ class VideoBuffer:
                 self.foreground_colors_buffer_curr[row_ixd][col_idx] = None
 
 
+    def get_char(self, row_idx, col_idx)-> str:
+        # TODO: Check limit
+        return self.chars_buffer_curr[row_idx][col_idx]
+
+    def get_background_color(self, row_idx, col_idx):
+        # TODO: Check limit
+        return self.back_colors_buffer_curr[row_idx][col_idx]
+
+    def get_foreground_color(self, row_idx, col_idx):
+        # TODO: Check limit
+        return self.foreground_colors_buffer_curr[row_idx][col_idx]
+
+    def is_dirty(self, row_idx, col_idx):
+        # TODO: Check limit
+        if self.back_colors_buffer_prev[row_idx][col_idx] != self.back_colors_buffer_curr[row_idx][col_idx]:
+            return True
+
+        if self.chars_buffer_prev[row_idx][col_idx] != self.chars_buffer_curr[row_idx][col_idx]:
+            return True
+
+        if self.foreground_colors_buffer_prev[row_idx][col_idx] != self.foreground_colors_buffer_curr[row_idx][col_idx]:
+            return True
+
+        return False
 

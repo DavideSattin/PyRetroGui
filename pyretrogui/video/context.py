@@ -5,8 +5,6 @@
 # Created: 04/01/2026 18:02
 # Description:
 # ==========================================
-from socket import send_fds
-
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -56,9 +54,11 @@ class Context:
 
                       current_char = self.video_buffer.get_char(row_idx, col_idx)
 
+                      fore_ground_color = self.video_buffer.get_foreground_color(row_idx, col_idx)
 
+                      graphics.draw_char(current_char, x, y, back_color, fore_ground_color)
 
-                      graphics.draw_char(str(char), x, y)
+                      #Check this.
                       if self.cursor.cursor_visible:
                         cursor_x = self.cursor.location.x * cell_w
                         cursor_y = self.cursor.location.y * cell_h
