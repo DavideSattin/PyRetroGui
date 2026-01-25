@@ -101,10 +101,10 @@ class App:
 
       def draw(self):
           #Draw background
-          self.grp_ctx.fill()
+          #self.grp_ctx.fill()
 
-          #Draw the widget
-          self.context.draw(self.grp_ctx)
+          #Paint the widget
+          self.context.paint(self.grp_ctx)
 
           #Draw the mouse pointer
           self.draw_mouse_pointer()

@@ -46,6 +46,7 @@ class Context:
           for row_idx in range(self.rows):
               for col_idx in range(self.cols):
                   if self.video_buffer.is_dirty(row_idx, col_idx):
+                      print("not dirty")
                       x = col_idx * cell_w
                       y = row_idx * cell_h
 
@@ -58,6 +59,8 @@ class Context:
 
                       graphics.draw_char(current_char, x, y, back_color, fore_ground_color)
 
+                      self.video_buffer.invalidate(col_idx,row_idx)
+
                       #Check this.
                       if self.cursor.cursor_visible:
                         cursor_x = self.cursor.location.x * cell_w
@@ -66,32 +69,33 @@ class Context:
 
 
 
-      #This function will be renamed in raster or paint.
-      def draw(self, graphics: GraphicContext):
-          """
-          DEPRECATED: it will renammed and use the buffer clear.
-          """
-          cell_w, cell_h = self.font_size
-          for  row_idx, row in enumerate(self.matrix):
-            for col_idx, char in enumerate(row):
-                # row_idx = indice riga
-                # col_idx = indice colonna
-                # char = contenuto della cella
-                x = col_idx * cell_w
-                y = row_idx * cell_h
 
-
-                graphics.draw_char(str(char), x, y)
-                if self.cursor.cursor_visible:
-                    cursor_x = self.cursor.location.x * cell_w
-                    cursor_y = self.cursor.location.y * cell_h
-                    graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
-                # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
+      # #This function will be renamed in raster or paint.
+      # def draw(self, graphics: GraphicContext):
+      #     """
+      #     DEPRECATED: it will renammed and use the buffer clear.
+      #     """
+      #     cell_w, cell_h = self.font_size
+      #     for  row_idx, row in enumerate(self.matrix):
+      #       for col_idx, char in enumerate(row):
+      #           # row_idx = indice riga
+      #           # col_idx = indice colonna
+      #           # char = contenuto della cella
+      #           x = col_idx * cell_w
+      #           y = row_idx * cell_h
+      #
+      #
+      #           graphics.draw_char(str(char), x, y)
+      #           if self.cursor.cursor_visible:
+      #               cursor_x = self.cursor.location.x * cell_w
+      #               cursor_y = self.cursor.location.y * cell_h
+      #               graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
+      #           # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
 
       def draw_char_overlap(self, graphics: GraphicContext, location: Location, color=(255, 255, 255)):
           graphics.draw_char(self.cursor.get_cursor_char(), location.x, location.y, color)
 
-      def draw_char(self, location:Location, char: str) -> None:
+      def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
           if location is None:
               raise  ValueError("Parameter: location cannot be None.")
 
@@ -104,7 +108,7 @@ class Context:
           if location.x >= self.cols or location.y >= self.rows:
               raise ValueError("Location is out of bounds.")
 
-          self.matrix[location.y][location.x] = char
+          self.video_buffer.write(char, location, background_color, foreground_color)
 
 
 

@@ -46,6 +46,10 @@ class Location:
 
         return NotImplemented
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
     def translate_to(self, location: "Location") -> "Location":
         """
         Translates this location by another Location and returns a new Location.
