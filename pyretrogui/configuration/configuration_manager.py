@@ -7,6 +7,10 @@
 # ==========================================
 from ruamel.yaml import YAML
 
+from pyretrogui.io.utils import asset_path
+
+
+# TODO: Rename this class
 class Configuration:
       def __init__(self):
           self.data = None
@@ -20,11 +24,13 @@ class Configuration:
               return data
 
       def load(self):
+          config_file = asset_path("configuration.yaml")
           yaml = YAML()
-          with open("../assets/configuration.yaml") as f:
+          with open(config_file) as f:
               self.data = yaml.load(f)
 
       def save(self):
+          config_file = asset_path("configuration.yaml")
           yaml = YAML()
-          with open("config.yaml", "w") as f:
+          with open(config_file, "w") as f:
               yaml.dump(self.data, f)
