@@ -9,7 +9,7 @@ from typing import Optional
 import pygame
 
 from pyretrogui.apparence.theme_loader import ThemeLoader
-from pyretrogui.configuration.configuration_manager import Configuration
+from pyretrogui.configuration.yaml_manager import YamlManager
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -20,7 +20,7 @@ from pyretrogui.ui_elements.ui_panel import UIPanel
 class App:
       def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
           #Configuration.
-          self.config = Configuration()
+          self.config = YamlManager()
           self.config.load()
 
           #Set from configuration or default.

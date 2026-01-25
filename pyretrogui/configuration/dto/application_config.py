@@ -8,8 +8,8 @@
 from dataclasses import dataclass
 from typing import Tuple
 
-from pyretrogui.configuration.font_config import FontConfig
-from pyretrogui.configuration.mouse import MouseConfig
+from pyretrogui.configuration.dto.font_config import FontConfig
+from pyretrogui.configuration.dto.mouse import MouseConfig
 
 
 @dataclass(frozen=True)

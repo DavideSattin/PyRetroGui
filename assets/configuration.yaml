@@ -3,7 +3,7 @@ application:
  size: [800, 600]
  font:
    font_size: [8, 16]
-   font_path: "../assets/px437_IBM_VGA_8x16.ttf"
+   font_path: "px437_IBM_VGA_8x16.ttf"
  mouse:
   enabled: true
   pointer: false
