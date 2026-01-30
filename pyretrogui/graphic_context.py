@@ -8,11 +8,14 @@
 import pygame
 from typing import Tuple
 
-
+from pyretrogui.apparence.theme import Theme
+from pyretrogui.configuration.dto.application_config import ApplicationConfig
 
 class GraphicContext:
-      def __init__(self):
+      def __init__(self, config: ApplicationConfig, theme: Theme):
           pygame.init()
+          self.config = config
+          self.theme = theme
           self.screen = None
           self.clock = pygame.time.Clock()
 

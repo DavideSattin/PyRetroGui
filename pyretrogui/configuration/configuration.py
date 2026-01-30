@@ -9,14 +9,13 @@ from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.configuration.dto.font_config import FontConfig
 from pyretrogui.configuration.dto.mouse_config import MouseConfig
 from pyretrogui.configuration.yaml_manager import YamlManager
-from pyretrogui.singleton_meta import SingletonMeta
 
-
-class Configuration(metaclass=SingletonMeta):
+class Configuration:
       def __int__(self):
            pass
 
-      def load (self) -> ApplicationConfig:
+      @staticmethod
+      def load () -> ApplicationConfig:
           yaml_manager = YamlManager()
           yaml_manager.load()
 
