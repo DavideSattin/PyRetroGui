@@ -9,7 +9,10 @@ from typing import Optional
 import pygame
 
 from pyretrogui.apparence.theme_loader import ThemeLoader
-from pyretrogui.configuration.yaml_manager import YamlManager
+from pyretrogui.configuration.configuration import Configuration
+
+from pyretrogui.configuration.dto.application_config import ApplicationConfig
+
 from pyretrogui.singleton_meta import SingletonMeta
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
@@ -25,23 +28,23 @@ class App(metaclass=SingletonMeta):
           if not App._allow_init:
               raise RuntimeError("Use App.CreateInstance.")
 
-          #TODO Use the configuration class.
+
           #Configuration.
-          self.config = YamlManager()
-          self.config.load()
+          self.config: ApplicationConfig = Configuration.load()
 
           #Set from configuration or default.
-          self.title = self.config.get_data("application","title", default= title)
-          self.size = self.config.get_data("application","size", default= size)
-          self.font_size = self.config.get_data("application","font","font_size", default= font_size)
+          self.title = self.config.title
+          self.size = self.config.size
+          self.font_size =  self.config.font.font_size
 
           #Mouse Management.
-          self.mouse_enable = self.config.get_data("application","mouse","enabled", default= True)
-          self.mouse_pointer = self.config.get_data("application","mouse","pointer", default= True)
+          self.mouse_enable = self.config.mouse.enabled
+          self.mouse_pointer = self.config.mouse.pointer
+
           self.mouse_pos: Optional[tuple[int, int]] = None
 
           #Load Theme.
-          self.theme = ThemeLoader.load(self.config.get_data("application","theme", default= None))
+          self.theme = ThemeLoader.load(self.config.theme)
 
           #Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
@@ -57,7 +60,7 @@ class App(metaclass=SingletonMeta):
           # Open the window
           normalized_size = (width, height)
 
-          self.grp_ctx = GraphicContext()
+          self.grp_ctx = GraphicContext(self.config, self.theme)
           self.grp_ctx.open_window(title, normalized_size)
 
           print(f"Normalized size: {normalized_size}")
