@@ -9,7 +9,7 @@ from pyretrogui.ui_elements.text_widget import TextWidget
 from pyretrogui.app import App
 
 #Create the Main screen.
-app = App("Main Screen", (600,600), (8,16))
+app = App.create_instance("Main Screen", (600,600), (8,16))
 app.mouse_enable = False
 app.mouse_pointer = False
 app.run(TextWidget)

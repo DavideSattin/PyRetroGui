@@ -57,7 +57,7 @@ class Context:
 
                       fore_ground_color = self.video_buffer.get_foreground_color(row_idx, col_idx)
 
-                      graphics.draw_char(current_char, x, y, back_color, fore_ground_color)
+                      graphics.draw_char(current_char, x, y,fore_ground_color, back_color)
 
                       self.video_buffer.invalidate(col_idx,row_idx)
 
@@ -112,24 +112,32 @@ class Context:
 
 
 
-      def draw_text(self, view_port_location:Location, view_port_size:Size, current_line:str):
+      def draw_text(self, draw_location:Location, view_port_size:Size, current_line:str):
           # The size it's necessary....
           current_line = current_line[:view_port_size.width]
 
-          row_offset = view_port_location.y
-          col_offset = view_port_location.x
+          row_offset = draw_location.y
+          col_offset = draw_location.x
 
-          # Error here!
           try:
-            matrix_line = self.matrix[row_offset]
-            for col, char in enumerate(current_line):
-                x = col_offset + col
-                matrix_line[x] = char
+              buffer_line = self.video_buffer.get_buffer_row(row_offset)
+              for col, char in enumerate(current_line):
+                  x = col_offset + col
+                  buffer_line[x] = char
           except Exception as e:
-              print(f"ERRORE INDICE: {row_offset}")
+               print(f"Exception while drawing line.")
 
-
+          # # Error here!
+          # try:
+          #   matrix_line = self.matrix[row_offset]
+          #   for col, char in enumerate(current_line):
+          #       x = col_offset + col
+          #       matrix_line[x] = char
+          # except Exception as e:
+          #     print(f"ERRORE INDICE: {row_offset}")
           #
+          #
+          # #
 
 
 
