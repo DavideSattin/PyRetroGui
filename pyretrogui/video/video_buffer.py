@@ -117,3 +117,6 @@ class VideoBuffer:
         self.back_colors_buffer_prev[y][x]  = self.back_colors_buffer_curr[y][x]
         self.foreground_colors_buffer_prev[y][x] = self.foreground_colors_buffer_curr[y][x]
         self.chars_buffer_prev[y][x] = self.chars_buffer_curr[y][x]
+
+    def get_buffer_row(self, y:int):
+        return self.chars_buffer_prev[y]

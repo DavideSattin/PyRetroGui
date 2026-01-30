@@ -1,5 +1,5 @@
 Backlog
-   Create the class for VideoLogicBuffer
+   The app class must me singleton.
 
 
 Event Management
@@ -8,7 +8,8 @@ Event Management
 
 Container Control
 
-    Create the Container control, responsible for hosting and managing child controls.
+    |Create the Container control, responsible for hosting and managing child controls.
+
 
 Panel Arranger
 
@@ -28,3 +29,6 @@ Control Factory
     This responsibility should be extracted into a dedicated singleton Control Factory.
     The factory will provide a simpler and more direct access point for creating UI controls, avoiding the need to access the application container object.
     The singleton factory will also be responsible for tracking and storing all generated control IDs.
+
+ DONE
+    Create the class for VideoLogicBuffer

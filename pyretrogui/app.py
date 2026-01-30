@@ -10,6 +10,7 @@ import pygame
 
 from pyretrogui.apparence.theme_loader import ThemeLoader
 from pyretrogui.configuration.yaml_manager import YamlManager
+from pyretrogui.singleton_meta import SingletonMeta
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -17,8 +18,14 @@ from pyretrogui.primitives.size import Size
 from pyretrogui.ui_elements.ui_panel import UIPanel
 
 
-class App:
+class App(metaclass=SingletonMeta):
+      _allow_init = False
+
       def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
+          if not App._allow_init:
+              raise RuntimeError("Use App.CreateInstance.")
+
+          #TODO Use the configuration class.
           #Configuration.
           self.config = YamlManager()
           self.config.load()
@@ -59,6 +66,16 @@ class App:
           self.running = True
           self.widget: Optional[UIPanel] = None
           self.context = Context(self.size, self.font_size, normalized_size)
+
+      @staticmethod
+      def create_instance(title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
+          App._allow_init = True
+          try:
+              return App(title,size, font_size)
+          finally:
+              App._allow_init = False
+
+
 
       def _element_factory(self, element):
           if element is None:

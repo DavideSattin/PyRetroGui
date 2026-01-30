@@ -43,6 +43,10 @@ class GraphicContext:
           pygame.display.flip()
 
       def draw_char(self, char:str, x: int, y: int, foreground_color: tuple[int,int ,int] =(255, 255, 255), background_color: tuple[int,int ,int] = (0,0,0)):
+
+          print("FG:", foreground_color, type(foreground_color))
+          print("BG:", background_color, type(background_color))
+
           surface = self.main_font.render(char, True, foreground_color, background_color)
           self.screen.blit(surface, (x, y))
 

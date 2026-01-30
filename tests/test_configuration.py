@@ -21,5 +21,16 @@ class test_configuration(unittest.TestCase):
 
         self.assertEqual(error, False)
 
+    def test_yaml_reading_with_themes(self):
+        error = False
+        try:
+            cfg = YamlManager()
+            cfg.load()
+            print(cfg.data)
+        except Exception as e:
+            error = True
+
+        self.assertEqual(error, False)
+
 if __name__ == '__main__':
     unittest.main()
