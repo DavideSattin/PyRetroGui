@@ -21,13 +21,13 @@ class YamlManager:
                   data =  data[key]
               return data
 
-      def load(self):
+      def load(self) -> None:
           config_file = asset_path("configuration.yaml")
           yaml = YAML()
           with open(config_file) as f:
               self.data = yaml.load(f)
 
-      def save(self):
+      def save(self) ->None:
           config_file = asset_path("configuration.yaml")
           yaml = YAML()
           with open(config_file, "w") as f:
