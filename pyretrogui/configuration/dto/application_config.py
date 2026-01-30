@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from typing import Tuple
 
 from pyretrogui.configuration.dto.font_config import FontConfig
-from pyretrogui.configuration.dto.mouse import MouseConfig
+from pyretrogui.configuration.dto.mouse_config import MouseConfig
 
 
 @dataclass(frozen=True)
