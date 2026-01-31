@@ -43,11 +43,14 @@ class Context:
       #             row[col_idx] = ' '  # oppure 0 o None
 
       def paint(self, graphics: GraphicContext) -> None :
+
           cell_w, cell_h = self.font_size
           for row_idx in range(self.rows):
               for col_idx in range(self.cols):
                   if self.video_buffer.is_dirty(row_idx, col_idx):
-                      print("is dirty")
+                      print(f"is dirty x: {row_idx} y: {col_idx}")
+
+                      #opss don't remove....
                       x = col_idx * cell_w
                       y = row_idx * cell_h
 
