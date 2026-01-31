@@ -120,3 +120,6 @@ class VideoBuffer:
 
     def get_buffer_row(self, y:int):
         return self.chars_buffer_curr[y]
+
+    def set_background_color(self, row_idx, col_idx, test_color)  -> None:
+        self.back_colors_buffer_curr[row_idx][col_idx] = test_color

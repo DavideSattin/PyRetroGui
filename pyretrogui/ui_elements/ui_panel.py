@@ -8,6 +8,7 @@
 
 from pygame.event import Event
 from pyretrogui.charset import CHAR_CLASSES
+from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.area import Area
 from pyretrogui.primitives.location import Location
@@ -27,16 +28,16 @@ class UIPanel(UIElement):
           pass
 
 
-      #def draw_Background(self, context: Context):
-      #    context.
 
 
-      def draw_border(self, size: Size, context: Context) -> None:
-          if size is None:
-              raise ValueError("The size cannon be None.")
+
+      def draw_border(self,context: Context, size: Size, ) -> None:
 
           if context is None:
-              raise ValueError("The size cannon be None.")
+              raise ValueError("The size cannot be None.")
+
+          if size is None:
+              raise ValueError("The size cannot be None.")
 
           # we assume that a border it's a rectangle with
           # starting relative location ad 0,0 with the size of the panel.
@@ -63,7 +64,6 @@ class UIPanel(UIElement):
 
 
       def draw_text(self,context: Context, text_content:str):
-
           # #Get the viewport location and size.
           view_port = self.get_internal_viewport(context)
 
@@ -77,6 +77,24 @@ class UIPanel(UIElement):
 
 
       def draw_cursor(self, context: Context, cursor_position):
+          if context is None:
+              raise ValueError("The context cannot be None.")
+
+          if cursor_position is None:
+              raise ValueError("The cursor position cannot be None.")
+
+          # Draw the cursor.
           context.draw_cursor(cursor_position)
+
+      def draw_background(self, context:Context, viewport:ViewPort):
+          if context is None:
+              raise ValueError("The context cannot be None.")
+
+          if viewport is None:
+              raise ValueError("The viewport cannot be None.")
+
+          context.fill_background(viewport)
+
+
 
 
