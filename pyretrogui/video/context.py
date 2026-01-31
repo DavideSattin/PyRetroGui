@@ -5,6 +5,7 @@
 # Created: 04/01/2026 18:02
 # Description:
 # ==========================================
+from pyretrogui.apparence.theme import Theme
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -13,8 +14,8 @@ from pyretrogui.video.video_buffer import VideoBuffer
 
 
 class Context:
-      def __init__(self, size:tuple[int, int], font_size: tuple[int, int], normalized_size):
-          self.font = None
+      def __init__(self, theme: Theme, size:tuple[int, int], font_size: tuple[int, int], normalized_size):
+          self.theme = theme
           self.size = size
           self.font_size = font_size
           self.normalized_size = normalized_size
@@ -46,17 +47,24 @@ class Context:
           for row_idx in range(self.rows):
               for col_idx in range(self.cols):
                   if self.video_buffer.is_dirty(row_idx, col_idx):
-                      print("not dirty")
+                      print("is dirty")
                       x = col_idx * cell_w
                       y = row_idx * cell_h
 
-                      #draw background color.
+                      #get the background color.
                       back_color = self.video_buffer.get_background_color(row_idx, col_idx)
+                      if back_color is None:
+                          back_color = self.theme.background_color
 
+                      # get the foreground color.
+                      fore_ground_color = self.video_buffer.get_foreground_color(row_idx, col_idx)
+                      if fore_ground_color is None:
+                          fore_ground_color = self.theme.foreground_color
+
+                      #get the char.
                       current_char = self.video_buffer.get_char(row_idx, col_idx)
 
-                      fore_ground_color = self.video_buffer.get_foreground_color(row_idx, col_idx)
-
+                      #draw all
                       graphics.draw_char(current_char, x, y,fore_ground_color, back_color)
 
                       self.video_buffer.invalidate(col_idx,row_idx)

@@ -28,7 +28,6 @@ class App(metaclass=SingletonMeta):
           if not App._allow_init:
               raise RuntimeError("Use App.CreateInstance.")
 
-
           #Configuration.
           self.config: ApplicationConfig = Configuration.load()
 
@@ -38,8 +37,8 @@ class App(metaclass=SingletonMeta):
           self.font_size =  self.config.font.font_size
 
           #Mouse Management.
-          self.mouse_enable = self.config.mouse.enabled
-          self.mouse_pointer = self.config.mouse.pointer
+          self.mouse_enable = self.config.mouse.enabled         #Enable the mouse
+          self.mouse_pointer = self.config.mouse.pointer        #Show the mouse pointer.
 
           self.mouse_pos: Optional[tuple[int, int]] = None
 
@@ -60,7 +59,7 @@ class App(metaclass=SingletonMeta):
           # Open the window
           normalized_size = (width, height)
 
-          self.grp_ctx = GraphicContext(self.config, self.theme)
+          self.grp_ctx = GraphicContext()
           self.grp_ctx.open_window(title, normalized_size)
 
           print(f"Normalized size: {normalized_size}")
@@ -68,7 +67,7 @@ class App(metaclass=SingletonMeta):
 
           self.running = True
           self.widget: Optional[UIPanel] = None
-          self.context = Context(self.size, self.font_size, normalized_size)
+          self.context = Context(self.theme, self.size, self.font_size, normalized_size)
 
       @staticmethod
       def create_instance(title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
