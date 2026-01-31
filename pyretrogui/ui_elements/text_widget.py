@@ -1,6 +1,7 @@
 import pygame
 from pygame.event import Event
 
+from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
 from pyretrogui.io.file_reader import FileReader
@@ -53,9 +54,10 @@ class TextWidget(UIPanel):
 
       def update(self,context: Context):
           #Draw the panel border, of the specified size. The location it's local 0,0.
+          panel_viewport = ViewPort(self.location, self.size)
 
-          #super().draw_background(context)
-          super().draw_border(self.size, context)
+          super().draw_background(context, panel_viewport)
+          super().draw_border(context,self.size)
           super().draw_text(context, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)

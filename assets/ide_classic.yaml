@@ -1,6 +1,6 @@
 name: IDE Classic
 
-background_color: [30, 30, 30]
+background_color: [0, 0, 255]
 foreground_color: [220, 220, 220]
 cursor_color: [255, 255, 255]
 pointer_color: [200, 200, 200]

@@ -10,6 +10,7 @@ from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
+from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.video_buffer import VideoBuffer
 
 
@@ -34,15 +35,11 @@ class Context:
       def clear(self):
           self.video_buffer.clear()
 
-      # def clear(self):
-      #     """
-      #     DEPRECATED: use video buffer clear.
-      #     """
-      #     for row_idx, row in enumerate(self.matrix):
-      #         for col_idx in range(len(row)):
-      #             row[col_idx] = ' '  # oppure 0 o None
+
+
 
       def paint(self, graphics: GraphicContext) -> None :
+          # probably this method it's on GC.
 
           cell_w, cell_h = self.font_size
           for row_idx in range(self.rows):
@@ -138,21 +135,13 @@ class Context:
           except Exception as e:
                print(f"Exception while drawing line.")
 
-          # # Error here!
-          # try:
-          #   matrix_line = self.matrix[row_offset]
-          #   for col, char in enumerate(current_line):
-          #       x = col_offset + col
-          #       matrix_line[x] = char
-          # except Exception as e:
-          #     print(f"ERRORE INDICE: {row_offset}")
-          #
-          #
-          # #
 
-
-
-
-      def draw_cursor(self, cursor_position:Location):
+      def draw_cursor(self, cursor_position:Location)-> None:
           self.cursor.start_cursor()
           self.cursor.location = cursor_position
+
+      def fill_background(self, viewport:ViewPort) -> None:
+          test_color  = (255,0,0)
+          for row_idx in range(viewport.location.y,viewport.location.y+ viewport.size.height):
+              for col_idx in range(viewport.location.x, viewport.location.x + viewport.size.width):
+                   self.video_buffer.set_background_color(row_idx,col_idx, test_color)

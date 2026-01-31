@@ -1,5 +1,8 @@
 Backlog
    The app class must me singleton.
+   the color of the backfont it's different from the background.
+   the char of the top left border it's wrong.
+   def get_internal_viewport(self, context: Context) -> ViewPort: it's wrong!
 
 Event Management
     The on_key_event function/method cannot be declared as abstract.
