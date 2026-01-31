@@ -30,8 +30,8 @@ class Configuration:
           configuration_data.font = FontConfig(font_size, font_path)
 
           # Read the mouse configuration.
-          enabled = yaml_manager.get_data("application", "mouse","enabled", True)
-          pointer= yaml_manager.get_data("application", "mouse", "pointer", True)
+          enabled = yaml_manager.get_data("application", "mouse","enabled", default=True)
+          pointer= yaml_manager.get_data("application", "mouse", "pointer", default=True)
           configuration_data.mouse = MouseConfig(enabled, pointer)
 
           # Read the theme configuration.
