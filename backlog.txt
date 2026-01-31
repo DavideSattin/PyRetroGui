@@ -1,6 +1,5 @@
 Backlog
    The app class must me singleton.
-    cfg.get_data("application", "mouse","enabled", default=True) default must be write in this mode....
 
 Event Management
     The on_key_event function/method cannot be declared as abstract.
@@ -31,4 +30,5 @@ Control Factory
     The singleton factory will also be responsible for tracking and storing all generated control IDs.
 
  DONE
-    Create the class for VideoLogicBuffer
+    -Create the class for VideoLogicBuffer
+    -cfg.get_data("application", "mouse","enabled", default=True) default must be write in this mode....
