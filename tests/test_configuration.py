@@ -24,6 +24,21 @@ class TestConfiguration(unittest.TestCase):
 
         self.assertEqual(error, False)
 
+    def test_yaml_get_data(self):
+        error = False
+        try:
+            cfg= YamlManager()
+            cfg.load()
+            mouse_enabled =  cfg.get_data("application", "mouse","enabled", default=False)
+            print (f"Mouse Enabled: {mouse_enabled}")
+            self.assertEqual(mouse_enabled, True)
+        except Exception as e:
+            print("Error reading yaml file: ",e)
+            error = True
+
+        self.assertEqual(error, False)
+
+
     def test_read_configuration(self):
         error = False
         try:
@@ -32,6 +47,10 @@ class TestConfiguration(unittest.TestCase):
             print("Configuration loaded")
             print(cfg.title)
             print(cfg.theme)
+            print(cfg.mouse.enabled)
+            print(cfg.mouse.pointer)
+            self.assertEqual(cfg.mouse.enabled, True)
+            self.assertEqual(cfg.mouse.pointer, False)
         except Exception as e:
             print("Error reading configuration: ", e)
             error = True
