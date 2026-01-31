@@ -111,12 +111,12 @@ class VideoBuffer:
         self.foreground_colors_buffer_curr[y][x] = foreground_color
         self.chars_buffer_curr[y][x] = value
 
-    def invalidate(self, x:int, y:int) -> None:
+    def invalidate(self, col_idx:int, row_idx:int) -> None:
 
         # TODO: Check limits.
-        self.back_colors_buffer_prev[y][x]  = self.back_colors_buffer_curr[y][x]
-        self.foreground_colors_buffer_prev[y][x] = self.foreground_colors_buffer_curr[y][x]
-        self.chars_buffer_prev[y][x] = self.chars_buffer_curr[y][x]
+        self.back_colors_buffer_prev[row_idx][col_idx]  = self.back_colors_buffer_curr[row_idx][col_idx]
+        self.foreground_colors_buffer_prev[row_idx][col_idx] = self.foreground_colors_buffer_curr[row_idx][col_idx]
+        self.chars_buffer_prev[row_idx][col_idx] = self.chars_buffer_curr[row_idx][col_idx]
 
     def get_buffer_row(self, y:int):
-        return self.chars_buffer_prev[y]
+        return self.chars_buffer_curr[y]
