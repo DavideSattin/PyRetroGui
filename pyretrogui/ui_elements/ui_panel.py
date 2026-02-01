@@ -7,6 +7,8 @@
 # ==========================================
 
 from pygame.event import Event
+
+from pyretrogui.apparence.theme import Color
 from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
@@ -31,7 +33,7 @@ class UIPanel(UIElement):
 
 
 
-      def draw_border(self,context: Context, size: Size, ) -> None:
+      def draw_border(self,context: Context, size: Size ) -> None:
 
           if context is None:
               raise ValueError("The size cannot be None.")
@@ -86,14 +88,14 @@ class UIPanel(UIElement):
           # Draw the cursor.
           context.draw_cursor(cursor_position)
 
-      def draw_background(self, context:Context, viewport:ViewPort):
+      def draw_background(self, context:Context, viewport:ViewPort, color:Color):
           if context is None:
               raise ValueError("The context cannot be None.")
 
           if viewport is None:
               raise ValueError("The viewport cannot be None.")
 
-          context.fill_background(viewport)
+          context.fill_background(viewport,color)
 
 
 

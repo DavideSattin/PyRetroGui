@@ -1,0 +1,27 @@
+name: BASIC 80s
+
+background_color: [0, 0, 128]        # Blu CRT
+foreground_color: [192, 192, 192]    # Testo standard
+cursor_color: [255, 255, 255]        # Cursore lampeggiante
+pointer_color: [255, 255, 255]
+
+primary:
+  background: [0, 0, 128]
+  foreground: [255, 255, 255]        # Testo principale
+  hover: [0, 0, 128]                 # Niente hover moderno
+  active: [0, 128, 255]              # Selezione stile BASIC
+  disabled: [128, 128, 128]
+  focus: [255, 255, 0]               # Giallo fosforo
+
+secondary:
+  background: [0, 0, 128]
+  foreground: [255, 255, 0]          # Keyword BASIC
+  hover: [0, 0, 128]
+  active: [0, 128, 255]
+  disabled: [128, 128, 128]
+  focus: [255, 255, 255]
+
+hover_color: [0, 0, 128]
+active_color: [0, 128, 255]
+disabled_color: [128, 128, 128]
+focus_color: [255, 255, 0]

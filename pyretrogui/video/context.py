@@ -11,15 +11,18 @@ from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
 from pyretrogui.primitives.view_port import ViewPort
-from pyretrogui.video.video_buffer import VideoBuffer
+from pyretrogui.video.video_buffer import VideoBuffer, Color
 
 
 class Context:
-      def __init__(self, theme: Theme, size:tuple[int, int], font_size: tuple[int, int], normalized_size):
+      def __init__(self, theme: Theme, size:tuple[int, int], font_size: tuple[int, int], normalized_size:tuple[int, int]):
+          #TODO: Check None!
+
           self.theme = theme
           self.size = size
           self.font_size = font_size
           self.normalized_size = normalized_size
+          self.pointer_buffer: Location | None = None
 
           #We start maybe from the wrong assumption that the size it's static
           #but in the case we have a floating and resizable windows container, the context must be recreated.
@@ -75,32 +78,15 @@ class Context:
                         cursor_y = self.cursor.location.y * cell_h
                         graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
 
+      def draw_mouse_pointer(self, graphics: GraphicContext, location: Location, color=(255, 255, 255)):
+          # error the specific location is in pixel
+          if self.pointer_buffer is None:
+             self.pointer_buffer = location
 
+          else:
+             self.video_buffer.invalidate(self.pointer_buffer.x,self.pointer_buffer.y)
+             self.pointer_buffer = location
 
-
-      # #This function will be renamed in raster or paint.
-      # def draw(self, graphics: GraphicContext):
-      #     """
-      #     DEPRECATED: it will renammed and use the buffer clear.
-      #     """
-      #     cell_w, cell_h = self.font_size
-      #     for  row_idx, row in enumerate(self.matrix):
-      #       for col_idx, char in enumerate(row):
-      #           # row_idx = indice riga
-      #           # col_idx = indice colonna
-      #           # char = contenuto della cella
-      #           x = col_idx * cell_w
-      #           y = row_idx * cell_h
-      #
-      #
-      #           graphics.draw_char(str(char), x, y)
-      #           if self.cursor.cursor_visible:
-      #               cursor_x = self.cursor.location.x * cell_w
-      #               cursor_y = self.cursor.location.y * cell_h
-      #               graphics.draw_char(self.cursor.get_cursor_char() , cursor_x, cursor_y)
-      #           # screen.blit(pygame.font.FONT.render(char, True, (255, 255, 255)), (x, y))
-
-      def draw_char_overlap(self, graphics: GraphicContext, location: Location, color=(255, 255, 255)):
           graphics.draw_char(self.cursor.get_cursor_char(), location.x, location.y, color)
 
       def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
@@ -140,8 +126,8 @@ class Context:
           self.cursor.start_cursor()
           self.cursor.location = cursor_position
 
-      def fill_background(self, viewport:ViewPort) -> None:
-          test_color  = (255,0,0)
+      def fill_background(self, viewport:ViewPort, color: Color) -> None:
+
           for row_idx in range(viewport.location.y,viewport.location.y+ viewport.size.height):
               for col_idx in range(viewport.location.x, viewport.location.x + viewport.size.width):
-                   self.video_buffer.set_background_color(row_idx,col_idx, test_color)
+                   self.video_buffer.set_background_color(row_idx,col_idx, color)

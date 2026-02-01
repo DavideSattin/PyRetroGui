@@ -22,16 +22,13 @@ class ThemeState:
 @dataclass
 class Theme:
     name: str
-
     background_color: Color = None
     foreground_color: Color = None
     cursor_color: Color = None
     pointer_color: Color = None
-
-    primary: ThemeState = field(default_factory=ThemeState)
-    secondary: ThemeState = field(default_factory=ThemeState)
-
     hover_color: Color = None
     active_color: Color = None
     disabled_color: Color = None
     focus_color: Color = None
+    primary: ThemeState = field(default_factory=ThemeState)
+    secondary: ThemeState = field(default_factory=ThemeState)
