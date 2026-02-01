@@ -137,8 +137,8 @@ class App(metaclass=SingletonMeta):
               pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0) * self.font_size[0]
               pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0) * self.font_size[1]
 
-              # print(pos_x, pos_y)
+              print(f"x: {pos_x}  y: {pos_y}")
               mouse_location = Location(pos_x, pos_y)
 
-              color = (255, 255, 255)
-              self.context.draw_char_overlap(self.grp_ctx, mouse_location, color)
+
+              self.context.draw_mouse_pointer(self.grp_ctx, mouse_location, self.theme.pointer_color)

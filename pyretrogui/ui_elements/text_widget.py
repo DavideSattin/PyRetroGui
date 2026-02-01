@@ -56,7 +56,7 @@ class TextWidget(UIPanel):
           #Draw the panel border, of the specified size. The location it's local 0,0.
           panel_viewport = ViewPort(self.location, self.size)
 
-          super().draw_background(context, panel_viewport)
+          super().draw_background(context, panel_viewport, (0,0,255))
           super().draw_border(context,self.size)
           super().draw_text(context, self.text)
 

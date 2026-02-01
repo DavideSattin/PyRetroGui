@@ -111,12 +111,35 @@ class VideoBuffer:
         self.foreground_colors_buffer_curr[y][x] = foreground_color
         self.chars_buffer_curr[y][x] = value
 
-    def invalidate(self, col_idx:int, row_idx:int) -> None:
+    def invalidate(self, col_idx: int, row_idx: int) -> None:
+        # Number of rows in the current buffer
+        rows = len(self.chars_buffer_curr)
 
-        # TODO: Check limits.
-        self.back_colors_buffer_prev[row_idx][col_idx]  = self.back_colors_buffer_curr[row_idx][col_idx]
-        self.foreground_colors_buffer_prev[row_idx][col_idx] = self.foreground_colors_buffer_curr[row_idx][col_idx]
-        self.chars_buffer_prev[row_idx][col_idx] = self.chars_buffer_curr[row_idx][col_idx]
+        if rows == 0:
+            # DEBUG: buffers are not initialized or empty
+            # Place a breakpoint here if needed
+            pass
+        else:
+            # Number of columns (assumes rectangular buffers)
+            cols = len(self.chars_buffer_curr[0])
+
+            # Check that row and column indexes are within bounds
+            if 0 <= row_idx < rows and 0 <= col_idx < cols:
+                # Copy current cell state into previous buffers
+                self.back_colors_buffer_prev[row_idx][col_idx] = \
+                    self.back_colors_buffer_curr[row_idx][col_idx]
+
+                self.foreground_colors_buffer_prev[row_idx][col_idx] = \
+                    self.foreground_colors_buffer_curr[row_idx][col_idx]
+
+                self.chars_buffer_prev[row_idx][col_idx] = \
+                    self.chars_buffer_curr[row_idx][col_idx]
+            else:
+                # DEBUG: index out of bounds
+                # row_idx or col_idx is outside the valid buffer range
+                # Place a breakpoint here to inspect the caller
+                print(f"Outside. X: {row_idx} y: {col_idx}")
+                pass
 
     def get_buffer_row(self, y:int):
         return self.chars_buffer_curr[y]
