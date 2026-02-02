@@ -78,16 +78,16 @@ class Context:
                         cursor_y = self.cursor.location.y * cell_h
                         graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
 
-      def draw_mouse_pointer(self, graphics: GraphicContext, location: Location, color=(255, 255, 255)):
+      def draw_mouse_pointer(self, graphics: GraphicContext,normalized_location:Location,buffer_location:Location, color=(255, 255, 255)):
           # error the specific location is in pixel
           if self.pointer_buffer is None:
-             self.pointer_buffer = location
+             self.pointer_buffer = buffer_location
 
           else:
              self.video_buffer.invalidate(self.pointer_buffer.x,self.pointer_buffer.y)
-             self.pointer_buffer = location
+             self.pointer_buffer = buffer_location
 
-          graphics.draw_char(self.cursor.get_cursor_char(), location.x, location.y, color)
+          graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
 
       def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
           if location is None:
