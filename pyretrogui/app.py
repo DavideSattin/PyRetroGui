@@ -133,12 +133,21 @@ class App(metaclass=SingletonMeta):
 
       def draw_mouse_pointer(self):
           if self.mouse_enable:
+
+              # The real mouse pos. Ex: x = 24,5
               self.mouse_pos =  self.grp_ctx.get_mouse_pos()
-              pos_x = max(int(self.mouse_pos[0] / self.font_size[0]),0) * self.font_size[0]
-              pos_y = max(int(self.mouse_pos[1] / self.font_size[1]),0) * self.font_size[1]
 
-              print(f"x: {pos_x}  y: {pos_y}")
-              mouse_location = Location(pos_x, pos_y)
+              # The video buffer pos.
+              buffer_pos_x = int(self.mouse_pos[0] / self.font_size[0])
+              buffer_pos_y = int(self.mouse_pos[1] / self.font_size[1])
+
+              # The normalized mouse pos. Ex: x = 25
+              normalized_pos_x = max(buffer_pos_x,0) * self.font_size[0]
+              normalized_pos_y = max(buffer_pos_y,0) * self.font_size[1]
+
+              print(f"Normalized x: {normalized_pos_x}  y: {normalized_pos_y}")
+              normalized_mouse_location = Location(normalized_pos_x, normalized_pos_y)
+              buffer_mouse_location = Location(buffer_pos_x, buffer_pos_y)
 
 
-              self.context.draw_mouse_pointer(self.grp_ctx, mouse_location, self.theme.pointer_color)
+              self.context.draw_mouse_pointer(self.grp_ctx, normalized_mouse_location, buffer_mouse_location,self.theme.pointer_color)
