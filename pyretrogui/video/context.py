@@ -74,6 +74,8 @@ class Context:
 
 
       def draw_cursor(self, graphics):
+          #NOt the best. the invalidate dura anche quando non è visibile...
+
           cell_w, cell_h = self.font_size
           # Check this.
           if self.cursor.cursor_visible:
