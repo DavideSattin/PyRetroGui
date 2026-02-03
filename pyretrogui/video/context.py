@@ -89,22 +89,11 @@ class Context:
                 print(f"Invalidate: {self.pointer_buffer.x} {self.pointer_buffer.y}")
                 self.video_buffer.invalidate(self.pointer_buffer.y, self.pointer_buffer.x)
                 self.pointer_buffer = None
+                self.pointer_buffer = Location(video_location.x, video_location.y)
           else:
              self.pointer_buffer = Location(video_location.x, video_location.y)
 
-
-          #   if video_location.x != self.pointer_buffer.x and video_location.y != self.pointer_buffer.y:
-          #       self.video_buffer.invalidate(self.pointer_buffer.x, self.pointer_buffer.y)
-          #       self.pointer_buffer = Location(video_location.x, video_location.y)
-          #   else:
-          #       self.pointer_buffer = None
-          # else:
-          #     self.pointer_buffer = Location(video_location.x, video_location.y)
-          #     # isdirty =  self.video_buffer.is_dirty(0,1)
-          #     # print(f"Invalidate Dirty: {isdirty}")
-
-          graphics.draw_char(".", normalized_location.x, normalized_location.y, color)
-          # graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
+          graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
 
 
 
