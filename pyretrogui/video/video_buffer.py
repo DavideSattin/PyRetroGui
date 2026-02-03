@@ -113,8 +113,11 @@ class VideoBuffer:
         self.foreground_colors_buffer_curr[y][x] = foreground_color
         self.chars_buffer_curr[y][x] = value
 
-    def invalidate(self, col_idx: int, row_idx: int):
-        self.chars_buffer_curr[row_idx][col_idx] = " "
+    def invalidate(self, row_idx: int,col_idx: int ):
+        #TODO: The buffer must receive NONE.
+
+        rows = len(self.chars_buffer_prev)
+        self.chars_buffer_prev[row_idx][col_idx] = "X"
 
     def align_buffer(self, col_idx: int, row_idx: int) -> None:
         # Number of rows in the current buffer

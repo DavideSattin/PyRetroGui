@@ -78,25 +78,35 @@ class Context:
                         cursor_y = self.cursor.location.y * cell_h
                         graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
 
-      def draw_mouse_pointer(self, graphics: GraphicContext,normalized_location:Location,buffer_location:Location, color=(255, 255, 255)):
-          # # error the specific location is in pixel
-          # if self.pointer_buffer is None:
-          #    self.pointer_buffer = buffer_location
-          #
-          # else:
-          #    self.video_buffer.invalidate(self.pointer_buffer.x,self.pointer_buffer.y)
-          #    self.pointer_buffer = buffer_location
+      def draw_mouse_pointer(self, graphics: GraphicContext, normalized_location:Location, video_location:Location, color=(255, 255, 255)):
+
 
           # Restore previous mouse cell
-          if self.pointer_buffer is None:
-              print("Invalidate")
-              self.video_buffer.invalidate(0,1)
-              isdirty =  self.video_buffer.is_dirty(0,1)
-              print(f"Invalidate: {isdirty}")
+          if self.pointer_buffer is not None:
+            print(f"Buffer: {self.pointer_buffer.x} {self.pointer_buffer.y} ")
+            print(f"Video: {video_location.x} {video_location.y} ")
+            if self.pointer_buffer.x!= video_location.x or self.pointer_buffer.y != video_location.y:
+                print(f"Invalidate: {self.pointer_buffer.x} {self.pointer_buffer.y}")
+                self.video_buffer.invalidate(self.pointer_buffer.y, self.pointer_buffer.x)
+                self.pointer_buffer = None
+          else:
+             self.pointer_buffer = Location(video_location.x, video_location.y)
 
-          graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
 
-          self.pointer_buffer = Location(buffer_location.x, buffer_location.y)
+          #   if video_location.x != self.pointer_buffer.x and video_location.y != self.pointer_buffer.y:
+          #       self.video_buffer.invalidate(self.pointer_buffer.x, self.pointer_buffer.y)
+          #       self.pointer_buffer = Location(video_location.x, video_location.y)
+          #   else:
+          #       self.pointer_buffer = None
+          # else:
+          #     self.pointer_buffer = Location(video_location.x, video_location.y)
+          #     # isdirty =  self.video_buffer.is_dirty(0,1)
+          #     # print(f"Invalidate Dirty: {isdirty}")
+
+          graphics.draw_char(".", normalized_location.x, normalized_location.y, color)
+          # graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
+
+
 
       def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
           if location is None:

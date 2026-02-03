@@ -136,6 +136,8 @@ class App(metaclass=SingletonMeta):
 
               # The real mouse pos. Ex: x = 24,5
               self.mouse_pos =  self.grp_ctx.get_mouse_pos()
+              if self.mouse_pos[0] == 0 and self.mouse_pos[1] == 0:
+                  return
 
               # The video buffer pos.
               buffer_pos_x = int(self.mouse_pos[0] / self.font_size[0])
