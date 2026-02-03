@@ -1,7 +1,7 @@
 Backlog
-   The mouse pointer have a tail.
+   The background of the corners it's wrong.
 
-   the char of the top left border it's wrong.
+
    def get_internal_viewport(self, context: Context) -> ViewPort: it's wrong!
 
 Event Management
@@ -33,7 +33,9 @@ Control Factory
     The singleton factory will also be responsible for tracking and storing all generated control IDs.
 
  DONE
-    -Create the class for VideoLogicBuffer
-    -cfg.get_data("application", "mouse","enabled", default=True) default must be write in this mode....
-    -The app class must me singleton.
-    -the color of the backfont it's different from the background.
+    - the char of the top left border it's wrong. -> Was a Mistake it's the pointer!
+    - The mouse pointer have a tail.
+    - Create the class for VideoLogicBuffer
+    - cfg.get_data("application", "mouse","enabled", default=True) default must be write in this mode....
+    - The app class must me singleton.
+    - the color of the backfont it's different from the background.

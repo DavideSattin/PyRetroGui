@@ -57,7 +57,7 @@ class TextWidget(UIPanel):
           panel_viewport = ViewPort(self.location, self.size)
 
           super().draw_background(context, panel_viewport, (0,0,255))
-          super().draw_border(context,self.size)
+          super().draw_border(context,self.size, (255,255,255) , (0,0,255))
           super().draw_text(context, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)
