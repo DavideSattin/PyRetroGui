@@ -72,11 +72,16 @@ class Context:
 
                       self.video_buffer.align_buffer(col_idx, row_idx)
 
-                      #Check this.
-                      if self.cursor.cursor_visible:
-                        cursor_x = self.cursor.location.x * cell_w
-                        cursor_y = self.cursor.location.y * cell_h
-                        graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
+
+      def draw_cursor(self, graphics):
+          cell_w, cell_h = self.font_size
+          # Check this.
+          if self.cursor.cursor_visible:
+              cursor_x = self.cursor.location.x * cell_w
+              cursor_y = self.cursor.location.y * cell_h
+              graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
+          else:
+              self.video_buffer.invalidate(self.cursor.location.y, self.cursor.location.x)
 
       def draw_mouse_pointer(self,graphics: GraphicContext,normalized_location: Location,video_location: Location,color=(255, 255, 255)):
           """
@@ -141,7 +146,8 @@ class Context:
                print(f"Exception while drawing line.")
 
 
-      def draw_cursor(self, cursor_position:Location)-> None:
+
+      def start_cursor(self, cursor_position:Location)-> None:
           self.cursor.start_cursor()
           self.cursor.location = cursor_position
 
@@ -150,3 +156,5 @@ class Context:
           for row_idx in range(viewport.location.y,viewport.location.y+ viewport.size.height):
               for col_idx in range(viewport.location.x, viewport.location.x + viewport.size.width):
                    self.video_buffer.set_background_color(row_idx,col_idx, color)
+
+

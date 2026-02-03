@@ -104,7 +104,7 @@ class UIPanel(UIElement):
               raise ValueError("The cursor position cannot be None.")
 
           # Draw the cursor.
-          context.draw_cursor(cursor_position)
+          context.start_cursor(cursor_position)
 
       def draw_background(self, context:Context, viewport:ViewPort, color:Color):
           if context is None:
