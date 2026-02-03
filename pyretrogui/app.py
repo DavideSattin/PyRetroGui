@@ -145,9 +145,11 @@ class App(metaclass=SingletonMeta):
               normalized_pos_x = max(buffer_pos_x,0) * self.font_size[0]
               normalized_pos_y = max(buffer_pos_y,0) * self.font_size[1]
 
-              print(f"Normalized x: {normalized_pos_x}  y: {normalized_pos_y}")
+              # print(f"Mouse Normalized x: {normalized_pos_x}  y: {normalized_pos_y}")
               normalized_mouse_location = Location(normalized_pos_x, normalized_pos_y)
               buffer_mouse_location = Location(buffer_pos_x, buffer_pos_y)
+              # print(f"Buffer Normalized x: {buffer_mouse_location.x}  y: {buffer_mouse_location.y}")
+
 
 
               self.context.draw_mouse_pointer(self.grp_ctx, normalized_mouse_location, buffer_mouse_location,self.theme.pointer_color)

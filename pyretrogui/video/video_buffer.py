@@ -79,6 +79,8 @@ class VideoBuffer:
         return self.foreground_colors_buffer_curr[row_idx][col_idx]
 
     def is_dirty(self, row_idx, col_idx):
+
+
         # TODO: Check limit
         if self.back_colors_buffer_prev[row_idx][col_idx] != self.back_colors_buffer_curr[row_idx][col_idx]:
             return True
@@ -111,7 +113,10 @@ class VideoBuffer:
         self.foreground_colors_buffer_curr[y][x] = foreground_color
         self.chars_buffer_curr[y][x] = value
 
-    def invalidate(self, col_idx: int, row_idx: int) -> None:
+    def invalidate(self, col_idx: int, row_idx: int):
+        self.chars_buffer_curr[row_idx][col_idx] = " "
+
+    def align_buffer(self, col_idx: int, row_idx: int) -> None:
         # Number of rows in the current buffer
         rows = len(self.chars_buffer_curr)
 
