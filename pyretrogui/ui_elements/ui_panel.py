@@ -33,7 +33,7 @@ class UIPanel(UIElement):
 
 
 
-      def draw_border(self,context: Context, size: Size ) -> None:
+      def draw_border(self,context: Context, size: Size, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
 
           if context is None:
               raise ValueError("The size cannot be None.")
@@ -51,18 +51,36 @@ class UIPanel(UIElement):
           rect_area = Area.create_area(relative_location, size)
 
           # Draw top_left border
-          context.draw_char(rect_area.top_left, CHAR_CLASSES["corner_tl"])
+          context.draw_char(rect_area.top_left, CHAR_CLASSES["corner_tl"], foreground_color, background_color)
 
           # Draw top_right border
-          context.draw_char(rect_area.top_right, CHAR_CLASSES["corner_tr"])
+          context.draw_char(rect_area.top_right, CHAR_CLASSES["corner_tr"],foreground_color, background_color )
 
           # Draw bottom_left border
-          context.draw_char(rect_area.bottom_left, CHAR_CLASSES["corner_bl"])
+          context.draw_char(rect_area.bottom_left, CHAR_CLASSES["corner_bl"],foreground_color, background_color)
 
           # Draw bottom_right border
-          context.draw_char(rect_area.bottom_right, CHAR_CLASSES["corner_br"])
+          context.draw_char(rect_area.bottom_right, CHAR_CLASSES["corner_br"],foreground_color, background_color)
 
+          # Draw the top line
+          for tx in range(rect_area.top_left.x +1, rect_area.size.width - 1):
+              lx = Location(tx,rect_area.top_left.y)
+              context.draw_char(lx, CHAR_CLASSES["line_h"], foreground_color, background_color)
 
+          # Draw the bottom line
+          for tx in range(rect_area.bottom_left.x + 1, rect_area.size.width - 1):
+              lx = Location(tx, rect_area.bottom_left.y)
+              context.draw_char(lx, CHAR_CLASSES["line_h"], foreground_color, background_color)
+
+          # Draw the left line
+          for ty in range(rect_area.top_left.y + 1, rect_area.size.height - 1):
+              ly = Location(rect_area.top_left.x, ty)
+              context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
+
+          # Draw the right line
+          for ty in range(rect_area.top_right.y + 1, rect_area.size.height - 1):
+              ly = Location(rect_area.top_right.x, ty)
+              context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
 
 
       def draw_text(self,context: Context, text_content:str):
