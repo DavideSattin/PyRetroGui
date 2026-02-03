@@ -125,6 +125,8 @@ class App(metaclass=SingletonMeta):
           #Paint the widget
           self.context.paint(self.grp_ctx)
 
+          self.context.draw_cursor(self.grp_ctx)
+
           #Draw the mouse pointer
           self.draw_mouse_pointer()
 
