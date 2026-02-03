@@ -78,24 +78,35 @@ class Context:
                         cursor_y = self.cursor.location.y * cell_h
                         graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
 
-      def draw_mouse_pointer(self, graphics: GraphicContext, normalized_location:Location, video_location:Location, color=(255, 255, 255)):
+      def draw_mouse_pointer(self,graphics: GraphicContext,normalized_location: Location,video_location: Location,color=(255, 255, 255)):
+          """
+          Draws the mouse pointer and invalidates the previous cell if needed.
+          """
 
-
-          # Restore previous mouse cell
+          # If a previous pointer position exists, check whether it has changed
           if self.pointer_buffer is not None:
-            print(f"Buffer: {self.pointer_buffer.x} {self.pointer_buffer.y} ")
-            print(f"Video: {video_location.x} {video_location.y} ")
-            if self.pointer_buffer.x!= video_location.x or self.pointer_buffer.y != video_location.y:
-                print(f"Invalidate: {self.pointer_buffer.x} {self.pointer_buffer.y}")
-                self.video_buffer.invalidate(self.pointer_buffer.y, self.pointer_buffer.x)
-                self.pointer_buffer = None
-                self.pointer_buffer = Location(video_location.x, video_location.y)
-          else:
-             self.pointer_buffer = Location(video_location.x, video_location.y)
+              old_x, old_y = self.pointer_buffer.x, self.pointer_buffer.y
+              new_x, new_y = video_location.x, video_location.y
 
-          graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
+              # Optional debug output
+              # print(f"Buffer: {old_x} {old_y}")
+              # print(f"Video:  {new_x} {new_y}")
 
+              # Invalidate the previous cell if the pointer moved
+              if (old_x, old_y) != (new_x, new_y):
+                  print(f"Invalidate: {old_x} {old_y}")
+                  self.video_buffer.invalidate(old_y, old_x)
 
+          # Always update the pointer buffer to the new position
+          self.pointer_buffer = Location(video_location.x, video_location.y)
+
+          # Draw the cursor character at the normalized screen location
+          graphics.draw_char(
+              self.cursor.get_cursor_char(),
+              normalized_location.x,
+              normalized_location.y,
+              color
+          )
 
       def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
           if location is None:
