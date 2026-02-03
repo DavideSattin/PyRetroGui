@@ -70,7 +70,7 @@ class Context:
                       #draw all
                       graphics.draw_char(current_char, x, y,fore_ground_color, back_color)
 
-                      self.video_buffer.invalidate(col_idx,row_idx)
+                      self.video_buffer.align_buffer(col_idx, row_idx)
 
                       #Check this.
                       if self.cursor.cursor_visible:
@@ -79,15 +79,24 @@ class Context:
                         graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
 
       def draw_mouse_pointer(self, graphics: GraphicContext,normalized_location:Location,buffer_location:Location, color=(255, 255, 255)):
-          # error the specific location is in pixel
-          if self.pointer_buffer is None:
-             self.pointer_buffer = buffer_location
+          # # error the specific location is in pixel
+          # if self.pointer_buffer is None:
+          #    self.pointer_buffer = buffer_location
+          #
+          # else:
+          #    self.video_buffer.invalidate(self.pointer_buffer.x,self.pointer_buffer.y)
+          #    self.pointer_buffer = buffer_location
 
-          else:
-             self.video_buffer.invalidate(self.pointer_buffer.x,self.pointer_buffer.y)
-             self.pointer_buffer = buffer_location
+          # Restore previous mouse cell
+          if self.pointer_buffer is None:
+              print("Invalidate")
+              self.video_buffer.invalidate(0,1)
+              isdirty =  self.video_buffer.is_dirty(0,1)
+              print(f"Invalidate: {isdirty}")
 
           graphics.draw_char(self.cursor.get_cursor_char(), normalized_location.x, normalized_location.y, color)
+
+          self.pointer_buffer = Location(buffer_location.x, buffer_location.y)
 
       def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
           if location is None:
