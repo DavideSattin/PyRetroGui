@@ -1,5 +1,8 @@
 Backlog
-   The background of the corners it's wrong.
+  -The Cursor management probably in the future will be refactored, because
+  the cursor position it's shared for all the panel. This is wrong.
+
+
 
 
    def get_internal_viewport(self, context: Context) -> ViewPort: it's wrong!
@@ -33,6 +36,7 @@ Control Factory
     The singleton factory will also be responsible for tracking and storing all generated control IDs.
 
  DONE
+    - The background of the corners it's wrong.
     - the char of the top left border it's wrong. -> Was a Mistake it's the pointer!
     - The mouse pointer have a tail.
     - Create the class for VideoLogicBuffer
