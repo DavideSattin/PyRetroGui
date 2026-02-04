@@ -74,9 +74,13 @@ class Context:
 
 
       def draw_cursor(self, graphics):
-          #NOt the best. the invalidate dura anche quando non è visibile...
+
 
           cell_w, cell_h = self.font_size
+
+          if  self.cursor.buffered_cursor_visible  == self.cursor.cursor_visible:
+              return
+
           # Check this.
           if self.cursor.cursor_visible:
               cursor_x = self.cursor.location.x * cell_w
@@ -84,6 +88,8 @@ class Context:
               graphics.draw_char(self.cursor.get_cursor_char(), cursor_x, cursor_y)
           else:
               self.video_buffer.invalidate(self.cursor.location.y, self.cursor.location.x)
+
+          self.cursor.buffered_cursor_visible = self.cursor.cursor_visible
 
       def draw_mouse_pointer(self,graphics: GraphicContext,normalized_location: Location,video_location: Location,color=(255, 255, 255)):
           """
