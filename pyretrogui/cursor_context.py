@@ -17,7 +17,8 @@ class CursorContext:
     def __init__(self, x: int = 0, y: int = 0):
         self.location = Location(x, y)
         self.enabled = False
-        self.cursor_visible = True
+        self.cursor_visible = False
+        self.buffered_cursor_visible = False
 
         # Internal thread control
         self._cursor_thread = None
