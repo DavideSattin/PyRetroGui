@@ -9,8 +9,7 @@ from enum import Enum
 
 
 class WindowPosition(Enum):
+      BOTTOM = None
       FREE = 0,
-      CENTER_PARENT = 1,
-      CENTER_SCREEN = 2,
-      DOCKED = 3
+      DOCKED = 1
 
