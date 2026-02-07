@@ -39,7 +39,7 @@ class UIElement(ABC):
 
       def get_size(self,context: Context) -> ViewPort:
           # Manage the dock mode.
-          if self.behaviour.panel_size != WindowSize.DOCK:
+          if self.behaviour.panel_size != WindowSize.BUBBLE:
               raise Exception(f"Panel Mode: {self.behaviour.panel_size} not supported.")
 
           if self.parent is None:

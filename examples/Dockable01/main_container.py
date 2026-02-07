@@ -5,7 +5,8 @@
 # Created: 18/01/2026 19:17
 # Description: The Main panel container.
 # ==========================================
-
+from pyretrogui.arranger.window_position import WindowPosition
+from pyretrogui.arranger.window_size import WindowSize
 from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_container import DockableContainer
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
@@ -18,7 +19,19 @@ class MainContainer(DockableContainer):
       def init(self,context: Context):
           #Create the menu container.
           menu_container = DockablePanel(self)
-          menu_container.behaviour.set_dockable_width()
+          menu_container.behaviour.panel_size = WindowSize.BUBBLE
+          menu_container.behaviour.panel_position = WindowPosition.Top
           menu_container.size.height = 1
+
+          #Create the main container.
+          main_container = DockablePanel(self)
+          main_container.behaviour.panel_size = WindowSize.BUBBLE
+          m
+
+          #Create the status container.
+          status_container = DockablePanel(self)
+          status_container.behaviour.panel_size = WindowSize.BUBBLE
+          menu_container.behaviour.panel_position = WindowPosition.BOTTOM
+          status_container.size.height = 1
 
           super().containers.append(menu_container)
