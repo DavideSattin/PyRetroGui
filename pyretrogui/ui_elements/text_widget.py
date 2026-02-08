@@ -23,8 +23,8 @@ class TextWidget(UIPanel):
       def init(self,context: Context):
           # Refactor this!
           # We need to write the panel location and size
-          # based on his behaviour  self.panel_position = WindowPosition.FREE
-          #           self.panel_size = WindowSize.DOCK
+          # based on his behaviour  self.position_behaviour = PositionBehaviour.FREE
+          #           self.size_behaviour = WindowSize.DOCK
 
           super().init(context)
           view_port = self.get_internal_viewport(context)

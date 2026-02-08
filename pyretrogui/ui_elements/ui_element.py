@@ -5,7 +5,7 @@ from pyretrogui.arranger.ui_behaviour import UIBehaviour
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
-from pyretrogui.arranger.window_size import WindowSize
+from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.primitives.view_port import ViewPort
 
 
@@ -39,12 +39,13 @@ class UIElement(ABC):
 
       def get_size(self,context: Context) -> ViewPort:
           # Manage the dock mode.
-          if self.behaviour.panel_size != WindowSize.BUBBLE:
-              raise Exception(f"Panel Mode: {self.behaviour.panel_size} not supported.")
+          if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+              raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
 
           if self.parent is None:
               raise Exception(f"Parent must be initialized.Id:{self.id}")
 
+          # TODO: Check This! It's probably a mistake. The get size its' the size of the panel not the internal viewport.
           return self.parent.get_internal_viewport(context)
 
 
@@ -71,8 +72,8 @@ class UIElement(ABC):
           return ViewPort(location=Location(off_set, off_set),size=Size(width, height))
 
           # #Manage the dock mode.
-          # if self.panel_size != WindowSize.DOCK:
-          #    raise Exception(f"Panel Mode: {self.panel_size} not supported.")
+          # if self.size_behaviour != WindowSize.DOCK:
+          #    raise Exception(f"Panel Mode: {self.size_behaviour} not supported.")
           #
           # relative_location = Location(off_set, off_set)
           #
