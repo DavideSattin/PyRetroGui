@@ -23,8 +23,7 @@ class UIPanel(UIElement):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
 
-      def on_key_event(self, event: Event,context: Context):
-          pass
+
 
       def update(self, context: Context):
           pass
