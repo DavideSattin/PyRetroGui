@@ -26,6 +26,4 @@ class DockableContainer(UIElement):
           for container in self.containers:
               container.update(context)
 
-      #remove this.
-      def on_key_event(self, event: Event, context: Context):
-          pass
+
