@@ -34,4 +34,4 @@ class MainContainer(DockableContainer):
           menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
           status_container.size.height = 1
 
-          super().containers.append(menu_container)
+          self.containers.append(menu_container)
