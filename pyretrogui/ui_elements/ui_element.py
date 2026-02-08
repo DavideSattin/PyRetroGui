@@ -28,9 +28,7 @@ class UIElement(ABC):
           self.location = size.location
           self.size = size.size
 
-      @abstractmethod
-      def on_key_event(self,event:Event,context: Context):
-          pass
+
 
       @abstractmethod
       def update(self,context: Context):

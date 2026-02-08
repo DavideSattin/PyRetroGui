@@ -1,12 +1,13 @@
-from pygame.event import Event
+
+
+from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.video.context import Context
 from pyretrogui.arranger.dock_mode import DockMode
-from pyretrogui.ui_elements.ui_element import UIElement
 
 
-class DockablePanel(UIElement):
-      def update(self, context: Context):
-          pass
+
+class DockablePanel(UIPanel):
+
 
 
 
@@ -16,4 +17,5 @@ class DockablePanel(UIElement):
 
 
       def update(self, context: Context):
-          super().draw_background(context, panel_viewport, (0, 0, 255))
+          viewport = self.get_size(context)
+          super().draw_background(context, viewport, (0, 125, 255))
