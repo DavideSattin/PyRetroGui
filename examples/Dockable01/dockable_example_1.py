@@ -12,9 +12,4 @@ from pyretrogui.app import App
 
 #Create the App.
 app =  App.create_instance("Main Screen", (600,600), (8,16))
-
-
-#Create the menu container.
-menu_container = DockablePanel(None)
-
 app.run(MainContainer)
