@@ -8,8 +8,9 @@
 from enum import Enum
 
 
-class WindowPosition(Enum):
-      BOTTOM = None
-      FREE = 0,
-      DOCKED = 1
+class PositionBehaviour(Enum):
+      DOCKED = 0
+      FREE = 1,
+      DOCKED_TOP = 1,
+      DOCKED_BOTTOM = 2
 
