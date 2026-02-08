@@ -32,6 +32,7 @@ class TextWidget(UIPanel):
           self.cursor_management.location = view_port.location
 
 
+      # TODO: Remove this.
       def on_key_event(self, event: Event,context: Context):
           if event is None:
               raise Exception("Event cannot be None.")
