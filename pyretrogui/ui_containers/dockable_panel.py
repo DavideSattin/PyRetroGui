@@ -8,9 +8,12 @@ class DockablePanel(UIElement):
       def update(self, context: Context):
           pass
 
-      def on_key_event(self, event: Event, context: Context):
-          pass
+
 
       def __init__(self, parent):
           super().__init__(parent)
           self.dock_mode: DockMode = DockMode.NONE
+
+
+      def update(self, context: Context):
+          super().draw_background(context, panel_viewport, (0, 0, 255))
