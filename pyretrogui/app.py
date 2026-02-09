@@ -59,7 +59,8 @@ class App(metaclass=SingletonMeta):
           # Open the window
           normalized_size = (width, height)
 
-          self.grp_ctx = GraphicContext()
+          # Create the graphic context.
+          self.grp_ctx = GraphicContext(self.config)
           self.grp_ctx.open_window(title, normalized_size)
 
           print(f"Normalized size: {normalized_size}")
@@ -78,7 +79,7 @@ class App(metaclass=SingletonMeta):
               App._allow_init = False
 
 
-
+      # TODO: Create the real contol factory.
       def _element_factory(self, element):
           if element is None:
               raise ValueError('element cannot be None')

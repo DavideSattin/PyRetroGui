@@ -20,10 +20,10 @@ class DockableContainer(UIElement):
         super().__init__(parent)
         self.containers: List[DockablePanel] = []
 
+
+
       def update(self, context: Context):
           for container in self.containers:
               container.update(context)
 
-      #remove this.
-      def on_key_event(self, event: Event, context: Context):
-          pass
+
