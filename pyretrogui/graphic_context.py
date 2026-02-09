@@ -10,17 +10,30 @@ from typing import Tuple
 
 from pyretrogui.apparence.theme import Theme
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
+from pyretrogui.io.utils import asset_path
+
 
 class GraphicContext:
-      def __init__(self):
+      def __init__(self, application_config: ApplicationConfig):
+          if application_config is None:
+              raise ValueError('Application configuration cannot be None')
+          self.application_config = application_config
+
           pygame.init()
           self.screen = None
           self.clock = pygame.time.Clock()
 
-          self.main_font = pygame.font.Font(
-              "../assets/px437_IBM_VGA_8x16.ttf",
-              16
-          )
+          # Read the font path and the size.
+          font_path = asset_path(self.application_config.font.font_path)
+          font_size = self.application_config.font.font_size[1]
+
+          self.main_font = pygame.font.Font(font_path,font_size)
+
+          # TODO: Remove this after test.
+          # self.main_font = pygame.font.Font(
+          #     "../assets/px437_IBM_VGA_8x16.ttf",
+          #     16
+          # )
 
       def _ensure_screen(self):
           assert self.screen is not None, "Window not opened"

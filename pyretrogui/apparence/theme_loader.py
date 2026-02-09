@@ -9,6 +9,7 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 from pyretrogui.apparence.theme import Theme, ThemeState
+from pyretrogui.io.utils import asset_path
 
 
 class ThemeLoader:
@@ -63,9 +64,10 @@ class ThemeLoader:
 
         yaml = YAML()
         theme_name = theme_name.lower()
-        theme_file_path = f"../assets/{theme_name}.yaml"
 
-        theme_path = Path(theme_file_path)
+        theme_file_path =  asset_path(theme_name)
+
+        theme_path = Path(f"{theme_file_path}.yaml")
         if not theme_path.exists():
             raise FileNotFoundError(f"Theme file not found: {theme_file_path}")
 

@@ -1,0 +1,16 @@
+Ogni pannello ha un enumeratore che definisce il suo comportamento quando viene rappresentato.
+
+Dock.Bubble
+
+In questo caso il pannello riempirà il controllo container padre espandendosi come una bolla.
+
+Anche i controllo contenitore hanno delle regole.
+I controlli contenitore in genere definiscono aree in cui possono essere agganciati i pannelli figli.
+Questo permette di avere layout flessibili.
+
+HorizzontalDispatcher. Il controllo contenitore impila una serie di altri contenitori figli.
+Assieme al VerticalDispatcher, queste tipologie di contenitori hanno una regola di base:
+Definiscono aree in cui possono essere agganciati i pannelli figli e dettano la regola di riepimento e di acoraggio.
+
+
+

@@ -5,9 +5,6 @@
 # Created: 04/01/2026 17:47
 # Description:Base class for UI panels.
 # ==========================================
-
-from pygame.event import Event
-
 from pyretrogui.apparence.theme import Color
 from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.primitives.view_port import ViewPort
@@ -23,8 +20,7 @@ class UIPanel(UIElement):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
 
-      def on_key_event(self, event: Event,context: Context):
-          pass
+
 
       def update(self, context: Context):
           pass

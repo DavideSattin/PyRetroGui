@@ -5,15 +5,15 @@
 # Created: 18/01/2026 11:39
 # Description:Class for panel Behaviour
 # ==========================================
-from pyretrogui.arranger.window_position import WindowPosition
-from pyretrogui.arranger.window_size import WindowSize
+from pyretrogui.arranger.position_behaviour import PositionBehaviour
+from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 
 
 class UIBehaviour:
       def __init__(self):
-          self.panel_position = WindowPosition.FREE
-          self.panel_size = WindowSize.DOCK
+          self.position_behaviour = PositionBehaviour.FREE
+          self.size_behaviour = ResizeBehaviour.BUBBLE
 
-      def set_dockable_width(self):
-          self.panel_position = WindowPosition.DOCKED
-          self.panel_size = WindowSize.DOCk_WIDTH
+      # def set_dockable_width(self):
+      #     self.position_behaviour = PositionBehaviour.DOCKED
+      #     self.size_behaviour = WindowSize.DOCk_WIDTH
