@@ -24,14 +24,18 @@ class MainContainer(DockableContainer):
           menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
           menu_container.size.height = 1
 
-          # Create the Content container.
-          main_container = DockablePanel(self)
-          main_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          super().add_child(menu_container)
 
-          #Create the status container.
-          status_container = DockablePanel(self)
-          status_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
-          status_container.size.height = 1
+          # # Create the Content container.
+          # main_container = DockablePanel(self)
+          # main_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          # super().add_child(main_container)
+          #
+          # #Create the status container.
+          # status_container = DockablePanel(self)
+          # status_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          # menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
+          # status_container.size.height = 1
+          #
+          # super().add_child(status_container)
 
-          self.containers.append(menu_container)

@@ -11,7 +11,7 @@ from pyretrogui.primitives.view_port import ViewPort
 
 class UIElement(ABC):
       def __init__(self,  parent: "UIElement" = None):
-          self.parent = parent
+          self.parent: UIElement = parent
           self.id : int = 0
           self.visible = True
           self.enabled = True

@@ -27,3 +27,13 @@ class DockableContainer(UIElement):
               container.update(context)
 
 
+      def add_child(self, child: DockablePanel):
+          if child is None:
+              raise ValueError("Cannot add a child of None")
+          #
+          # if child.parent is not None:
+          #     raise ValueError("The panel already has a parent")
+
+          child.parent = self
+
+          self.containers.append(child)
