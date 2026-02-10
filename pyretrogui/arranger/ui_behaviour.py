@@ -11,7 +11,7 @@ from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 
 class UIBehaviour:
       def __init__(self):
-          self.position_behaviour = PositionBehaviour.FREE
+          self.position_behaviour = PositionBehaviour.DOCKED
           self.size_behaviour = ResizeBehaviour.BUBBLE
 
       # def set_dockable_width(self):

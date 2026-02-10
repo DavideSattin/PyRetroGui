@@ -20,6 +20,7 @@ class MainContainer(DockableContainer):
 
           #Create the menu container.
           menu_container = DockablePanel(self)
+          menu_container.id = "test"
           menu_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
           menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
           menu_container.size.height = 1

@@ -9,8 +9,8 @@ from enum import Enum
 
 
 class PositionBehaviour(Enum):
-      DOCKED = 0
+      PARENT = 0
       FREE = 1,
-      DOCKED_TOP = 1,
-      DOCKED_BOTTOM = 2
+      DOCKED_TOP = 2,
+      DOCKED_BOTTOM = 3
 

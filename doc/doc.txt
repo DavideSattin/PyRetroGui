@@ -12,5 +12,31 @@ HorizzontalDispatcher. Il controllo contenitore impila una serie di altri conten
 Assieme al VerticalDispatcher, queste tipologie di contenitori hanno una regola di base:
 Definiscono aree in cui possono essere agganciati i pannelli figli e dettano la regola di riepimento e di acoraggio.
 
+CI sono:
+   self.position_behaviour = PositionBehaviour.DOCKED
+   self.size_behaviour = ResizeBehaviour.BUBBLE
+
+class PositionBehaviour(Enum):
+      DOCKED = 0
+      FREE = 1,
+      DOCKED_TOP = 1,
+      DOCKED_BOTTOM = 2
+
+
+class ResizeBehaviour(Enum):
+      BUBBLE = 0        #The panel/control get the size of his parent and can be resized
+      FREE = 1          #The panel/control have is size and can be resized.
+      FIXED = 2         #The panel/control have is size and cannot be resized.
+
+
+1) Un controllo con Resize Bubble, viene forzatamente messo Posizione a Parent
+IL controllo viene espanso al massimo dal suo contenitore. In questo caso size e position dipendono dal parent.
+
+
+2) Un controllo con messo un un PanelContainer.
+   Il controllo viene messo in Position.Top
+   
+
+
 
 
