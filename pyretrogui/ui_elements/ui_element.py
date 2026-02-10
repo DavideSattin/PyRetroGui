@@ -43,9 +43,9 @@ class UIElement(ABC):
           if self.parent is None:
               raise Exception(f"Parent must be initialized.Id:{self.id}")
 
-          # TODO: Check This! It's probably a mistake. The get size its' the size of the panel not the internal viewport.
-          return self.parent.get_internal_viewport(context)
 
+          return self.parent.get_internal_viewport(context)
+          # return ViewPort(location=Location(0, 0), size=Size(self.size.width,  self.size.height))
 
       def get_internal_viewport(self, context: Context) -> ViewPort:
           # The internal viewport is an internal control area, without margin or border.

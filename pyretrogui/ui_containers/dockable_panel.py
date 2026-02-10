@@ -8,12 +8,9 @@ from pyretrogui.arranger.dock_mode import DockMode
 
 class DockablePanel(UIPanel):
 
-
-
-
       def __init__(self, parent):
           super().__init__(parent)
-          self.dock_mode: DockMode = DockMode.NONE
+
 
 
       def update(self, context: Context):

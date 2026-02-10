@@ -7,7 +7,7 @@
 # ==========================================
 from enum import Enum
 
-
+#TODO: Remove this.
 class DockMode(Enum):
     NONE = 0
     TOP = 1
