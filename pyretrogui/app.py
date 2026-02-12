@@ -51,6 +51,7 @@ class App(metaclass=SingletonMeta):
 
           #Virtual Root control.
           self.root = UIPanel(None)
+          self.root.id = -99
           self.root.margin = False
           self.root.border = False
           self.root.location = Location(0,0)

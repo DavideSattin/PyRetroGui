@@ -9,6 +9,7 @@ from typing import List
 
 from pygame.event import Event
 
+from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
 from pyretrogui.ui_elements.ui_element import UIElement
@@ -23,9 +24,10 @@ class DockableContainer(UIElement):
 
 
       def update(self, context: Context):
+
           for container in self.containers:
               container.update(context)
-
+              pass
 
       def add_child(self, child: DockablePanel):
           if child is None:

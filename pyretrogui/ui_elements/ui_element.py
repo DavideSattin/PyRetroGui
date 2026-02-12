@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from pygame.event import Event
 
+from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.ui_behaviour import UIBehaviour
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.location import Location
@@ -17,8 +18,8 @@ class UIElement(ABC):
           self.enabled = True
           self.location:Location = Location(0,0)
           self.size:Size = Size(0,0)
-          self.margin = True
-          self.border = True
+          self.margin: bool = True
+          self.border: bool = True
           self.behaviour: UIBehaviour = UIBehaviour()
 
 
@@ -37,14 +38,32 @@ class UIElement(ABC):
 
       def get_size(self,context: Context) -> ViewPort:
           # Manage the dock mode.
-          if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
-              raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+          match self.behaviour.position_behaviour:
+              case PositionBehaviour.PARENT:
+                  if self.parent is None:
+                      raise Exception(f"Parent must be initialized.Id:{self.id}")
 
-          if self.parent is None:
-              raise Exception(f"Parent must be initialized.Id:{self.id}")
+                  if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+                    raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+
+                  # In this case the size of the panel must fit the internal view of the parent.
+                  return self.parent.get_internal_viewport(context)
+
+              case PositionBehaviour.DOCKED_TOP:
+                  if self.parent is None:
+                      raise Exception(f"Parent must be initialized.Id:{self.id}")
+
+                  if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+                      raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+
+                  parent_viewport = self.parent.get_internal_viewport(context)
+
+                  return ViewPort(location=parent_viewport.location, size=Size(parent_viewport.size.width, self.size.height))
+
+              case _:
+                  raise Exception(f"Unknown behaviour: {self.behaviour.position_behaviour}")
 
 
-          return self.parent.get_internal_viewport(context)
           # return ViewPort(location=Location(0, 0), size=Size(self.size.width,  self.size.height))
 
       def get_internal_viewport(self, context: Context) -> ViewPort:
