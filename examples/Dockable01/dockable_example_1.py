@@ -6,8 +6,6 @@
 # Description:Example Create the main screen.
 # ==========================================
 from examples.Dockable01.main_container import MainContainer
-from pyretrogui.ui_containers.dockable_panel import DockablePanel
-from pyretrogui.ui_elements.text_widget import TextWidget
 from pyretrogui.app import App
 
 #Create the App.
