@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-from pygame.event import Event
-
 from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.ui_behaviour import UIBehaviour
 from pyretrogui.video.context import Context
@@ -57,8 +55,22 @@ class UIElement(ABC):
                       raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
 
                   parent_viewport = self.parent.get_internal_viewport(context)
+                  new_size = Size(parent_viewport.size.width, self.size.height)
+                  return ViewPort(location=parent_viewport.location, size=new_size)
 
-                  return ViewPort(location=parent_viewport.location, size=Size(parent_viewport.size.width, self.size.height))
+              case PositionBehaviour.DOCKED_BOTTOM:
+                  if self.parent is None:
+                      raise Exception(f"Parent must be initialized.Id:{self.id}")
+
+                  if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+                      raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+
+                  parent_viewport = self.parent.get_internal_viewport(context)
+
+                  new_size = Size(parent_viewport.size.width, self.size.height)
+                  new_location = Location(parent_viewport.location.x, parent_viewport.size.height - new_size.height)
+
+                  return ViewPort(location=new_location, size=new_size)
 
               case _:
                   raise Exception(f"Unknown behaviour: {self.behaviour.position_behaviour}")
