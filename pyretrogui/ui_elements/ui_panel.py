@@ -20,14 +20,12 @@ class UIPanel(UIElement):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
 
-
+      def set_size(self, size:Size = None):
+          if size is not None:
+              self.size = size
 
       def update(self, context: Context):
           pass
-
-
-
-
 
       def draw_border(self,context: Context, size: Size, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
 

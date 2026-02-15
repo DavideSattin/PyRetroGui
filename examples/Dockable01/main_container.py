@@ -34,7 +34,8 @@ class MainContainer(DockableContainer):
           # # Create the Content container.
           main_container = DockablePanel(self)
           main_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          main_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
+          main_container.behaviour.position_behaviour = PositionBehaviour.CONTENT
+          main_container.background = (0, 255, 0)
 
 
           super().add_child(main_container)

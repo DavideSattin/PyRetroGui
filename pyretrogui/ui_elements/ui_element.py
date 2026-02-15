@@ -23,7 +23,7 @@ class UIElement(ABC):
 
 
       def init(self,context: Context):
-          size = self.get_size(context)
+          size = self.get_view_port(context)
           self.location = size.location
           self.size = size.size
 
@@ -34,7 +34,7 @@ class UIElement(ABC):
           pass
 
 
-      def get_size(self,context: Context) -> ViewPort:
+      def get_view_port(self, context: Context) -> ViewPort:
           # Manage the dock mode.
           match self.behaviour.position_behaviour:
               case PositionBehaviour.PARENT:
@@ -73,7 +73,7 @@ class UIElement(ABC):
                   return ViewPort(location=new_location, size=new_size)
 
               case _:
-                  raise Exception(f"Unknown behaviour: {self.behaviour.position_behaviour}")
+                  raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
 
 
           # return ViewPort(location=Location(0, 0), size=Size(self.size.width,  self.size.height))
