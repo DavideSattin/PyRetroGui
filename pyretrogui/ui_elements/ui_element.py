@@ -48,32 +48,37 @@ class UIElement(ABC):
                   return self.parent.get_internal_viewport(context)
 
               case PositionBehaviour.DOCKED_TOP:
-                  if self.parent is None:
-                      raise Exception(f"Parent must be initialized.Id:{self.id}")
-
-                  if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
-                      raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
-
-                  parent_viewport = self.parent.get_internal_viewport(context)
-                  new_size = Size(parent_viewport.size.width, self.size.height)
-                  return ViewPort(location=parent_viewport.location, size=new_size)
+                  # if self.parent is None:
+                  #     raise Exception(f"Parent must be initialized.Id:{self.id}")
+                  #
+                  # if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+                  #     raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+                  #
+                  # parent_viewport = self.parent.get_internal_viewport(context)
+                  # new_size = Size(parent_viewport.size.width, self.size.height)
+                  # return ViewPort(location=parent_viewport.location, size=new_size)
+                  return ViewPort(location=self.location, size=self.size)
 
               case PositionBehaviour.DOCKED_BOTTOM:
-                  if self.parent is None:
-                      raise Exception(f"Parent must be initialized.Id:{self.id}")
+                  # if self.parent is None:
+                  #     raise Exception(f"Parent must be initialized.Id:{self.id}")
+                  #
+                  # if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
+                  #     raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+                  #
+                  # parent_viewport = self.parent.get_internal_viewport(context)
+                  #
+                  # new_size = Size(parent_viewport.size.width, self.size.height)
+                  # new_location = Location(parent_viewport.location.x, parent_viewport.size.height - new_size.height)
+                  #
+                  # return ViewPort(location=new_location, size=new_size)
+                  return ViewPort(location=self.location, size=self.size)
 
-                  if self.behaviour.size_behaviour != ResizeBehaviour.BUBBLE:
-                      raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
-
-                  parent_viewport = self.parent.get_internal_viewport(context)
-
-                  new_size = Size(parent_viewport.size.width, self.size.height)
-                  new_location = Location(parent_viewport.location.x, parent_viewport.size.height - new_size.height)
-
-                  return ViewPort(location=new_location, size=new_size)
+              case PositionBehaviour.CONTENT:
+                  return ViewPort(location=self.location, size=self.size)
 
               case _:
-                  raise Exception(f"Panel Mode: {self.behaviour.size_behaviour} not supported.")
+                  raise Exception(f"Panel Position Behaviour Mode: {self.behaviour.position_behaviour} not supported.")
 
 
           # return ViewPort(location=Location(0, 0), size=Size(self.size.width,  self.size.height))

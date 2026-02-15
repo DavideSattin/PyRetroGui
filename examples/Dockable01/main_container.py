@@ -7,12 +7,15 @@
 # ==========================================
 from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
+from pyretrogui.primitives.size import Size
 from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_container import DockableContainer
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
 from pyretrogui.ui_elements.ui_element import UIElement
 
+
 class MainContainer(DockableContainer):
+
       def __init__(self, parent: UIElement):
           super().__init__(parent)
           self.margin = False

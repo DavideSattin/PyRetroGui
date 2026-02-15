@@ -20,9 +20,7 @@ class UIPanel(UIElement):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
 
-      def set_size(self, size:Size = None):
-          if size is not None:
-              self.size = size
+
 
       def update(self, context: Context):
           pass
