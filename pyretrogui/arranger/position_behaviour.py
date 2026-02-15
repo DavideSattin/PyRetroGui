@@ -13,4 +13,6 @@ class PositionBehaviour(Enum):
       FREE = 1,
       DOCKED_TOP = 2,
       DOCKED_BOTTOM = 3
-
+      DOCKED_LEFT = 4
+      DOCKED_RIGHT = 5
+      CONTENT = 6

@@ -14,6 +14,7 @@ class TextWidget(UIPanel):
           super().__init__(parent)
           self.margin = False
           self.border = True
+          self.invalidate = True
           self.cursor_management:CursorManagement = CursorManagement(0,0)
 
           # TODO: Remove in the future. Here only for development.
@@ -54,6 +55,13 @@ class TextWidget(UIPanel):
 
 
       def update(self,context: Context):
+          if not self.invalidate:
+              return
+
+          print("DRAW")
+
+          self.invalidate = False
+
           #Draw the panel border, of the specified size. The location it's local 0,0.
           panel_viewport = ViewPort(self.location, self.size)
 
@@ -63,3 +71,4 @@ class TextWidget(UIPanel):
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)
           super().draw_cursor(context, self.cursor_management.location)
+

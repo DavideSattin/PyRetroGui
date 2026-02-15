@@ -3,13 +3,9 @@
 # File: dockable_container
 # Author: Davide Sattin 
 # Created: 18/01/2026 12:04
-# Description:
+# Description: This class manage the dockable container.
 # ==========================================
 from typing import List
-
-from pygame.event import Event
-
-from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
 from pyretrogui.ui_elements.ui_element import UIElement
@@ -21,9 +17,9 @@ class DockableContainer(UIElement):
         super().__init__(parent)
         self.containers: List[DockablePanel] = []
 
-
-
       def update(self, context: Context):
+          # Before to call update we need to calculate/arrange the panels position and size.
+
 
           for container in self.containers:
               container.update(context)
