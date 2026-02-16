@@ -5,6 +5,6 @@ application:
    font_size: [8, 16]
    font_path: "px437_IBM_VGA_8x16.ttf"
  mouse:
-  enabled: False
+  enabled: True
   pointer: False
  theme: "ide_classic"
