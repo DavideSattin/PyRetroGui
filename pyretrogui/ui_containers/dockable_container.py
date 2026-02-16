@@ -31,6 +31,7 @@ class DockableContainer(UIElement):
           for top_container in top_containers:
               top_container.location.x = x
               top_container.location.y = y
+              top_container.size.width = view_port.size.width
               y = y + top_container.size.height
 
           container_top  = y
@@ -44,6 +45,7 @@ class DockableContainer(UIElement):
           for bottom_container in bottom_containers:
               bottom_container.location.x = x
               bottom_container.location.y = y
+              bottom_container.size.width = view_port.size.width
               y = y + bottom_container.size.height
 
           container_bottom = y
@@ -54,13 +56,14 @@ class DockableContainer(UIElement):
 
           num_of_content_panels = len(content_containers)
           content_height = container_bottom - container_top
-          size_for_panel = content_height / num_of_content_panels
+          size_for_panel = int(content_height / num_of_content_panels)
 
           y = container_top
           for content_container in content_containers:
               content_container.location.x = x
               content_container.location.y = y
               content_container.size.height = size_for_panel
+              content_container.size.width = view_port.size.width
               y = y + content_container.size.height
 
 
