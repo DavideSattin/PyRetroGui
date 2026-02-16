@@ -24,34 +24,32 @@ class MainContainer(DockableContainer):
       def init(self,context: Context):
           super().init(context)
 
-          #Create the menu container. Top Position.
-          menu_container = DockablePanel(self)
-          menu_container.id = 12
-          menu_container.margin = False
-          menu_container.border = False
-          menu_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          menu_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
-          menu_container.size.height = 1
-          super().add_child(menu_container)
+          # Create the head container. Useful for menù or other stuff.
+          header_container = DockablePanel(self)
+          header_container.id = 12
+          header_container.margin = False
+          header_container.border = False
+          header_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          header_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
+          header_container.size.height = 1
+          super().add_child(header_container)
 
-          # # Create the Content container.
-          main_container = DockablePanel(self)
-          main_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          main_container.behaviour.position_behaviour = PositionBehaviour.CONTENT
-          main_container.background = (0, 255, 0)
-
-
-          super().add_child(main_container)
+          # Create the Contents container. Useful for editor or other stuff.
+          contents_container = DockablePanel(self)
+          contents_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          contents_container.behaviour.position_behaviour = PositionBehaviour.CONTENT
+          contents_container.background = (0, 255, 0)
+          super().add_child(contents_container)
 
 
-          #Create the status container.
-          status_container = DockablePanel(self)
-          status_container.id= 13
-          status_container.margin = False
-          status_container.border = False
-          status_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          status_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
-          status_container.size.height = 1
-          status_container.background = (255,0,0)
-          super().add_child(status_container)
+          # Create the footer container. Useful for status controls.
+          footer_container = DockablePanel(self)
+          footer_container.id= 13
+          footer_container.margin = False
+          footer_container.border = False
+          footer_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          footer_container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
+          footer_container.size.height = 1
+          footer_container.background = (255,0,0)
+          super().add_child(footer_container)
 
