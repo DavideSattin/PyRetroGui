@@ -48,7 +48,7 @@ class Context:
           for row_idx in range(self.rows):
               for col_idx in range(self.cols):
                   if self.video_buffer.is_dirty(row_idx, col_idx):
-                      print(f"is dirty x: {row_idx} y: {col_idx}")
+                      # print(f"is dirty x: {row_idx} y: {col_idx}")
 
                       #opss don't remove....
                       x = col_idx * cell_w
@@ -107,7 +107,7 @@ class Context:
 
               # Invalidate the previous cell if the pointer moved
               if (old_x, old_y) != (new_x, new_y):
-                  print(f"Invalidate: {old_x} {old_y}")
+                  # print(f"Invalidate: {old_x} {old_y}")
                   self.video_buffer.invalidate(old_y, old_x)
 
           # Always update the pointer buffer to the new position

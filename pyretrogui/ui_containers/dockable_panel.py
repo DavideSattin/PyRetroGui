@@ -14,6 +14,8 @@ class DockablePanel(UIPanel):
 
       def __init__(self, parent):
           super().__init__(parent)
+          self.margin = False
+          self.border = False
 
           # TODO: Remove this. Use a class for theme.
           self.background = (0, 125, 255)
