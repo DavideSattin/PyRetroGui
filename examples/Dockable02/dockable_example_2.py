@@ -5,7 +5,7 @@
 # Created: 18/02/2026 13:29
 # Description:Example Create the main screen with dockable panel
 # ==========================================
-from examples.Dockable01.main_container_02 import MainContainer
+from examples.Dockable02.main_container_02 import MainContainer02
 from pyretrogui.app import App
 
 # Create the App.
