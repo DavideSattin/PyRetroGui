@@ -14,6 +14,7 @@ from pyretrogui.configuration.configuration import Configuration
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 
 from pyretrogui.singleton_meta import SingletonMeta
+from pyretrogui.ui_elements.widget_manager import WidgetManager
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
@@ -28,28 +29,30 @@ class App(metaclass=SingletonMeta):
           if not App._allow_init:
               raise RuntimeError("Use App.CreateInstance.")
 
-          #Configuration.
+          self._initialized = False
+          self.widget_manager  = None
+
+          # Configuration.
           self.config: ApplicationConfig = Configuration.load()
 
-          #Set from configuration or default.
+          # Set from configuration or default.
           self.title = self.config.title
           self.size = self.config.size
           self.font_size =  self.config.font.font_size
 
-          #Mouse Management.
+          # Mouse Management.
           self.mouse_enable = self.config.mouse.enabled         #Enable the mouse
           self.mouse_pointer = self.config.mouse.pointer        #Show the mouse pointer.
-
           self.mouse_pos: Optional[tuple[int, int]] = None
 
-          #Load Theme.
+          # Load Theme.
           self.theme = ThemeLoader.load(self.config.theme)
 
-          #Calculate the font perfect size
+          # Calculate the font perfect size
           width = int(size[0] / font_size[0]) * font_size[0]
           height = int(size[1] / font_size[1]) * font_size[1]
 
-          #Virtual Root control.
+          # Virtual Root control.
           self.root = UIPanel(None)
           self.root.id = -99
           self.root.margin = False
@@ -80,19 +83,35 @@ class App(metaclass=SingletonMeta):
               App._allow_init = False
 
 
-      # TODO: Create the real contol factory.
-      def _element_factory(self, element):
-          if element is None:
-              raise ValueError('element cannot be None')
-
-          ui_element = element(self.root)
-          ui_element.id = 1
-          ui_element.init(self.context)
-          return ui_element
+      # # TODO: Create the real contol factory.
+      # def _element_factory(self, element):
+      #     if element is None:
+      #         raise ValueError('element cannot be None')
+      #
+      #     ui_element = element(self.root)
+      #     ui_element.id = 1
+      #     ui_element.init(self.context)
+      #     return ui_element
 
 
       def run(self,startup_widget) -> None:
-          self.widget = self._element_factory(startup_widget)
+          if startup_widget is None:
+              raise ValueError('startup_widget cannot be None')
+
+          if self._initialized:
+              return
+          self._initialized = True
+
+          # The widget manager.
+          self.widget_manager = WidgetManager()
+
+          if not isinstance(startup_widget, UIPanel):
+              print(f"Widget Type: {type(startup_widget)}")
+              self.widget = self.widget_manager.element_factory(startup_widget, self.context, self.root)
+          else:
+              print(f"Instance Widget Type: {type(startup_widget)}")
+              self.widget = self.widget_manager.element_ingestion(startup_widget, self.context, self.root)
+
 
           #Running Cycle.
           while self.running:

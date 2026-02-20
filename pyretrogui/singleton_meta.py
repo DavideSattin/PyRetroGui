@@ -19,5 +19,3 @@ class SingletonMeta(type):
         return cls._instances[cls]
 
 
-# class Singleton(metaclass=SingletonMeta):
-#     pass

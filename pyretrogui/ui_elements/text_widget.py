@@ -1,10 +1,10 @@
 import pygame
 from pygame.event import Event
 
+from pyretrogui.io.file_reader import FileReader
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
-from pyretrogui.io.file_reader import FileReader
 from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.ui_elements.ui_element import UIElement
 
@@ -16,9 +16,8 @@ class TextWidget(UIPanel):
           self.border = True
           self.invalidate = True
           self.cursor_management:CursorManagement = CursorManagement(0,0)
+          self.text = FileReader.read_text_file("..\lorem_ipsum.txt")
 
-          # TODO: Remove in the future. Here only for development.
-          self.text = FileReader.read_text_file("lorem_ipsum.txt")
 
 
       def init(self,context: Context):
