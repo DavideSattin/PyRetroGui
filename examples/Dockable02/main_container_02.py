@@ -31,13 +31,20 @@ class MainContainer02(DockableContainer):
           header_container.size.height = 1
           super().add_child(header_container)
 
-          # Create the Contents container. Useful for editor or other stuff.
-          contents_container = DockablePanel(self)
-          contents_container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
-          contents_container.behaviour.position_behaviour = PositionBehaviour.CONTENT
-          contents_container.background = (0, 255, 0)
-          super().add_child(contents_container)
+          # Create the Contents container 01. Useful for editor or other stuff.
+          contents_container01 = DockablePanel(self)
+          contents_container01.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          contents_container01.behaviour.position_behaviour = PositionBehaviour.CONTENT
+          contents_container01.background = (0, 255, 0)
+          super().add_child(contents_container01)
 
+
+          # Create the Contents container 01. Useful for editor or other stuff.
+          contents_container02 = DockablePanel(self)
+          contents_container02.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          contents_container02.behaviour.position_behaviour = PositionBehaviour.CONTENT
+          contents_container02.background = (255, 0, 100)
+          super().add_child(contents_container02)
 
           # Create the footer container. Useful for status controls.
           footer_container = DockablePanel(self)
