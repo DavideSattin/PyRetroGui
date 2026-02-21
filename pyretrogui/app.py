@@ -20,6 +20,7 @@ from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
 from pyretrogui.ui_elements.ui_panel import UIPanel
+from pyretrogui.ui_elements.ui_element import UIElement
 
 
 class App(metaclass=SingletonMeta):
@@ -71,8 +72,8 @@ class App(metaclass=SingletonMeta):
           print(self.root.size)
 
           self.running = True
-          self.widget: Optional[UIPanel] = None
-          self.context = Context(self.theme, self.size, self.font_size, normalized_size)
+          self.widget: Optional[UIElement] = None
+          self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
 
       @staticmethod
       def create_instance(title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
@@ -82,16 +83,6 @@ class App(metaclass=SingletonMeta):
           finally:
               App._allow_init = False
 
-
-      # # TODO: Create the real contol factory.
-      # def _element_factory(self, element):
-      #     if element is None:
-      #         raise ValueError('element cannot be None')
-      #
-      #     ui_element = element(self.root)
-      #     ui_element.id = 1
-      #     ui_element.init(self.context)
-      #     return ui_element
 
 
       def run(self,startup_widget) -> None:
@@ -118,7 +109,7 @@ class App(metaclass=SingletonMeta):
               self.handle_events()
               self.update()
               self.draw()
-              self.grp_ctx.set_clock_tick(60)
+              self.grp_ctx.set_clock_tick(60)   #TODO: Put 60 into yaml
 
 
           #Exit

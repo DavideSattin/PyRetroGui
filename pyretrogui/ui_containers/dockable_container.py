@@ -22,7 +22,7 @@ class DockableContainer(UIElement):
         self.containers: List[DockablePanel] = []
 
       def _arrange_(self, view_port: ViewPort):
-
+          #TODO: All this code must be put into an Arrange Class.
           x = 0
           y = 0
 
@@ -67,8 +67,6 @@ class DockableContainer(UIElement):
               y = y + content_container.size.height
 
 
-
-
       def update(self, context: Context):
           # Before to call update we need to calculate/arrange the panels position and size.
           self._arrange_(self.get_view_port(context))
@@ -79,10 +77,8 @@ class DockableContainer(UIElement):
       def add_child(self, child: DockablePanel):
           if child is None:
               raise ValueError("Cannot add a child of None")
-          #
-          # if child.parent is not None:
-          #     raise ValueError("The panel already has a parent")
 
-          child.parent = self
-
+          child = self._widget_manager.element_ingestion(child,root=self)
           self.containers.append(child)
+
+

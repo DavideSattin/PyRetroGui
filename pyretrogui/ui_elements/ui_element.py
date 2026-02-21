@@ -20,6 +20,9 @@ class UIElement(ABC):
           self.border: bool = True
           self.behaviour: UIBehaviour = UIBehaviour()
 
+          # The widget manager.
+          from pyretrogui.ui_elements.widget_manager import WidgetManager
+          self._widget_manager = WidgetManager()
 
 
       def init(self,context: Context):

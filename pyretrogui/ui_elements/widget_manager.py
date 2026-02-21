@@ -8,6 +8,7 @@
 from typing import List
 from pyretrogui.singleton_meta import SingletonMeta
 from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.video.context import Context
 
 
 class WidgetManager(metaclass=SingletonMeta):
@@ -15,7 +16,7 @@ class WidgetManager(metaclass=SingletonMeta):
            # TODO: Dovrebbe essere un dizionario.
            self.widgets : List[UIElement] = []
 
-       def element_factory(self, element, context,root: UIElement = None) -> UIElement:
+       def element_factory(self, element, context:Context,root: UIElement = None) -> UIElement:
            if element is None:
                raise ValueError('element cannot be None')
 
@@ -29,15 +30,14 @@ class WidgetManager(metaclass=SingletonMeta):
            self.widgets.append(ui_element)
            return ui_element
 
-       def element_ingestion(self, element: UIElement, context, root: UIElement = None) -> UIElement:
+       def element_ingestion(self, element: UIElement, context:Context=None, root: UIElement = None) -> UIElement:
            if element is None:
                raise ValueError('element cannot be None')
-           if context is None:
-               raise ValueError('context cannot be None')
 
            element.id = len(self.widgets) + 1
            element.parent = root
-           element.init(context)
+           if context is not None:
+              element.init(context)
 
            self.widgets.append(element)
            return element
