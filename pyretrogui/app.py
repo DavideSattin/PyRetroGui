@@ -10,10 +10,8 @@ import pygame
 
 from pyretrogui.apparence.theme_loader import ThemeLoader
 from pyretrogui.configuration.configuration import Configuration
-
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
-
-from pyretrogui.singleton_meta import SingletonMeta
+from pyretrogui.singleton_meta.singleton_meta_app import SingletonMetaApp
 from pyretrogui.ui_elements.widget_manager import WidgetManager
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
@@ -23,7 +21,7 @@ from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.ui_elements.ui_element import UIElement
 
 
-class App(metaclass=SingletonMeta):
+class App(metaclass=SingletonMetaApp):
       _allow_init = False
 
       def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
