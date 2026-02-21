@@ -6,12 +6,13 @@
 # Description:This class manage all the widget, panels
 # ==========================================
 from typing import List
-from pyretrogui.singleton_meta import SingletonMeta
+
+from pyretrogui.singleton_meta.singleton_meta_widget_manager import SingletonMetaWidgetManager
 from pyretrogui.ui_elements.ui_element import UIElement
 from pyretrogui.video.context import Context
 
 
-class WidgetManager(metaclass=SingletonMeta):
+class WidgetManager(metaclass=SingletonMetaWidgetManager):
        def __init__(self):
            # TODO: Dovrebbe essere un dizionario.
            self.widgets : List[UIElement] = []
