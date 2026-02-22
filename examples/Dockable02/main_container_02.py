@@ -39,7 +39,7 @@ class MainContainer02(DockableContainer):
           super().add_child(contents_container01)
 
 
-          # Create the Contents container 01. Useful for editor or other stuff.
+          # Create the Contents container 02. Useful for editor or other stuff.
           contents_container02 = DockablePanel(self)
           contents_container02.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
           contents_container02.behaviour.position_behaviour = PositionBehaviour.CONTENT

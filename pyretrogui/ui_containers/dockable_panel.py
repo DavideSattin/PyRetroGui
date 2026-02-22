@@ -17,6 +17,7 @@ class DockablePanel(UIPanel):
           self.margin = False
           self.border = False
 
+
           # TODO: Remove this. Use a class for theme.
           self.background = (0, 125, 255)
 
