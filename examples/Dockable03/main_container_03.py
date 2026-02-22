@@ -26,12 +26,15 @@ class MainContainer03(DockableContainer):
           # Create the header container.
           header_container = super()._create_dockable_top_panel(1, "Top Container", (0,0,255))
           super().add_child(header_container)
+          header_container.
+
+
 
           # Create the Contents container 01. Useful for editor or other stuff.
           contents_container01 = super()._create_dockable_content_panel("Container 1", (0, 255, 0) )
           super().add_child(contents_container01)
 
-          # Create the Contents container 01. Useful for editor or other stuff.
+          # Create the Contents container 02. Useful for editor or other stuff.
           contents_container02 = super()._create_dockable_content_panel("Container 1", (0, 255, 255))
           super().add_child(contents_container02)
 
