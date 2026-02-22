@@ -5,9 +5,12 @@
 # Created: 18/01/2026 12:04
 # Description: This class manage the dockable panel.
 # ==========================================
-from pyretrogui.primitives.size import Size
+
+from pyretrogui.ui_elements.ui_element import UIElement
 from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.video.context import Context
+from typing import List
+
 
 
 class DockablePanel(UIPanel):
@@ -16,7 +19,7 @@ class DockablePanel(UIPanel):
           super().__init__(parent)
           self.margin = False
           self.border = False
-
+          self.elements: List[UIElement] = []
 
           # TODO: Remove this. Use a class for theme.
           self.background = (0, 125, 255)
