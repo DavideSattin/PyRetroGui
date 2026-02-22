@@ -8,7 +8,7 @@
 from typing import List
 
 from pyretrogui.arranger.position_behaviour import PositionBehaviour
-from pyretrogui.primitives.size import Size
+from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
@@ -66,6 +66,40 @@ class DockableContainer(UIElement):
               content_container.size.width = view_port.size.width
               y = y + content_container.size.height
 
+      def _create_dockable_top_panel(self, height:int, name: str = "", color: tuple[int,int, int] = None )-> DockablePanel:
+          if height<=0:
+              raise ValueError("height cannon be less or equal to zero.")
+
+          container = DockablePanel(self)
+          container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
+          container.size.height = height
+          container.name = name
+          container.background = color
+          return container
+
+      def _create_dockable_content_panel(self,name: str = "", color: tuple[int,int, int] = None) -> DockablePanel:
+          # Create the Contents container 01. Useful for editor or other stuff.
+          container = DockablePanel(self)
+          container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          container.behaviour.position_behaviour = PositionBehaviour.CONTENT
+          container.name = name
+          container.background = color
+          return  container
+
+      def _create_dockable_bottom_panel(self,height:int, name: str = "", color: tuple[int,int, int] = None )-> DockablePanel:
+          if height<=0:
+              raise ValueError("height cannon be less or equal to zero.")
+
+          # Create the footer container. Useful for status controls.
+          container = DockablePanel(self)
+
+          container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
+          container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
+          container.size.height = height
+          container.name = name
+          container.background = color
+          return  container
 
       def update(self, context: Context):
           # Before to call update we need to calculate/arrange the panels position and size.

@@ -1,9 +1,9 @@
 Backlog
-   Create Control FActory.
+
    Check if the coordinate are relive to the current panel, not absolute!
 
 
-   def get_internal_viewport(self, context: Context) -> ViewPort: it's wrong!
+
 
 Event Management
     The on_key_event function/method cannot be declared as abstract.
@@ -34,6 +34,8 @@ Control Factory
     The singleton factory will also be responsible for tracking and storing all generated control IDs.
 
  DONE
+    - def get_internal_viewport(self, context: Context) -> ViewPort: it's wrong!
+    - Create Control FActory.
     - the char of the top left border it's wrong. -> Was a Mistake it's the pointer!
     - The mouse pointer have a tail.
     - Create the class for VideoLogicBuffer
