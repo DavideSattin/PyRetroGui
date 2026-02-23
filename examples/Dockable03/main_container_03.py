@@ -22,19 +22,20 @@ class MainContainer03(DockableContainer):
           self.border = False
 
       def init(self,context: Context):
-          super().init(context)
+
 
           # Create the header container.
           header_container = super()._create_dockable_top_panel(1, "Top Container", (0,0,255))
           super().add_child(header_container)
-          txt1 = TextWidget()
-          txt1.text = "Hello World"
 
-          header_container.add_child(txt1)
 
           # Create the Contents container 01. Useful for editor or other stuff.
           contents_container01 = super()._create_dockable_content_panel("Container 1", (0, 255, 0) )
           super().add_child(contents_container01)
+          txt1 = TextWidget()
+          txt1.text = "Hello World"
+
+          contents_container01.add_child(txt1)
 
           # Create the Contents container 02. Useful for editor or other stuff.
           contents_container02 = super()._create_dockable_content_panel("Container 1", (0, 255, 255))
@@ -44,3 +45,5 @@ class MainContainer03(DockableContainer):
           # Create the footer container. Useful for status controls.
           footer_container = super()._create_dockable_bottom_panel(1, "Footer Container", (255,0,0))
           super().add_child(footer_container)
+
+          super().init(context)
