@@ -25,9 +25,18 @@ class DockablePanel(UIPanel):
           self.background = (0, 125, 255)
 
 
-
-
-
       def update(self, context: Context):
           viewport = self.get_view_port(context)
           super().draw_background(context, viewport, self.background )
+
+          #TODO: Tmp
+          for element in self.elements:
+              element.update(context)
+
+      def add_child(self, element: UIElement):
+          if element is None:
+              raise ValueError("element cannot be None")
+
+          if element not in self.elements:
+              element.parent = self
+              self.elements.append(element)
