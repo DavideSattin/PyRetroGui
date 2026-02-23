@@ -9,6 +9,7 @@ from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.ui_containers.dockable_container import DockableContainer
 from pyretrogui.ui_containers.dockable_panel import DockablePanel
+from pyretrogui.ui_elements.text_widget import TextWidget
 from pyretrogui.ui_elements.ui_element import UIElement
 from pyretrogui.video.context import Context
 
@@ -26,9 +27,10 @@ class MainContainer03(DockableContainer):
           # Create the header container.
           header_container = super()._create_dockable_top_panel(1, "Top Container", (0,0,255))
           super().add_child(header_container)
-          header_container.
+          txt1 = TextWidget()
+          txt1.text = "Hello World"
 
-
+          header_container.add_child(txt1)
 
           # Create the Contents container 01. Useful for editor or other stuff.
           contents_container01 = super()._create_dockable_content_panel("Container 1", (0, 255, 0) )
