@@ -24,6 +24,9 @@ class DockablePanel(UIPanel):
           # TODO: Remove this. Use a class for theme.
           self.background = (0, 125, 255)
 
+      def init(self, context: Context):
+          for element in self.elements:
+              element.init(context)
 
       def update(self, context: Context):
           viewport = self.get_view_port(context)

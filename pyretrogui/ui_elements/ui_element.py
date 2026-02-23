@@ -28,6 +28,8 @@ class UIElement(ABC):
 
       def init(self,context: Context):
           size = self.get_view_port(context)
+
+          #TODO: uhm...why the viewport set the size?
           self.location = size.location
           self.size = size.size
 

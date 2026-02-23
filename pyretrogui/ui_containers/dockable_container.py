@@ -101,6 +101,10 @@ class DockableContainer(UIElement):
           container.background = color
           return  container
 
+      def init(self, context:Context):
+          for container in self.containers:
+              container.init(context)
+
       def update(self, context: Context):
           # Before to call update we need to calculate/arrange the panels position and size.
           self._arrange_(self.get_view_port(context))
