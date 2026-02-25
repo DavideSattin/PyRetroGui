@@ -16,6 +16,7 @@ class TextWidget(UIPanel):
           self.border = True
           self.invalidate = True
           self.cursor_management:CursorManagement = CursorManagement(0,0)
+          #TODO: Remove This. It's only for test.
           self.text = FileReader.read_text_file("..\\lorem_ipsum.txt")
 
 

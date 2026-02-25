@@ -33,7 +33,7 @@ class DockableContainer(UIElement):
               top_container.location.y = y
               top_container.size.width = view_port.size.width
               y = y + top_container.size.height
-
+              print(f"TOP - x:{top_container.location.x} - y:{top_container.location.y}")
           container_top  = y
 
 
@@ -65,6 +65,7 @@ class DockableContainer(UIElement):
               content_container.size.height = size_for_panel
               content_container.size.width = view_port.size.width
               y = y + content_container.size.height
+              print(f"Content - x:{content_container.location.x} - y:{content_container.location.y}")
 
       def _create_dockable_top_panel(self, height:int, name: str = "", color: tuple[int,int, int] = None )-> DockablePanel:
           if height<=0:
@@ -102,12 +103,13 @@ class DockableContainer(UIElement):
           return  container
 
       def init(self, context:Context):
+          self._arrange_(self.get_view_port(context))
           for container in self.containers:
               container.init(context)
 
       def update(self, context: Context):
           # Before to call update we need to calculate/arrange the panels position and size.
-          self._arrange_(self.get_view_port(context))
+          # self._arrange_(self.get_view_port(context))
           for container in self.containers:
               container.update(context)
               pass

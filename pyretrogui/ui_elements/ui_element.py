@@ -103,13 +103,13 @@ class UIElement(ABC):
               off_set+=1
 
           # The location of the view port are relative of the control in itself.
-          start_relative_location = Location(off_set,off_set)
+          start_relative_location = Location(self.location.x + off_set, self.location.y + off_set)
 
           # Recalculate the Size.
           width  = self.size.width - off_set * 2
           height = self.size.height - off_set * 2
 
-          return ViewPort(location=Location(off_set, off_set),size=Size(width, height))
+          return ViewPort(location=start_relative_location,size=Size(width, height))
 
           # #Manage the dock mode.
           # if self.size_behaviour != WindowSize.DOCK:
