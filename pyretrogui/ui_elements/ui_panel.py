@@ -25,27 +25,31 @@ class UIPanel(UIElement):
       def update(self, context: Context):
           pass
 
-      def draw_border(self,context: Context, size: Size, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
+      def draw_border(self,context: Context, widget_viewport: ViewPort, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
 
           if context is None:
               raise ValueError("The size cannot be None.")
 
-          if size is None:
-              raise ValueError("The size cannot be None.")
+          if widget_viewport is None:
+              raise ValueError("The widget_viewport cannot be None.")
 
           # we assume that a border it's a rectangle with
           # starting relative location ad 0,0 with the size of the panel.
-          # So we need to translate the relative location 0,0 to the absolute window location.
-          # the self.location of a panel is always an absolute location, because the framework need to
+          # The widget_viewport it's the viewport of the panel, and it's always a relative viewport.
+
+          # So we need to translate the relative location 0,0 to the absolute window absolute_location.
+          # the self.absolute_location of a panel is always an absolute absolute_location, because the framework need to
           # know the real position to draw.
 
-          relative_location = Location(0,0)
-          rect_area = Area.create_area(relative_location, size)
 
-          # Draw top_left border
+          relative_viewport = widget_viewport.translate(self.location)
+
+          rect_area = Area(relative_viewport)
+
+          # Draw the top_left border
           context.draw_char(rect_area.top_left, CHAR_CLASSES["corner_tl"], foreground_color, background_color)
 
-          # Draw top_right border
+          # Draw the top_right border
           context.draw_char(rect_area.top_right, CHAR_CLASSES["corner_tr"],foreground_color, background_color )
 
           # Draw bottom_left border
@@ -76,7 +80,7 @@ class UIPanel(UIElement):
 
 
       def draw_text(self,context: Context, text_content:str):
-          # #Get the viewport location and size.
+          # #Get the viewport absolute_location and size.
           view_port = self.get_internal_viewport(context)
 
           current_location = view_port.location.translate_to(self.location)

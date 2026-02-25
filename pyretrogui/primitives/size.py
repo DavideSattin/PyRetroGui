@@ -1,6 +1,6 @@
 # ==========================================
 # Project: PyRetroGUI
-# File: location
+# File: absolute_location
 # Author: Davide Sattin
 # Created: 09/01/2026 17:01
 # Description:This class manage Size

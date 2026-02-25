@@ -62,7 +62,7 @@ class UIElement(ABC):
                   #
                   # parent_viewport = self.parent.get_internal_viewport(context)
                   # new_size = Size(parent_viewport.size.width, self.size.height)
-                  # return ViewPort(location=parent_viewport.location, size=new_size)
+                  # return ViewPort(absolute_location=parent_viewport.absolute_location, size=new_size)
                   return ViewPort(location=self.location, size=self.size)
 
               case PositionBehaviour.DOCKED_BOTTOM:
@@ -75,9 +75,9 @@ class UIElement(ABC):
                   # parent_viewport = self.parent.get_internal_viewport(context)
                   #
                   # new_size = Size(parent_viewport.size.width, self.size.height)
-                  # new_location = Location(parent_viewport.location.x, parent_viewport.size.height - new_size.height)
+                  # new_location = Location(parent_viewport.absolute_location.x, parent_viewport.size.height - new_size.height)
                   #
-                  # return ViewPort(location=new_location, size=new_size)
+                  # return ViewPort(absolute_location=new_location, size=new_size)
                   return ViewPort(location=self.location, size=self.size)
 
               case PositionBehaviour.CONTENT:
@@ -87,7 +87,7 @@ class UIElement(ABC):
                   raise Exception(f"Panel Position Behaviour Mode: {self.behaviour.position_behaviour} not supported.")
 
 
-          # return ViewPort(location=Location(0, 0), size=Size(self.size.width,  self.size.height))
+          # return ViewPort(absolute_location=Location(0, 0), size=Size(self.size.width,  self.size.height))
 
       def get_internal_viewport(self, context: Context) -> ViewPort:
           # The internal viewport is an internal control area, without margin or border.
@@ -102,7 +102,7 @@ class UIElement(ABC):
           if self.border:
               off_set+=1
 
-          # The location of the view port are relative of the control in itself.
+          # The absolute_location of the view port are relative of the control in itself.
           start_relative_location = Location(self.location.x + off_set, self.location.y + off_set)
 
           # Recalculate the Size.
@@ -121,7 +121,7 @@ class UIElement(ABC):
           #     #when??
           #     #check this case.
           #
-          #     return ViewPort(absolute_location=self.location, relative_location=relative_location, size=self.size)
+          #     return ViewPort(absolute_location=self.absolute_location, relative_location=relative_location, size=self.size)
           #
           # #The parent ViewPort.
           # parent_viewport =  self.parent.get_internal_viewport(context)

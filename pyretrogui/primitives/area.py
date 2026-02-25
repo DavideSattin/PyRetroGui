@@ -19,6 +19,3 @@ class Area:
         self.center = self.top_left.add_x(view_port.size.width // 2).add_y(view_port.size.height // 2)
         self.size: Size = view_port.size
 
-    @staticmethod
-    def create_area(location: Location, size: Size) -> "Area":
-        return Area(ViewPort(location= location, size= size))
