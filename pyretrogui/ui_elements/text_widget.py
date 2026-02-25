@@ -2,6 +2,7 @@ import pygame
 from pygame.event import Event
 
 from pyretrogui.io.file_reader import FileReader
+from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
@@ -23,13 +24,13 @@ class TextWidget(UIPanel):
 
       def init(self,context: Context):
           # Refactor this!
-          # We need to write the panel location and size
+          # We need to write the panel absolute_location and size
           # based on his behaviour  self.position_behaviour = PositionBehaviour.FREE
           #           self.size_behaviour = WindowSize.DOCK
 
           super().init(context)
           view_port = self.get_internal_viewport(context)
-          # Set the cursor position with the location of the internal viewport.
+          # Set the cursor position with the absolute_location of the internal viewport.
           self.cursor_management.location = view_port.location
 
 
@@ -62,11 +63,13 @@ class TextWidget(UIPanel):
 
           self.invalidate = False
 
-          #Draw the panel border, of the specified size. The location it's local 0,0.
-          panel_viewport = ViewPort(self.location, self.size)
+          # Draw the panel border,of the specified size. The absolute_location it's local 0,0, and the size it's the size of the panel.
+          widget_viewport = ViewPort(location=Location(0,0), size= self.size)
 
-          super().draw_background(context, panel_viewport, (0,0,255))
-          super().draw_border(context,self.size, (255,255,255) , (0,0,255))
+          # The draw_border function expects a local viewport as a parameter, internally it calculates the absolute absolute_location.
+
+          super().draw_background(context, widget_viewport, (0,0,255))
+          super().draw_border(context,widget_viewport, (255,255,255) , (0,0,255))
           super().draw_text(context, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)

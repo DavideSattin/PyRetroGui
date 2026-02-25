@@ -1,16 +1,16 @@
 # ==========================================
 # Project: PyRetroGUI
-# File: location
+# File: absolute_location
 # Author: Davide Sattin
 # Created: 05/01/2026 17:01
-# Description: This class manages a 2D location
+# Description: This class manages a 2D absolute_location
 # ==========================================
 from pyretrogui.primitives.size import Size
 
 
 class Location:
     """
-    Represents a 2D location using X and Y coordinates.
+    Represents a 2D absolute_location using X and Y coordinates.
     """
 
     def __init__(self, x: int, y: int):
@@ -29,8 +29,8 @@ class Location:
 
         Supported operands:
         - Location: component-wise addition (x + x, y + y)
-        - Size: translates the location by the size (width, height)
-        - Size: translates the location by (width - 1, height - 1)
+        - Size: translates the absolute_location by the size (width, height)
+        - Size: translates the absolute_location by (width - 1, height - 1)
 
         :param other: A Location or Size to add
         :return: A new Location instance
@@ -52,16 +52,16 @@ class Location:
 
     def translate_to(self, location: "Location") -> "Location":
         """
-        Translates this location by another Location and returns a new Location.
+        Translates this absolute_location by another Location and returns a new Location.
 
         The current instance is not modified.
 
         :param location: A Location instance representing the translation offset
         :return: A new Location resulting from the translation
-        :raises ValueError: If location is None
+        :raises ValueError: If absolute_location is None
         """
         if location is None:
-            raise ValueError("location cannot be None")
+            raise ValueError("absolute_location cannot be None")
 
         new_x = self.x + location.x
         new_y = self.y + location.y

@@ -98,7 +98,7 @@ class VideoBuffer:
             raise ValueError("value cannot be None")
 
         if location is None:
-            raise ValueError("location cannot be None")
+            raise ValueError("absolute_location cannot be None")
 
         if background_color is None:
             raise ValueError("background_color cannot be None")

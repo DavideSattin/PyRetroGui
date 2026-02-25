@@ -113,7 +113,7 @@ class Context:
           # Always update the pointer buffer to the new position
           self.pointer_buffer = Location(video_location.x, video_location.y)
 
-          # Draw the cursor character at the normalized screen location
+          # Draw the cursor character at the normalized screen absolute_location
           graphics.draw_char(
               self.cursor.get_cursor_char(),
               normalized_location.x,
@@ -121,9 +121,9 @@ class Context:
               color
           )
 
-      def draw_char(self, location:Location, char: str, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0)) -> None:
-          if location is None:
-              raise  ValueError("Parameter: location cannot be None.")
+      def draw_char(self, absolute_location:Location, char: str, foreground_color: tuple[int,int,int] = (255, 255, 255), background_color: tuple[int,int,int] = (0, 0, 0)) -> None:
+          if absolute_location is None:
+              raise  ValueError("Parameter: absolute_location cannot be None.")
 
           if char is None:
               raise ValueError("Parameter: char cannot be None.")
@@ -131,10 +131,10 @@ class Context:
           if len(char) > 1:
               raise ValueError("Parameter: char cannot be more than one character.")
 
-          if location.x >= self.cols or location.y >= self.rows:
+          if absolute_location.x >= self.cols or absolute_location.y >= self.rows:
               raise ValueError("Location is out of bounds.")
 
-          self.video_buffer.write(char, location, background_color, foreground_color)
+          self.video_buffer.write(char, absolute_location, background_color, foreground_color)
 
 
 
