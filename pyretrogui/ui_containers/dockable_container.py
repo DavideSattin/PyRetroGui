@@ -33,22 +33,22 @@ class DockableContainer(UIElement):
               top_container.location.y = y
               top_container.size.width = view_port.size.width
               y = y + top_container.size.height
-              print(f"TOP - x:{top_container.location.x} - y:{top_container.location.y}")
+              print(f"TOP - x:{top_container.location.x} - y:{top_container.location.y} - Size: {top_container.size}")
           container_top  = y
 
 
           # Top containers are stacked vertically from the bottom.
           # Calculate where we start to put the bottom containers.
+          # We start from the higher y position calculated as the subtraction of panel total height with the sum of the height of bottom panel
           bottom_containers = [top_container for top_container in self.containers if top_container.behaviour.position_behaviour == PositionBehaviour.DOCKED_BOTTOM]
           bottom_containers_height = sum( container.size.height for container in bottom_containers)
           y = view_port.size.height - bottom_containers_height
+          container_bottom = y
           for bottom_container in bottom_containers:
               bottom_container.location.x = x
               bottom_container.location.y = y
               bottom_container.size.width = view_port.size.width
               y = y + bottom_container.size.height
-
-          container_bottom = y
 
           # Arrange the content panels.
           content_containers = [top_container for top_container in self.containers if
@@ -65,7 +65,7 @@ class DockableContainer(UIElement):
               content_container.size.height = size_for_panel
               content_container.size.width = view_port.size.width
               y = y + content_container.size.height
-              print(f"Content - x:{content_container.location.x} - y:{content_container.location.y}")
+              print(f"Content - x:{content_container.location.x} - y:{content_container.location.y} - Size: {content_container.size}")
 
       def _create_dockable_top_panel(self, height:int, name: str = "", color: tuple[int,int, int] = None )-> DockablePanel:
           if height<=0:
