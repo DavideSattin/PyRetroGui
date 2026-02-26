@@ -55,11 +55,16 @@ class DockableContainer(UIElement):
                                top_container.behaviour.position_behaviour == PositionBehaviour.CONTENT]
 
           num_of_content_panels = len(content_containers)
-          content_height = container_bottom - container_top
-          size_for_panel = int(content_height / num_of_content_panels)
+
+          # The content_total_height it's the total vertical space for all the content containers.
+          content_total_height = container_bottom - container_top
+          size_for_panel = int(content_total_height / num_of_content_panels)
 
           y = container_top
+
           for content_container in content_containers:
+
+
               content_container.location.x = x
               content_container.location.y = y
               content_container.size.height = size_for_panel
