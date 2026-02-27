@@ -74,6 +74,7 @@ class App(metaclass=SingletonMetaApp):
           self.running = True
           self.invalidated = True
           self.widget: Optional[UIElement] = None
+
           self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
 
       def _calculate_normalized_size(self, font_size: tuple[int, int] | None,  size: tuple[int, int] | None) -> tuple[int, int]:
@@ -142,11 +143,27 @@ class App(metaclass=SingletonMetaApp):
                   case pygame.WINDOWSIZECHANGED:
                        width, height = event.x, event.y
                        print("Nuova size:", width, height)
+                       self.size = (width, height)
+
+                       # Get the normalized site.
+                       normalized_size = self._calculate_normalized_size(self.font_size, self.size)
+
+                       # Set the root.
+                       self.root.size = Size(int(normalized_size[0] / self.font_size[0]),
+                                             int(normalized_size[1] / self.font_size[1]))
+
+                       print(f"Normalized size: {normalized_size}")
+                       print(self.root.size)
+
+                       # Re-create the context
+                       self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
+                       self.invalidated = True
 
 
 
       def update(self):
           if self.invalidated:
+
              self.widget.draw(self.context)
              self.invalidated = False
 
