@@ -23,7 +23,6 @@ class MainContainer03(DockableContainer):
 
       def init(self,context: Context):
 
-
           # Create the header container.
           header_container = super()._create_dockable_top_panel(1, "Top Container", (0,0,255))
           super().add_child(header_container)
