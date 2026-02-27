@@ -22,7 +22,7 @@ class UIPanel(UIElement):
 
 
 
-      def update(self, context: Context):
+      def draw(self, context: Context):
           pass
 
       def draw_border(self,context: Context, widget_viewport: ViewPort, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:

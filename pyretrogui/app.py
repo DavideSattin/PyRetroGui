@@ -24,7 +24,7 @@ from pyretrogui.ui_elements.ui_element import UIElement
 class App(metaclass=SingletonMetaApp):
       _allow_init = False
 
-      def __init__(self, title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
+      def __init__(self, title:str, client_size:tuple[int, int]=None, client_font_size:tuple[int, int]=None):
           if not App._allow_init:
               raise RuntimeError("Use App.CreateInstance.")
 
@@ -36,8 +36,10 @@ class App(metaclass=SingletonMetaApp):
 
           # Set from configuration or default.
           self.title = self.config.title
-          self.size = self.config.size
-          self.font_size =  self.config.font.font_size
+
+          # Set default size.
+          self.size = self._set_size_values((100,200), client_size, self.config.size)
+          self.font_size = self._set_size_values((8,16), client_font_size, self.config.font.font_size)
 
           # Mouse Management.
           self.mouse_enable = self.config.mouse.enabled         #Enable the mouse
@@ -47,31 +49,38 @@ class App(metaclass=SingletonMetaApp):
           # Load Theme.
           self.theme = ThemeLoader.load(self.config.theme)
 
-          # Calculate the font perfect size
-          width = int(size[0] / font_size[0]) * font_size[0]
-          height = int(size[1] / font_size[1]) * font_size[1]
-
           # Virtual Root control.
           self.root = UIPanel(None)
           self.root.id = -99
           self.root.margin = False
           self.root.border = False
           self.root.location = Location(0,0)
-          self.root.size = Size(int(width / font_size[0]), int(height/font_size[1]))
 
-          # Open the window
-          normalized_size = (width, height)
+          # Get the normalized site.
+          normalized_size= self._calculate_normalized_size(self.font_size, self.size)
 
-          # Create the graphic context.
-          self.grp_ctx = GraphicContext(self.config)
-          self.grp_ctx.open_window(title, normalized_size)
+          # Set the root.
+          self.root.size = Size(int(normalized_size[0] / self.font_size[0]), int(normalized_size[1] / self.font_size[1]))
 
           print(f"Normalized size: {normalized_size}")
           print(self.root.size)
 
+          # Create the graphic context.
+          self.grp_ctx = GraphicContext(self.config)
+
+          # Open the window
+          self.grp_ctx.open_window(title, normalized_size)
+
           self.running = True
+          self.invalidated = True
           self.widget: Optional[UIElement] = None
           self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
+
+      def _calculate_normalized_size(self, font_size: tuple[int, int] | None,  size: tuple[int, int] | None) -> tuple[int, int]:
+          # Calculate the font perfect size
+          width = int(size[0] / font_size[0]) * font_size[0]
+          height = int(size[1] / font_size[1]) * font_size[1]
+          return width,height
 
       @staticmethod
       def create_instance(title:str, size:tuple[int, int]=(100,200), font_size:tuple[int, int]=(8,16)):
@@ -81,6 +90,15 @@ class App(metaclass=SingletonMetaApp):
           finally:
               App._allow_init = False
 
+      def _set_size_values(self,default_size:tuple[int,int] = (8,16), client_size:tuple[int, int]=None, config_size:tuple[int, int]=None) -> tuple[int,int]:
+
+          if client_size is not None:
+              return client_size
+
+          if config_size is not None:
+              return config_size
+
+          return default_size
 
 
       def run(self,startup_widget) -> None:
@@ -121,11 +139,17 @@ class App(metaclass=SingletonMetaApp):
                       self.running = False
                   case pygame.KEYDOWN | pygame.KEYUP:
                        self.widget.on_key_event(event, self.context)
+                  case pygame.WINDOWSIZECHANGED:
+                       width, height = event.x, event.y
+                       print("Nuova size:", width, height)
 
 
 
       def update(self):
-          self.widget.update(self.context)
+          if self.invalidated:
+             self.widget.draw(self.context)
+             self.invalidated = False
+
           self.grp_ctx.enable_pointer(self.mouse_pointer)
 
       def draw(self):

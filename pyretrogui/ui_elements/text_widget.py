@@ -55,9 +55,9 @@ class TextWidget(UIPanel):
                   pass
 
 
-      def update(self,context: Context):
-          if not self.invalidate:
-              return
+      def draw(self, context: Context):
+          # if not self.invalidate:
+          #     return
 
           print("DRAW")
 

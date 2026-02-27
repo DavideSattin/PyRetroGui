@@ -39,7 +39,7 @@ class GraphicContext:
           assert self.screen is not None, "Window not opened"
 
       def open_window(self,title: str, normalized_size):
-          self.screen = pygame.display.set_mode(normalized_size)
+          self.screen = pygame.display.set_mode(normalized_size,pygame.RESIZABLE)
           pygame.display.set_caption(title)
 
       def set_clock_tick(self, tick : int):

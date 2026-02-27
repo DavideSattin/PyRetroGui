@@ -36,7 +36,7 @@ class UIElement(ABC):
 
 
       @abstractmethod
-      def update(self,context: Context):
+      def draw(self, context: Context):
           pass
 
 
