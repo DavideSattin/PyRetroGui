@@ -137,11 +137,11 @@ class DockableContainer(UIElement):
           for container in self.containers:
               container.init(context)
 
-      def update(self, context: Context):
+      def draw(self, context: Context):
           # Before to call update we need to calculate/arrange the panels position and size.
           # self._arrange_(self.get_view_port(context))
           for container in self.containers:
-              container.update(context)
+              container.draw(context)
               pass
 
       def add_child(self, child: DockablePanel):

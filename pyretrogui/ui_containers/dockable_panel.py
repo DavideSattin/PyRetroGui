@@ -28,13 +28,13 @@ class DockablePanel(UIPanel):
           for element in self.elements:
               element.init(context)
 
-      def update(self, context: Context):
+      def draw(self, context: Context):
           viewport = self.get_view_port(context)
           super().draw_background(context, viewport, self.background )
 
           #TODO: Tmp
           for element in self.elements:
-              element.update(context)
+              element.draw(context)
 
       def add_child(self, element: UIElement):
           if element is None:
