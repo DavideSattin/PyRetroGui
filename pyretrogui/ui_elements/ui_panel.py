@@ -69,12 +69,12 @@ class UIPanel(UIElement):
               context.draw_char(lx, CHAR_CLASSES["line_h"], foreground_color, background_color)
 
           # Draw the left line
-          for ty in range(rect_area.top_left.y + 1, rect_area.size.height - 1):
+          for ty in range(rect_area.top_left.y + 1, rect_area.size.height ):
               ly = Location(rect_area.top_left.x, ty)
               context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
 
           # Draw the right line
-          for ty in range(rect_area.top_right.y + 1, rect_area.size.height - 1):
+          for ty in range(rect_area.top_right.y + 1, rect_area.size.height):
               ly = Location(rect_area.top_right.x, ty)
               context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
 

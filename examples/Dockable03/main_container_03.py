@@ -33,14 +33,17 @@ class MainContainer03(DockableContainer):
           contents_container01 = super()._create_dockable_content_panel("Container 1", (0, 255, 0) )
           super().add_child(contents_container01)
           txt1 = TextWidget()
-          txt1.text = "Hello World"
+          txt1.text = "Hello World 1"
 
           contents_container01.add_child(txt1)
 
           # Create the Contents container 02. Useful for editor or other stuff.
           contents_container02 = super()._create_dockable_content_panel("Container 1", (0, 255, 255))
           super().add_child(contents_container02)
+          txt2 = TextWidget()
+          txt2.text = "Hello World 2"
 
+          contents_container02.add_child(txt2)
 
           # Create the footer container. Useful for status controls.
           footer_container = super()._create_dockable_bottom_panel(1, "Footer Container", (255,0,0))
