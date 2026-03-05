@@ -31,7 +31,7 @@ class MainContainer01(DockableContainer):
           super().add_child(contents_container01)
 
           # Create the footer container. Useful for status controls.
-          footer_container = super()._create_dockable_bottom_panel(1, "Footer Container", (255, 0, 0))
+          footer_container = super()._create_dockable_bottom_panel(1, "Footer Container", (255, 255, 0))
           super().add_child(footer_container)
 
           # Se sposto prima va in errore.
