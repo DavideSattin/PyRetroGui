@@ -21,7 +21,7 @@ class MainContainer01(DockableContainer):
           self.border = False
 
       def init(self,context: Context):
-
+          # Commit di prova
           # Create the head container. Useful for menù or other stuff.
           header_container = super()._create_dockable_top_panel(1, "Top Container", (0, 0, 255))
           super().add_child(header_container)
