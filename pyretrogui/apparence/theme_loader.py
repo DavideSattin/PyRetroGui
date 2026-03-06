@@ -1,13 +1,13 @@
 # ==========================================
 # Project: PyRetroGUI
 # File: theme_loader
-# Author: Davide Sattin 
+# Author: Davide Sattin
 # Created: 19/01/2026 22:29
-# Description:This class load the theme from yaml file.
+# Description: This class loads the theme from yaml file.
 # ==========================================
 from pathlib import Path
-
 from ruamel.yaml import YAML
+
 from pyretrogui.apparence.theme import Theme, ThemeState
 from pyretrogui.io.utils import asset_path
 
@@ -23,90 +23,72 @@ class ThemeLoader:
         return val
 
     @staticmethod
-    def default_theme() ->Theme:
-        primary_state = ThemeState(
-            background=(0,0,0),
-            foreground=(255,255,255),
-            hover=(0,0,0),
-            active=(0,0,0),
-            disabled=(0,0,0),
-            focus=(0,0,0),
+    def _load_state(data: dict, name: str) -> ThemeState:
+        s = data.get(name, {}) or {}
+
+        return ThemeState(
+            background=ThemeLoader._to_color(s.get("background")),
+            foreground=ThemeLoader._to_color(s.get("foreground")),
+            hover=ThemeLoader._to_color(s.get("hover")),
+            active=ThemeLoader._to_color(s.get("active")),
+            disabled=ThemeLoader._to_color(s.get("disabled")),
+            focus=ThemeLoader._to_color(s.get("focus"))
         )
-        secondary_state = ThemeState(
+
+    @staticmethod
+    def default_theme() -> Theme:
+
+        def_state = ThemeState(
             background=(0, 0, 0),
             foreground=(255, 255, 255),
-            hover=(0, 0, 0),
-            active=(0, 0, 0),
-            disabled=(0, 0, 0),
-            focus=(0, 0, 0),
+            hover=(40, 40, 40),
+            active=(80, 80, 80),
+            disabled=(100, 100, 100),
+            focus=(255, 255, 0),
         )
-        # Create the default Theme.
-        theme = Theme(
-            name="default",
-            primary=primary_state,
-            secondary=secondary_state,
-            background_color=(0,0,0),
-            foreground_color=(255,255,255),
-            cursor_color=(255,255,255),
-            pointer_color=(255,165,0),
-            hover_color=(255,165,0),
-            active_color=(255,165,0),
-            disabled_color=(125,125,125),
-            focus_color=(255,165,0),
-        )
-        return theme
 
+        return Theme(
+            name="default",
+            cursor=(255, 255, 255),
+            pointer=(255, 165, 0),
+            primary=def_state,
+            secondary=def_state,
+            tertiary=ThemeState(),
+            success=ThemeState(),
+            info=ThemeState(),
+            warning=ThemeState(),
+            error=ThemeState(),
+        )
 
     @staticmethod
     def load(theme_name: str) -> Theme:
+
         if theme_name is None:
-           return ThemeLoader.default_theme()
+            return ThemeLoader.default_theme()
 
         yaml = YAML()
         theme_name = theme_name.lower()
 
-        theme_file_path =  asset_path(theme_name)
-
+        theme_file_path = asset_path(theme_name)
         theme_path = Path(f"{theme_file_path}.yaml")
+
         if not theme_path.exists():
             raise FileNotFoundError(f"Theme file not found: {theme_file_path}")
 
-        # Load YAML
         with theme_path.open("r", encoding="utf-8") as f:
-             data = yaml.load(f)
+            data = yaml.load(f)
 
-             # Crea ThemeState per primary e secondary
-             primary_state = ThemeState(
-                 background=ThemeLoader._to_color(data.get("primary", {}).get("background")),
-                 foreground=ThemeLoader._to_color(data.get("primary", {}).get("foreground")),
-                 hover=ThemeLoader._to_color(data.get("primary", {}).get("hover")),
-                 active=ThemeLoader._to_color(data.get("primary", {}).get("active")),
-                 disabled=ThemeLoader._to_color(data.get("primary", {}).get("disabled")),
-                 focus=ThemeLoader._to_color(data.get("primary", {}).get("focus")),
-             )
+        return Theme(
+            name=data.get("name", theme_name),
 
-             secondary_state = ThemeState(
-                 background=ThemeLoader._to_color(data.get("secondary", {}).get("background")),
-                 foreground=ThemeLoader._to_color(data.get("secondary", {}).get("foreground")),
-                 hover=ThemeLoader._to_color(data.get("secondary", {}).get("hover")),
-                 active=ThemeLoader._to_color(data.get("secondary", {}).get("active")),
-                 disabled=ThemeLoader._to_color(data.get("secondary", {}).get("disabled")),
-                 focus=ThemeLoader._to_color(data.get("secondary", {}).get("focus")),
-             )
+            cursor=ThemeLoader._to_color(data.get("cursor")),
+            pointer=ThemeLoader._to_color(data.get("pointer")),
 
-             # Crea e restituisce Theme
-             theme = Theme(
-                 name=data.get("name", theme_name),
-                 background_color=ThemeLoader._to_color(data.get("background_color")),
-                 foreground_color=ThemeLoader._to_color(data.get("foreground_color")),
-                 cursor_color=ThemeLoader._to_color(data.get("cursor_color")),
-                 pointer_color=ThemeLoader._to_color(data.get("pointer_color")),
-                 primary=primary_state,
-                 secondary=secondary_state,
-                 hover_color=ThemeLoader._to_color(data.get("hover_color")),
-                 active_color=ThemeLoader._to_color(data.get("active_color")),
-                 disabled_color=ThemeLoader._to_color(data.get("disabled_color")),
-                 focus_color=ThemeLoader._to_color(data.get("focus_color")),
-             )
-
-             return theme
+            primary=ThemeLoader._load_state(data, "primary"),
+            secondary=ThemeLoader._load_state(data, "secondary"),
+            tertiary=ThemeLoader._load_state(data, "tertiary"),
+            success=ThemeLoader._load_state(data, "success"),
+            info=ThemeLoader._load_state(data, "info"),
+            warning=ThemeLoader._load_state(data, "warning"),
+            error=ThemeLoader._load_state(data, "error"),
+        )

@@ -1,9 +1,7 @@
 name: Commodore 64
 
-background_color: [0, 0, 64]
-foreground_color: [0, 255, 255]
-cursor_color: [255, 255, 255]
-pointer_color: [255, 255, 255]
+cursor: [255, 255, 255]
+pointer: [255, 255, 255]
 
 primary:
   background: [0, 0, 64]
@@ -15,13 +13,48 @@ primary:
 
 secondary:
   background: [0, 0, 64]
-  foreground: [255, 128, 128]
+  foreground: [0, 255, 255]
   hover: [0, 0, 128]
   active: [255, 128, 0]
   disabled: [0, 0, 64]
   focus: [255, 255, 255]
 
-hover_color: [0, 0, 128]
-active_color: [255, 128, 0]
-disabled_color: [0, 0, 64]
-focus_color: [255, 255, 255]
+tertiary:
+  background: [0, 0, 64]
+  foreground: [160, 160, 255]
+  hover: [0, 0, 128]
+  active: [255, 128, 0]
+  disabled: [0, 0, 64]
+  focus: [255, 255, 255]
+
+success:
+  background: [0, 96, 0]
+  foreground: [128, 255, 128]
+  hover: [0, 128, 0]
+  active: [0, 64, 0]
+  disabled: [0, 64, 0]
+  focus: [200, 255, 200]
+
+info:
+  background: [0, 0, 96]
+  foreground: [128, 200, 255]
+  hover: [0, 0, 128]
+  active: [0, 0, 64]
+  disabled: [0, 0, 64]
+  focus: [200, 220, 255]
+
+warning:
+  background: [128, 96, 0]
+  foreground: [255, 220, 120]
+  hover: [160, 120, 0]
+  active: [96, 64, 0]
+  disabled: [80, 80, 40]
+  focus: [255, 240, 160]
+
+error:
+  background: [128, 0, 0]
+  foreground: [255, 160, 160]
+  hover: [160, 0, 0]
+  active: [96, 0, 0]
+  disabled: [80, 40, 40]
+  focus: [255, 200, 200]

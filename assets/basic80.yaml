@@ -1,17 +1,15 @@
 name: BASIC 80s
 
-background_color: [0, 0, 128]        # Blu CRT
-foreground_color: [192, 192, 192]    # Testo standard
-cursor_color: [255, 255, 255]        # Cursore lampeggiante
-pointer_color: [255, 255, 255]
+cursor: [255, 255, 255]
+pointer: [255, 255, 255]
 
 primary:
   background: [0, 0, 128]
   foreground: [255, 255, 255]        # Testo principale
-  hover: [0, 0, 128]                 # Niente hover moderno
+  hover: [0, 0, 128]
   active: [0, 128, 255]              # Selezione stile BASIC
   disabled: [128, 128, 128]
-  focus: [255, 255, 0]               # Giallo fosforo
+  focus: [255, 255, 0]               # Fosforo giallo
 
 secondary:
   background: [0, 0, 128]
@@ -21,7 +19,42 @@ secondary:
   disabled: [128, 128, 128]
   focus: [255, 255, 255]
 
-hover_color: [0, 0, 128]
-active_color: [0, 128, 255]
-disabled_color: [128, 128, 128]
-focus_color: [255, 255, 0]
+tertiary:
+  background: [0, 0, 128]
+  foreground: [192, 192, 192]        # Testo neutro
+  hover: [0, 0, 128]
+  active: [0, 128, 255]
+  disabled: [128, 128, 128]
+  focus: [255, 255, 255]
+
+success:
+  background: [0, 64, 0]
+  foreground: [128, 255, 128]
+  hover: [0, 80, 0]
+  active: [0, 40, 0]
+  disabled: [80, 80, 80]
+  focus: [200, 255, 200]
+
+info:
+  background: [0, 0, 128]
+  foreground: [128, 200, 255]
+  hover: [0, 0, 160]
+  active: [0, 128, 255]
+  disabled: [128, 128, 128]
+  focus: [200, 220, 255]
+
+warning:
+  background: [128, 96, 0]
+  foreground: [255, 220, 120]
+  hover: [160, 120, 0]
+  active: [96, 64, 0]
+  disabled: [128, 128, 128]
+  focus: [255, 240, 160]
+
+error:
+  background: [128, 0, 0]
+  foreground: [255, 160, 160]
+  hover: [160, 0, 0]
+  active: [96, 0, 0]
+  disabled: [128, 128, 128]
+  focus: [255, 200, 200]

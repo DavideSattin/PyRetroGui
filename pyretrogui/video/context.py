@@ -57,12 +57,12 @@ class Context:
                       #get the background color.
                       back_color = self.video_buffer.get_background_color(row_idx, col_idx)
                       if back_color is None:
-                          back_color = self.theme.background_color
+                          back_color = self.theme.primary.background
 
                       # get the foreground color.
                       fore_ground_color = self.video_buffer.get_foreground_color(row_idx, col_idx)
                       if fore_ground_color is None:
-                          fore_ground_color = self.theme.foreground_color
+                          fore_ground_color = self.theme.primary.foreground
 
                       #get the char.
                       current_char = self.video_buffer.get_char(row_idx, col_idx)

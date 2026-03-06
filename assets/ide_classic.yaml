@@ -1,9 +1,7 @@
 name: IDE Classic
 
-background_color: [0, 0, 255]
-foreground_color: [220, 220, 220]
-cursor_color: [255, 255, 255]
-pointer_color: [200, 200, 200]
+cursor: [255, 255, 255]
+pointer: [200, 200, 200]
 
 primary:
   background: [50, 50, 50]
@@ -21,7 +19,42 @@ secondary:
   disabled: [70, 70, 70]
   focus: [200, 200, 200]
 
-hover_color: [70, 70, 70]
-active_color: [100, 100, 100]
-disabled_color: [80, 80, 80]
-focus_color: [255, 255, 255]
+tertiary:
+  background: [30, 30, 30]
+  foreground: [160, 160, 160]
+  hover: [50, 50, 50]
+  active: [80, 80, 80]
+  disabled: [60, 60, 60]
+  focus: [200, 200, 200]
+
+success:
+  background: [20, 80, 20]
+  foreground: [200, 255, 200]
+  hover: [30, 110, 30]
+  active: [10, 60, 10]
+  disabled: [60, 80, 60]
+  focus: [200, 255, 200]
+
+info:
+  background: [20, 40, 120]
+  foreground: [200, 220, 255]
+  hover: [40, 70, 160]
+  active: [10, 30, 90]
+  disabled: [70, 80, 120]
+  focus: [220, 230, 255]
+
+warning:
+  background: [120, 80, 0]
+  foreground: [255, 230, 150]
+  hover: [160, 110, 0]
+  active: [90, 60, 0]
+  disabled: [120, 110, 70]
+  focus: [255, 240, 180]
+
+error:
+  background: [120, 20, 20]
+  foreground: [255, 200, 200]
+  hover: [160, 40, 40]
+  active: [90, 10, 10]
+  disabled: [120, 70, 70]
+  focus: [255, 220, 220]
