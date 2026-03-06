@@ -8,9 +8,12 @@
 from typing import Optional
 import pygame
 
+from pyretrogui.apparence.theme import Theme
 from pyretrogui.apparence.theme_loader import ThemeLoader
 from pyretrogui.configuration.configuration import Configuration
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
+from pyretrogui.events.event_args import EventArgs
+from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.singleton_meta.singleton_meta_app import SingletonMetaApp
 from pyretrogui.ui_elements.widget_manager import WidgetManager
 from pyretrogui.video.context import Context
@@ -30,6 +33,10 @@ class App(metaclass=SingletonMetaApp):
 
           self._initialized = False
           self.widget_manager  = None
+
+          # App Events subscriptions.
+          theme_dispatcher = ThemeEventsDispatcher()
+          theme_dispatcher.subscribe_event_get_theme(self, self._get_theme)
 
           # Configuration.
           self.config: ApplicationConfig = Configuration.load()
@@ -76,6 +83,11 @@ class App(metaclass=SingletonMetaApp):
           self.widget: Optional[UIElement] = None
 
           self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
+
+      def _get_theme(self, event:EventArgs) -> None:
+           print("Event received.")
+           event.payload =  self.theme
+
 
       def _calculate_normalized_size(self, font_size: tuple[int, int] | None,  size: tuple[int, int] | None) -> tuple[int, int]:
           # Calculate the font perfect size
@@ -207,4 +219,4 @@ class App(metaclass=SingletonMetaApp):
 
 
 
-              self.context.draw_mouse_pointer(self.grp_ctx, normalized_mouse_location, buffer_mouse_location,self.theme.pointer_color)
+              self.context.draw_mouse_pointer(self.grp_ctx, normalized_mouse_location, buffer_mouse_location,self.theme.pointer)

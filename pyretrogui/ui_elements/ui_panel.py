@@ -11,7 +11,6 @@ from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.area import Area
 from pyretrogui.primitives.location import Location
-from pyretrogui.primitives.size import Size
 from pyretrogui.ui_elements.ui_element import UIElement
 
 
@@ -19,8 +18,6 @@ class UIPanel(UIElement):
 
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
-
-
 
       def draw(self, context: Context):
           pass

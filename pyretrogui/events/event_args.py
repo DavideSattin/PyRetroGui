@@ -19,6 +19,7 @@ class KeyEventType(Enum):
 
 class EventArgs(Generic[T,P]):
     def __init__(self, sender, kind: T, payload: P):
+        self.handled: bool = False
         self.sender = sender
         self.kind : T = kind
         self.payload : P = payload

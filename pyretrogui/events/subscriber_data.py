@@ -5,7 +5,7 @@
 # Created: 04/03/2026 17:03
 # Description:
 # ==========================================
-from typing import TypeVar, Generic, Callable
+from typing import Callable
 from enum import Enum
 class SubscriberData:
     def __init__(self, subscriber, event_function: Callable, kind: Enum = None):

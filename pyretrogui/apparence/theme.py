@@ -8,6 +8,7 @@
 from dataclasses import dataclass, field
 from typing import Optional, Tuple
 
+# TODO: Change it into dataclass with rgb.
 Color = Optional[Tuple[int, int, int]]
 
 @dataclass

@@ -1,6 +1,10 @@
+from typing import Optional
+
 import pygame
 from pygame.event import Event
 
+from pyretrogui.apparence.theme import Theme
+from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.io.file_reader import FileReader
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.view_port import ViewPort
@@ -10,6 +14,13 @@ from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.ui_elements.ui_element import UIElement
 
 
+class TextWidgetApparence:
+      def __init__(self, theme:Theme):
+          self.background_color = (255,255,255)
+          self.text_color = (255,255,255)
+          self.border_color = (0,0,0)
+
+
 class TextWidget(UIPanel):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
@@ -17,12 +28,17 @@ class TextWidget(UIPanel):
           self.border = True
           self.invalidate = True
           self.cursor_management:CursorManagement = CursorManagement(0,0)
+          self.theme: Optional[Theme] = None
+
           #TODO: Remove This. It's only for test.
           self.text = FileReader.read_text_file("..\\lorem_ipsum.txt")
 
 
 
       def init(self,context: Context):
+
+          theme_events_dispatcher = ThemeEventsDispatcher()
+          self.theme =  theme_events_dispatcher.publish_event_get_theme(self)
           # Refactor this!
           # We need to write the panel absolute_location and size
           # based on his behaviour  self.position_behaviour = PositionBehaviour.FREE

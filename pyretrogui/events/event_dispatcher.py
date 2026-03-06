@@ -58,12 +58,29 @@ class EventDispatcher(ABC):
                                  not self._match_subscriber(current_subscriber, subscriber,kind)]
 
 
-    def publish_event(self, sender, kind:Enum, payload):
-        notify_subscribers = [current_subscriber for current_subscriber in self.subscribers_data if current_subscriber.kind == kind]
-        for notify_subscriber in notify_subscribers:
-            args = EventArgs(sender=sender, kind=kind, payload=payload)
-            notify_subscriber.event_function(args)        # event_param = KeyEvent(param)
+    # def publish_event(self, sender, kind:Enum=None, payload=None):
+    #     notify_subscribers = [current_subscriber for current_subscriber in self.subscribers_data if current_subscriber.kind == kind]
+    #     for notify_subscriber in notify_subscribers:
+    #         args = EventArgs(sender=sender, kind=kind, payload=payload)
+    #         notify_subscriber.event_function(args)        # event_param = KeyEvent(param)
+    #         payload = args.payload
 
+    def publish_event(self, sender, kind: Enum = None, payload=None):
+
+        args = EventArgs(sender=sender, kind=kind, payload=payload)
+
+        notify_subscribers = [
+            s for s in self.subscribers_data
+            if s.kind is None or s.kind == kind
+        ]
+
+        for subscriber in notify_subscribers:
+            subscriber.event_function(args)
+
+            if args.handled:
+                break
+
+        return args.payload
 
     def unsubscribe_all(self):
         self.subscribers_data.clear()
