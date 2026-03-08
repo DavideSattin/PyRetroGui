@@ -5,7 +5,7 @@
 # Created: 04/01/2026 18:02
 # Description:
 # ==========================================
-from pyretrogui.apparence.theme import Theme
+from pyretrogui.appearance.theme import Theme
 from pyretrogui.cursor_context import CursorContext
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location

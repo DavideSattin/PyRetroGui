@@ -8,7 +8,7 @@
 import pygame
 from typing import Tuple
 
-from pyretrogui.apparence.theme import Theme
+from pyretrogui.appearance.theme import Theme
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.io.utils import asset_path
 

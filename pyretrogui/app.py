@@ -8,8 +8,8 @@
 from typing import Optional
 import pygame
 
-from pyretrogui.apparence.theme import Theme
-from pyretrogui.apparence.theme_loader import ThemeLoader
+from pyretrogui.appearance.theme import Theme
+from pyretrogui.appearance.theme_loader import ThemeLoader
 from pyretrogui.configuration.configuration import Configuration
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.events.event_args import EventArgs

@@ -7,7 +7,7 @@
 # ==========================================
 from typing import Callable
 
-from pyretrogui.apparence.theme import Theme
+from pyretrogui.appearance.theme import Theme
 from pyretrogui.events.event_dispatcher import EventDispatcher
 from pyretrogui.singleton_meta.singleton_meta_abc import SingletonMetaAbc
 
