@@ -37,8 +37,7 @@ class TextWidget(UIPanel):
 
       def init(self,context: Context):
 
-          theme_events_dispatcher = ThemeEventsDispatcher()
-          self.theme =  theme_events_dispatcher.publish_event_get_theme(self)
+
           # Refactor this!
           # We need to write the panel absolute_location and size
           # based on his behaviour  self.position_behaviour = PositionBehaviour.FREE
