@@ -67,6 +67,12 @@ class TextWidget(UIPanel):
 
 
       def draw(self, context: Context):
+          """
+          Draws the text widget.
+          The drawing starts at the relative position (0,0), which will be translated
+          by the drawing method into the absolute screen position.
+          :param context: The rendering context.
+          """
           # if not self.invalidate:
           #     return
 
@@ -74,13 +80,16 @@ class TextWidget(UIPanel):
 
           self.invalidate = False
 
-          # Draw the panel border,of the specified size. The absolute_location it's local 0,0, and the size it's the size of the panel.
-          widget_viewport = ViewPort(location=Location(0,0), size= self.size)
+          # The widget view_port it's relative to this widget
+          widget_viewport = super().get_widget_view_port()
 
-          # The draw_border function expects a local viewport as a parameter, internally it calculates the absolute absolute_location.
+          # Draw the background.
+          super().draw_background(context, widget_viewport,  self.appearance.background)
 
-          super().draw_background(context, widget_viewport, (0,0,255))
-          super().draw_border(context,widget_viewport, (255,255,255) , (0,0,255))
+          # Draw the border.
+          super().draw_border(context,widget_viewport, self.appearance.foreground , self.appearance.background)
+
+          # Draw the text.
           super().draw_text(context, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)

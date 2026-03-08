@@ -25,11 +25,18 @@ class DockablePanel(UIPanel):
           self.background = (0, 125, 255)
 
       def init(self, context: Context):
+          super().init(context)
           for element in self.elements:
               element.init(context)
 
       def draw(self, context: Context):
-          viewport = self.get_view_port(context)
+          """
+          Draws the dockable panel and its children.
+          The drawing starts at the relative position (0,0), which will be translated
+          by the drawing method into the absolute screen position.
+          :param context: The rendering context.
+          """
+          viewport = super().get_widget_view_port()
           super().draw_background(context, viewport, self.background )
 
           #TODO: Tmp

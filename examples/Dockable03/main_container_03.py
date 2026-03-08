@@ -33,7 +33,6 @@ class MainContainer03(DockableContainer):
           super().add_child(contents_container01)
           txt1 = TextWidget()
           txt1.text = "Hello World 1"
-
           contents_container01.add_child(txt1)
 
           # Create the Contents container 02. Useful for editor or other stuff.

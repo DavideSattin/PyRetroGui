@@ -20,6 +20,12 @@ class UIPanel(UIElement):
           super().__init__(parent)
 
       def draw(self, context: Context):
+          """
+          Draws the panel.
+          The drawing starts at the relative position (0,0), which will be translated
+          by the drawing method into the absolute screen position.
+          :param context: The rendering context.
+          """
           pass
 
       def draw_border(self,context: Context, widget_viewport: ViewPort, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
@@ -39,9 +45,9 @@ class UIPanel(UIElement):
           # know the real position to draw.
 
 
-          relative_viewport = widget_viewport.translate(self.location)
+          absolute_viewport = widget_viewport.translate(self.location)
 
-          rect_area = Area(relative_viewport)
+          rect_area = Area(absolute_viewport)
 
           # Draw the top_left border
           context.draw_char(rect_area.top_left, CHAR_CLASSES["corner_tl"], foreground_color, background_color)
@@ -76,6 +82,10 @@ class UIPanel(UIElement):
               context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
 
 
+      def get_widget_view_port(self)-> ViewPort:
+        return ViewPort(location=Location(0, 0), size=self.size)
+
+
       def draw_text(self,context: Context, text_content:str):
           # #Get the viewport absolute_location and size.
           view_port = self.get_internal_viewport(context)
@@ -106,7 +116,8 @@ class UIPanel(UIElement):
           if viewport is None:
               raise ValueError("The viewport cannot be None.")
 
-          context.fill_background(viewport,color)
+          relative_viewport = viewport.translate(self.location)
+          context.fill_background(relative_viewport,color)
 
 
 

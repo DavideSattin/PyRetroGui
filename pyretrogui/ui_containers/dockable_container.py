@@ -138,6 +138,12 @@ class DockableContainer(UIElement):
               container.init(context)
 
       def draw(self, context: Context):
+          """
+          Draws the dockable container and its child panels.
+          The drawing starts at the relative position (0,0), which will be translated
+          by the drawing method into the absolute screen position.
+          :param context: The rendering context.
+          """
           # Before to call update we need to calculate/arrange the panels position and size.
           # self._arrange_(self.get_view_port(context))
           for container in self.containers:

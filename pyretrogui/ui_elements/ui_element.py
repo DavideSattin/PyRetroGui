@@ -27,16 +27,22 @@ class UIElement(ABC):
 
 
       def init(self,context: Context):
-          size = self.get_view_port(context)
+          view_port = self.get_view_port(context)
 
           #TODO: uhm...why the viewport set the size?
-          self.location = size.location
-          self.size = size.size
-
+          self.location = view_port.location
+          self.size = view_port.size
+          print("Test")
 
 
       @abstractmethod
       def draw(self, context: Context):
+          """
+          Draws the UI element.
+          The drawing starts at the relative position (0,0), which will be translated
+          by the drawing method into the absolute screen position.
+          :param context: The rendering context.
+          """
           pass
 
 
