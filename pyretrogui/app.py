@@ -13,6 +13,7 @@ from pyretrogui.configuration.configuration import Configuration
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.events.event_args import EventArgs
 from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
+from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.singleton_meta.singleton_meta_app import SingletonMetaApp
 from pyretrogui.ui_elements.widget_manager import WidgetManager
 from pyretrogui.video.context import Context
@@ -60,16 +61,17 @@ class App(metaclass=SingletonMetaApp):
           self.root.id = -99
           self.root.margin = False
           self.root.border = False
-          self.root.location = Location(0,0)
+
 
           # Get the normalized site.
           normalized_size= self._calculate_normalized_size(self.font_size, self.size)
 
-          # Set the root.
-          self.root.size = Size(int(normalized_size[0] / self.font_size[0]), int(normalized_size[1] / self.font_size[1]))
+          # Set the root viewport
+          size = Size(int(normalized_size[0] / self.font_size[0]), int(normalized_size[1] / self.font_size[1]))
+          self.root.viewport = ViewPort(location=Location(0,0), size=size)
 
           print(f"Normalized size: {normalized_size}")
-          print(self.root.size)
+          print(self.root.viewport.size)
 
           # Create the graphic context.
           self.grp_ctx = GraphicContext(self.config)

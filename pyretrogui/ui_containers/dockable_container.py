@@ -30,11 +30,18 @@ class DockableContainer(UIElement):
           # Top containers are stacked vertically from the top.
           top_containers = [top_container for top_container  in self.containers if top_container.behaviour.position_behaviour ==  PositionBehaviour.DOCKED_TOP ]
           for top_container in top_containers:
-              top_container.location.x = x
-              top_container.location.y = y
-              top_container.size.width = view_port.size.width
-              y = y + top_container.size.height
-              print(f"TOP - x:{top_container.location.x} - y:{top_container.location.y} - Size: {top_container.size}")
+              top_container.viewport.location.x = x
+              top_container.viewport.location.y = y
+              top_container.viewport.size.width = view_port.size.width
+
+              y = y + top_container.viewport.size.height
+              print(f"TOP - x:{top_container.viewport.location.x} - y:{top_container.viewport.location.y} - Size: {top_container.viewport.size}")
+
+              # top_container.location.x = x
+              # top_container.location.y = y
+              # top_container.size.width = view_port.size.width
+              # y = y + top_container.size.height
+              # print(f"TOP - x:{top_container.location.x} - y:{top_container.location.y} - Size: {top_container.size}")
 
           top_containers_lower_position  = y
 
@@ -43,14 +50,14 @@ class DockableContainer(UIElement):
           # Calculate where we start to put the bottom containers.
           # We start from the higher y position calculated as the subtraction of panel total height with the sum of the height of bottom panel
           bottom_containers = [top_container for top_container in self.containers if top_container.behaviour.position_behaviour == PositionBehaviour.DOCKED_BOTTOM]
-          bottom_containers_height = sum( container.size.height for container in bottom_containers)
+          bottom_containers_height = sum( container.viewport.size.height for container in bottom_containers)
           y = view_port.size.height - bottom_containers_height
           bottom_containers_higher_position = y
           for bottom_container in bottom_containers:
-              bottom_container.location.x = x
-              bottom_container.location.y = y
-              bottom_container.size.width = view_port.size.width
-              y = y + bottom_container.size.height
+              bottom_container.viewport.location.x = x
+              bottom_container.viewport.location.y = y
+              bottom_container.viewport.size.width = view_port.size.width
+              y = y + bottom_container.viewport.size.height
 
           # Arrange the content panels.
           content_containers = [top_container for top_container in self.containers if
@@ -68,26 +75,26 @@ class DockableContainer(UIElement):
           for content_container_idx in range(num_of_content_panels):
               content_container = content_containers[content_container_idx]
 
-              content_container.location.x = x
-              content_container.location.y = y
-              content_container.size.width = view_port.size.width
+              content_container.viewport.location.x = x
+              content_container.viewport.location.y = y
+              content_container.viewport.size.width = view_port.size.width
 
               if content_container_idx != num_of_content_panels - 1:
 
-                  content_container.size.height = size_for_panel
-                  y = y + content_container.size.height
-                  total_vertical_space_allocated = total_vertical_space_allocated +  content_container.size.height
+                  content_container.viewport.size.height = size_for_panel
+                  y = y + content_container.viewport.size.height
+                  total_vertical_space_allocated = total_vertical_space_allocated +  content_container.viewport.size.height
               else:
 
                   delta = content_total_height - total_vertical_space_allocated
                   if delta > size_for_panel:
                       size_for_panel = delta
 
-                  content_container.size.height = size_for_panel
-                  y = y + content_container.size.height
-                  total_vertical_space_allocated = total_vertical_space_allocated + content_container.size.height
+                  content_container.viewport.size.height = size_for_panel
+                  y = y + content_container.viewport.size.height
+                  total_vertical_space_allocated = total_vertical_space_allocated + content_container.viewport.size.height
 
-              print(f"Content - x:{content_container.location.x} - y:{content_container.location.y} - Size: {content_container.size}")
+              print(f"Content - x:{content_container.viewport.location.x} - y:{content_container.viewport.location.y} - Size: {content_container.viewport.size}")
 
           # for content_container in content_containers:
           #
@@ -105,7 +112,7 @@ class DockableContainer(UIElement):
           container = DockablePanel(self)
           container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
           container.behaviour.position_behaviour = PositionBehaviour.DOCKED_TOP
-          container.size.height = height
+          container.viewport.size.height = height
           container.name = name
           container.background = color
           return container
@@ -128,7 +135,7 @@ class DockableContainer(UIElement):
 
           container.behaviour.size_behaviour = ResizeBehaviour.BUBBLE
           container.behaviour.position_behaviour = PositionBehaviour.DOCKED_BOTTOM
-          container.size.height = height
+          container.viewport.size.height = height
           container.name = name
           container.background = color
           return  container

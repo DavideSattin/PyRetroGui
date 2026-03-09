@@ -47,7 +47,7 @@ class UIPanel(UIElement):
           # know the real position to draw.
 
 
-          absolute_viewport = widget_viewport.translate(self.location)
+          absolute_viewport = widget_viewport.translate(self.viewport.location)
 
           rect_area = Area(absolute_viewport)
 
@@ -84,15 +84,14 @@ class UIPanel(UIElement):
               context.draw_char(ly, CHAR_CLASSES["line_v"], foreground_color, background_color)
 
 
-      def get_widget_view_port(self)-> ViewPort:
-        return ViewPort(location=Location(0, 0), size=self.size)
+
 
       # I don't like this name, but we have another method with a similar name that give an absolute vieport
       # It make a lot of confusion. This will be renamed soon.
       def get_internal_relative_view_port(self) -> ViewPort:
 
 
-          return ViewPort(location=Location(0, 0), size=self.size)
+          return ViewPort(location=Location(0, 0), size=self.viewport.size)
 
       def draw_text(self,context: Context,  widget_viewport: ViewPort,  text_content:str):
           if context is None:
@@ -104,7 +103,7 @@ class UIPanel(UIElement):
           # #Get the viewport absolute_location and size.
           #view_port = self.get_internal_viewport(context)
 
-          current_location = widget_viewport.location.translate_to(self.location)
+          current_location = widget_viewport.location.translate_to(self.viewport.location)
 
           for current_line in text_content.split("\n"):
             if current_location.y <= widget_viewport.size.height:
@@ -130,7 +129,7 @@ class UIPanel(UIElement):
           if viewport is None:
               raise ValueError("The viewport cannot be None.")
 
-          relative_viewport = viewport.translate(self.location)
+          relative_viewport = viewport.translate(self.viewport.location)
           context.fill_background(relative_viewport,color)
 
 

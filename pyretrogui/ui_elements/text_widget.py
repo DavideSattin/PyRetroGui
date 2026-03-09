@@ -5,6 +5,7 @@ from pygame.event import Event
 
 from pyretrogui.appearance.theme import Theme
 from pyretrogui.appearance.widget_appearance import WidgetAppearance
+from pyretrogui.arranger.layout_manager import LayoutManager
 from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.io.file_reader import FileReader
 from pyretrogui.primitives.location import Location
@@ -81,17 +82,19 @@ class TextWidget(UIPanel):
 
           self.invalidate = False
 
-          # The widget view_port it's relative to this widget
-          widget_viewport = super().get_widget_view_port()
+
+          # The widget view_port it's relative to this widget.
+          widget_relative_viewport = LayoutManager().get_relative_viewport(self.viewport)
 
           # Draw the background.
-          super().draw_background(context, widget_viewport,  self.appearance.background)
+          super().draw_background(context, widget_relative_viewport,  self.appearance.background)
 
           # Draw the border.
-          super().draw_border(context,widget_viewport, self.appearance.foreground , self.appearance.background)
+          super().draw_border(context,widget_relative_viewport, self.appearance.foreground , self.appearance.background)
 
           # Draw the text, from the relative position 0,0
-          text_viewport = ViewPort(location=Location(0,0),size=self.size)
+
+          text_viewport =  LayoutManager().get_relative_internal_viewport(self)
           super().draw_text(context,text_viewport, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)

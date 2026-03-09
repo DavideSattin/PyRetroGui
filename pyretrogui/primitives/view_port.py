@@ -28,3 +28,10 @@ class ViewPort:
             raise ValueError("The location cannot be None")
 
         return ViewPort(location=self.location + location, size=self.size)
+
+    # def to_relative(self):
+    #     return ViewPort(location=Location(0,0), size=self.size)
+    #
+    # def reduce_size(self, offset:int) -> "ViewPort":
+    #     new_size = Size(self.size.width - offset, self.size.height - offset)
+    #     return ViewPort(location=Location(0, 0), size=new_size)
