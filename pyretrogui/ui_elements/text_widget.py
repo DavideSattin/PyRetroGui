@@ -1,15 +1,9 @@
-from typing import Optional
 
-import pygame
-from pygame.event import Event
 
-from pyretrogui.appearance.theme import Theme
 from pyretrogui.appearance.widget_appearance import WidgetAppearance
 from pyretrogui.arranger.layout_manager import LayoutManager
-from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.io.file_reader import FileReader
 from pyretrogui.primitives.location import Location
-from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
 from pyretrogui.ui_elements.ui_panel import UIPanel

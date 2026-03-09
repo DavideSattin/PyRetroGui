@@ -177,4 +177,4 @@ class LayoutManager(metaclass=SingletonLayoutManager):
         """
         offset = self._calculate_offset(ui_element.border, ui_element.margin)
         size = self._calculate_size(offset, ui_element.viewport.size)
-        return ViewPort(location=Location(0, 0), size=size)
+        return ViewPort(location=Location(offset, offset), size=size)

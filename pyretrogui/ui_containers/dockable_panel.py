@@ -36,8 +36,8 @@ class DockablePanel(UIPanel):
           by the drawing method into the absolute screen position.
           :param context: The rendering context.
           """
-          viewport = super().get_widget_view_port()
-          super().draw_background(context, viewport, self.background )
+
+          super().draw_background(context, self.viewport, self.background )
 
           #TODO: Tmp
           for element in self.elements:
