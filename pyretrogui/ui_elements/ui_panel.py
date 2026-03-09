@@ -129,6 +129,7 @@ class UIPanel(UIElement):
           if viewport is None:
               raise ValueError("The viewport cannot be None.")
 
+          print(f"name:{self.name}")
           relative_viewport = viewport.translate(self.viewport.location)
           context.fill_background(relative_viewport,color)
 
