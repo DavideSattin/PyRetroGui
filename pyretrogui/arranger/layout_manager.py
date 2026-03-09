@@ -63,6 +63,39 @@ class LayoutManager(metaclass=SingletonLayoutManager):
             case _:
                 raise Exception( f"Panel position behaviour mode {ui_element.behaviour.position_behaviour} not supported.")
 
+
+    def _get_internal_viewport_raw(self, have_margin: bool, have_border: bool, location:Location, size:Size)-> ViewPort:
+            """
+            Calculates the internal viewport of a UI element.
+
+            The internal viewport represents the drawable area of a control,
+            excluding margins and borders.
+            """
+
+            offset = 0
+
+            # Each visual layer reduces the drawable space
+            if have_margin:
+                offset += 1
+
+            if have_border:
+                offset += 1
+
+            # The viewport location is relative to the control itself
+            start_relative_location = Location(
+                location.x + offset,
+                location.y + offset
+            )
+
+            # Recalculate the internal size by removing the offsets
+            width = size.width - offset * 2
+            height = size.height - offset * 2
+
+            return ViewPort(
+                location=start_relative_location,
+                size=Size(width, height)
+            )
+
     def _get_internal_viewport(self, ui_element: "UIElement") -> ViewPort:
         """
         Calculates the internal viewport of a UI element.
@@ -71,26 +104,4 @@ class LayoutManager(metaclass=SingletonLayoutManager):
         excluding margins and borders.
         """
 
-        offset = 0
-
-        # Each visual layer reduces the drawable space
-        if ui_element.margin:
-            offset += 1
-
-        if ui_element.border:
-            offset += 1
-
-        # The viewport location is relative to the control itself
-        start_relative_location = Location(
-            ui_element.location.x + offset,
-            ui_element.location.y + offset
-        )
-
-        # Recalculate the internal size by removing the offsets
-        width = ui_element.size.width - offset * 2
-        height = ui_element.size.height - offset * 2
-
-        return ViewPort(
-            location=start_relative_location,
-            size=Size(width, height)
-        )
+        return self._get_internal_viewport_raw(ui_element.margin, ui_element.border, ui_element.location, ui_element.size)

@@ -1,17 +1,23 @@
 # ==========================================
 # Project: PyRetroGUI
-# File: absolute_location
+# File: location
 # Author: Davide Sattin
 # Created: 05/01/2026 17:01
-# Description: This class manages a 2D absolute_location
+# Description: Represents a 2D location.
 # ==========================================
+
+from __future__ import annotations
+
 from pyretrogui.primitives.size import Size
 
 
 class Location:
     """
-    Represents a 2D absolute_location using X and Y coordinates.
+    Represents a 2D location using X and Y coordinates.
     """
+
+    x: int
+    y: int
 
     def __init__(self, x: int, y: int):
         """
@@ -29,12 +35,12 @@ class Location:
 
         Supported operands:
         - Location: component-wise addition (x + x, y + y)
-        - Size: translates the absolute_location by the size (width, height)
-        - Size: translates the absolute_location by (width - 1, height - 1)
+        - Size: translates the location by (width - 1, height - 1)
 
-        :param other: A Location or Size to add
+        :param other: A Location or Size instance
         :return: A new Location instance
         """
+
         if isinstance(other, Location):
             return Location(self.x + other.x, self.y + other.y)
 
@@ -52,44 +58,37 @@ class Location:
 
     def translate_to(self, location: "Location") -> "Location":
         """
-        Translates this absolute_location by another Location and returns a new Location.
+        Translates this location by another Location and returns a new Location.
 
         The current instance is not modified.
 
-        :param location: A Location instance representing the translation offset
-        :return: A new Location resulting from the translation
-        :raises ValueError: If absolute_location is None
+        :param location: Translation offset
+        :return: A new translated Location
         """
-        if location is None:
-            raise ValueError("absolute_location cannot be None")
 
-        new_x = self.x + location.x
-        new_y = self.y + location.y
-        return Location(new_x, new_y)
+        if location is None:
+            raise ValueError("location cannot be None")
+
+        return Location(
+            self.x + location.x,
+            self.y + location.y
+        )
 
     def add_x(self, x: int) -> "Location":
         """
-        Returns a new Location with the X coordinate increased by the given value.
+        Returns a new Location with the X coordinate increased.
 
-        The current instance is not modified.
-
-        :param x: Amount to add to the X coordinate
-        :return: A new Location with the updated X value
+        :param x: Value to add
         """
-        new_x = self.x + x
-        return Location(new_x, self.y)
+        return Location(self.x + x, self.y)
 
     def add_y(self, y: int) -> "Location":
         """
-        Returns a new Location with the Y coordinate increased by the given value.
+        Returns a new Location with the Y coordinate increased.
 
-        The current instance is not modified.
-
-        :param y: Amount to add to the Y coordinate
-        :return: A new Location with the updated Y value
+        :param y: Value to add
         """
-        new_y = self.y + y
-        return Location(self.x, new_y)
+        return Location(self.x, self.y + y)
 
     def __str__(self):
         return f"X:{self.x} - Y:{self.y}"

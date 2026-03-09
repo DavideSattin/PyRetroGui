@@ -90,6 +90,8 @@ class UIPanel(UIElement):
       # I don't like this name, but we have another method with a similar name that give an absolute vieport
       # It make a lot of confusion. This will be renamed soon.
       def get_internal_relative_view_port(self) -> ViewPort:
+
+
           return ViewPort(location=Location(0, 0), size=self.size)
 
       def draw_text(self,context: Context,  widget_viewport: ViewPort,  text_content:str):
