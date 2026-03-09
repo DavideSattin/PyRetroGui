@@ -9,6 +9,9 @@
 # ==========================================
 from enum import Enum
 from typing import Optional
+
+import optional
+
 from pyretrogui.appearance.theme import ThemeState, Theme
 from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 
@@ -54,6 +57,11 @@ class WidgetAppearance:
         self._custom_theme_state: Optional[ThemeState] = None
         self._theme_state: Optional[ThemeState] = None
         self._theme_events_dispatcher = ThemeEventsDispatcher()
+        self.theme: Optional[Theme] = None
+        # self.theme: Theme = self._theme_events_dispatcher.publish_event_get_theme(self)
+        # self.set_theme_state()
+
+    def init_theme(self):
         self.theme: Theme = self._theme_events_dispatcher.publish_event_get_theme(self)
         self.set_theme_state()
 

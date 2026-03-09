@@ -31,7 +31,7 @@ class TextWidget(UIPanel):
 
 
       def init(self,context: Context):
-
+          self.appearance.init_theme()
 
           # Refactor this!
           # We need to write the panel absolute_location and size
