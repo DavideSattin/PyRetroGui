@@ -20,8 +20,7 @@ from pyretrogui.ui_elements.ui_element import UIElement
 class TextWidget(UIPanel):
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
-          self.margin = False
-          self.border = True
+
           self.invalidate = True
           self.cursor_management:CursorManagement = CursorManagement(0,0)
           self.appearance = WidgetAppearance()
@@ -40,30 +39,32 @@ class TextWidget(UIPanel):
           #           self.size_behaviour = WindowSize.DOCK
 
           super().init(context)
-          view_port = self.get_internal_viewport(context)
+
+          #THIS IS TOTALLY WRONG
+          #view_port = self.get_internal_viewport()
           # Set the cursor position with the absolute_location of the internal viewport.
-          self.cursor_management.location = view_port.location
+          self.cursor_management.location = Location(0,0)
 
 
-      # TODO: Remove this.
-      def on_key_event(self, event: Event,context: Context):
-          if event is None:
-              raise Exception("Event cannot be None.")
-
-          # Get the internal viewport.
-          view_port = self.get_internal_viewport(context)
-
-          match event.key:
-              case pygame.K_UP:
-                  self.cursor_management.move_up(view_port)
-              case pygame.K_DOWN:
-                  self.cursor_management.move_down(view_port)
-              case pygame.K_LEFT:
-                  self.cursor_management.move_left(view_port)
-              case pygame.K_RIGHT:
-                  self.cursor_management.move_right(view_port)
-              case _:
-                  pass
+      # # TODO: Remove this.
+      # def on_key_event(self, event: Event,context: Context):
+      #     if event is None:
+      #         raise Exception("Event cannot be None.")
+      #
+      #     # Get the internal viewport.
+      #     view_port = self.get_internal_viewport(context)
+      #
+      #     match event.key:
+      #         case pygame.K_UP:
+      #             self.cursor_management.move_up(view_port)
+      #         case pygame.K_DOWN:
+      #             self.cursor_management.move_down(view_port)
+      #         case pygame.K_LEFT:
+      #             self.cursor_management.move_left(view_port)
+      #         case pygame.K_RIGHT:
+      #             self.cursor_management.move_right(view_port)
+      #         case _:
+      #             pass
 
 
       def draw(self, context: Context):
@@ -89,8 +90,9 @@ class TextWidget(UIPanel):
           # Draw the border.
           super().draw_border(context,widget_viewport, self.appearance.foreground , self.appearance.background)
 
-          # Draw the text.
-          super().draw_text(context, self.text)
+          # Draw the text, from the relative position 0,0
+          text_viewport = ViewPort(location=Location(0,0),size=self.size)
+          super().draw_text(context,text_viewport, self.text)
 
           # The cursor position it's relative to the panel and it's viewport. At the moment it's fixed to (1,1)
           super().draw_cursor(context, self.cursor_management.location)

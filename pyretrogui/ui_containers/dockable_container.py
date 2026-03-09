@@ -7,6 +7,7 @@
 # ==========================================
 from typing import List
 
+from pyretrogui.arranger.layout_manager import LayoutManager
 from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.primitives.view_port import ViewPort
@@ -133,7 +134,8 @@ class DockableContainer(UIElement):
           return  container
 
       def init(self, context:Context):
-          self._arrange_(self.get_view_port(context))
+
+          self._arrange_(LayoutManager().get_view_port(self))
           for container in self.containers:
               container.init(context)
 

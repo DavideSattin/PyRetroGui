@@ -18,6 +18,8 @@ class UIPanel(UIElement):
 
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
+          self.margin = False
+          self.border = True
 
       def draw(self, context: Context):
           """
@@ -85,16 +87,26 @@ class UIPanel(UIElement):
       def get_widget_view_port(self)-> ViewPort:
         return ViewPort(location=Location(0, 0), size=self.size)
 
+      # I don't like this name, but we have another method with a similar name that give an absolute vieport
+      # It make a lot of confusion. This will be renamed soon.
+      def get_internal_relative_view_port(self) -> ViewPort:
+          return ViewPort(location=Location(0, 0), size=self.size)
 
-      def draw_text(self,context: Context, text_content:str):
+      def draw_text(self,context: Context,  widget_viewport: ViewPort,  text_content:str):
+          if context is None:
+              raise ValueError("The size cannot be None.")
+
+          if widget_viewport is None:
+              raise ValueError("The widget_viewport cannot be None.")
+
           # #Get the viewport absolute_location and size.
-          view_port = self.get_internal_viewport(context)
+          #view_port = self.get_internal_viewport(context)
 
-          current_location = view_port.location.translate_to(self.location)
+          current_location = widget_viewport.location.translate_to(self.location)
 
           for current_line in text_content.split("\n"):
-            if current_location.y <= view_port.size.height:
-                context.draw_text(current_location, view_port.size, current_line)
+            if current_location.y <= widget_viewport.size.height:
+                context.draw_text(current_location, widget_viewport.size, current_line)
                 current_location = current_location.add_y(1)
 
 
