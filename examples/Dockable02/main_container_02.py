@@ -32,7 +32,7 @@ class MainContainer02(DockableContainer):
           super().add_child(contents_container01)
 
           # Create the Contents container 02. Useful for editor or other stuff.
-          contents_container02 = super()._create_dockable_content_panel("Container 1", (0, 255, 255))
+          contents_container02 = super()._create_dockable_content_panel("Container 2", (0, 255, 255))
           super().add_child(contents_container02)
 
           # Create the footer container. Useful for status controls.

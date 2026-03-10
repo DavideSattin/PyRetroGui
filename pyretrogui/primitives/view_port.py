@@ -16,6 +16,9 @@ class ViewPort:
     location: Location = Location(0, 0)
     size: Size = Size(0, 0)
 
+    def __str__(self):
+        return f"ViewPort(location={self.location}, size={self.size})"
+
     def translate(self, location: Location) -> "ViewPort":
         """
         Returns a new ViewPort translated by the given location offset.

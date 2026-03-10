@@ -5,7 +5,7 @@
 # Created: 18/01/2026 12:04
 # Description: This class manage the dockable panel.
 # ==========================================
-
+from pyretrogui.arranger.layout_manager import LayoutManager
 from pyretrogui.ui_elements.ui_element import UIElement
 from pyretrogui.ui_elements.ui_panel import UIPanel
 from pyretrogui.video.context import Context
@@ -37,7 +37,9 @@ class DockablePanel(UIPanel):
           :param context: The rendering context.
           """
 
-          super().draw_background(context, self.viewport, self.background )
+          # The widget view_port it's relative to this widget.
+          widget_relative_viewport = LayoutManager().get_relative_viewport(self.viewport)
+          super().draw_background(context, widget_relative_viewport, self.background )
 
           #TODO: Tmp
           for element in self.elements:

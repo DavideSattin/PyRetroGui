@@ -160,9 +160,18 @@ class Context:
           self.cursor.location = cursor_position
 
       def fill_background(self, viewport:ViewPort, color: Color) -> None:
+           # print (f"Fill Background: {viewport} - {color} - Trace: {trace}")
+           # for row_idx in range(viewport.location.y, viewport.size.height):
+           #     if trace:
+           #         print(f"Row: {row_idx}")
+           #     for col_idx in range(viewport.location.x,  viewport.size.width):
+           #         if trace:
+           #            print(f"Row: {row_idx}, Col: {col_idx} - Color: {color}")
+           #         print(f"set_background_color: {trace}")
+           #         self.video_buffer.set_background_color(row_idx, col_idx, color)
 
           for row_idx in range(viewport.location.y,viewport.location.y+ viewport.size.height):
-              for col_idx in range(viewport.location.x, viewport.location.x + viewport.size.width):
-                   self.video_buffer.set_background_color(row_idx,col_idx, color)
+                for col_idx in range(viewport.location.x, viewport.location.x + viewport.size.width):
+                    self.video_buffer.set_background_color(row_idx,col_idx, color)
 
 

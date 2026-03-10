@@ -35,6 +35,20 @@ IL controllo viene espanso al massimo dal suo contenitore. In questo caso size e
 
 2) Un controllo con messo un un PanelContainer.
    Il controllo viene messo in Position.Top
+
+   SCREEN SPACE
+(0,0)
+   |
+   |        Widget A viewport (10,5) absolute
+   |        +------------------+
+   |        | relative (0,0)   |
+   |        |                  |
+   |        +------------------+
+   |
+   |                 Widget B viewport (40,8) absolute
+   |                 +------------------+
+   |                 | relative (0,0)   |
+   |                 +------------------+
    
 
 

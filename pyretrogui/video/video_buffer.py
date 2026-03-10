@@ -153,4 +153,13 @@ class VideoBuffer:
         return self.chars_buffer_curr[y]
 
     def set_background_color(self, row_idx, col_idx, test_color)  -> None:
-        self.back_colors_buffer_curr[row_idx][col_idx] = test_color
+
+        try:
+            self.back_colors_buffer_curr[row_idx][col_idx] = test_color
+        except IndexError:
+            print(f"[DEBUG] Indice fuori range! row_idx={row_idx}, col_idx={col_idx}")
+            print(f"[DEBUG] Dimensioni buffer: rows={len(self.back_colors_buffer_curr)}, "
+                  f"cols={len(self.back_colors_buffer_curr[0]) if self.back_colors_buffer_curr else 0}")
+
+            # Rilancia l'errore per fermare l'esecuzione
+            raise
