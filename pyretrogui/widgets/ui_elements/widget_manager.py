@@ -7,6 +7,7 @@
 # ==========================================
 from typing import List, Container
 
+from pyretrogui.primitives.location import Location
 from pyretrogui.singleton_meta.singleton_meta_widget_manager import SingletonMetaWidgetManager
 from pyretrogui.widgets.ui_containers.container_panel import ContainerPanel
 from pyretrogui.widgets.ui_elements.ui_element import UIElement
@@ -15,7 +16,8 @@ from pyretrogui.video.context import Context
 
 class WidgetManager(metaclass=SingletonMetaWidgetManager):
        def __init__(self):
-           # TODO: Dovrebbe essere un dizionario.
+           # TODO: Probably the list is not really correct. Maybe a dictionary?
+           # TODO: change the name of self.widgets. I don't like the UIElement name.
            self.widgets : List[UIElement] = []
 
        def _ensure_element_initialized(self, element: UIElement) -> None:
@@ -74,3 +76,14 @@ class WidgetManager(metaclass=SingletonMetaWidgetManager):
 
            self.widgets.append(element)
            return element
+
+       def get_element_from_location(self, location:Location) -> UIElement | None:
+           if location is None:
+               raise ValueError("location cannot be None")
+
+           ordered  = sorted(self.widgets, key=lambda w: w.viewport.z_index, reverse=True)
+
+           return next(
+               (w for w in ordered if w.enabled and w.viewport.match(location)),
+               None
+           )

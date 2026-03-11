@@ -13,6 +13,7 @@ from pyretrogui.configuration.configuration import Configuration
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.events.application_resize_event_dispatcher import ApplicationResizeEventDispatcher
 from pyretrogui.events.event_args import EventArgs
+from pyretrogui.events.mouse_event_dispatcher import MouseEventDispatcher, MousePayload, MouseButtonType
 from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.singleton_meta.singleton_meta_app import SingletonMetaApp
@@ -57,6 +58,7 @@ class App(metaclass=SingletonMetaApp):
         """
         Initializes the application. Must be called via create_instance.
         """
+
         if not App._allow_init:
             raise RuntimeError("Use App.CreateInstance.")
 
@@ -69,6 +71,9 @@ class App(metaclass=SingletonMetaApp):
 
         app_viewport_dispatcher = ApplicationResizeEventDispatcher()
         app_viewport_dispatcher.subscribe_event_viewport_resize(self, self._on_application_resize)
+
+        mouse_event_dispatcher = MouseEventDispatcher()
+        mouse_event_dispatcher.subscribe_event_mouse_down(self, self._on_mouse_down)
 
         # Configuration.
         self.config: ApplicationConfig = Configuration.load()
@@ -165,10 +170,14 @@ class App(metaclass=SingletonMetaApp):
                 case pygame.QUIT:
                     self.running = False
                 case pygame.KEYDOWN | pygame.KEYUP:
-                    self.widget.on_key_event(event, self.context)
+                    #self.widget.on_key_event(event, self.context)
+                    pass
                 case pygame.WINDOWSIZECHANGED:
                     new_size = (event.x, event.y)
                     ApplicationResizeEventDispatcher().publish_application_viewport_resize(self, new_size)
+                case pygame.MOUSEBUTTONDOWN:
+                     payload =  MousePayload(MouseButtonType(event.button), event.pos)
+                     MouseEventDispatcher().publish_mouse_down_event(self, payload)
 
     def update(self):
         """
@@ -290,3 +299,13 @@ class App(metaclass=SingletonMetaApp):
         self.root.viewport = ViewPort(location=Location(0, 0), size=size)
         self.root.on_set_layout(self.context)
         self.invalidated = True
+
+    def _on_mouse_down(self, event_arg: EventArgs) -> None:
+        print(f"On MouseDown Event received. Position: {event_arg.payload.position}")
+        mouse_location = Location(event_arg.payload.position[0], event_arg.payload.position[1])
+        element = self.widget_manager.get_element_from_location(mouse_location)
+        if  element is None:
+            print("Element not found.")
+            return
+
+        print(f"Element at mouse location. ID {element.id}")

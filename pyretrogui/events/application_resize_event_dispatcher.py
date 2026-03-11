@@ -6,11 +6,9 @@
 # Description:
 # ==========================================
 from typing import Callable
-
 from pyretrogui.events.event_dispatcher import EventDispatcher
 from pyretrogui.primitives.size import Size
 from pyretrogui.singleton_meta.singleton_meta_abc import SingletonMetaAbc
-
 
 class ApplicationResizeEventDispatcher(EventDispatcher, metaclass=SingletonMetaAbc):
 

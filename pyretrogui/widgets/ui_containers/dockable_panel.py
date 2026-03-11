@@ -55,5 +55,6 @@ class DockablePanel(UIPanel):
               raise ValueError("element cannot be None")
 
           if element not in self.elements:
-              element.parent = self
+              #element.parent = self
+              self._widget_manager.register_element(element, root=self)
               self.elements.append(element)

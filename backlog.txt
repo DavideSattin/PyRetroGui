@@ -1,6 +1,6 @@
 Backlog
     - Cursor management.
-    - Resize management.
+    _ Move the Arrage function.
     - Focus management.
 
 
@@ -42,3 +42,4 @@ Control Factory
     - the color of the back font it's different from the background.
     - Container Control - Create the Container control, responsible for hosting and managing child controls.
     - Check if the coordinate are relive to the current panel, not absolute!
+    - Resize management.

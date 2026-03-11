@@ -21,6 +21,7 @@ class ViewPort:
     """
     location: Location = Location(0, 0)
     size: Size = Size(0, 0)
+    z_index: int = 0
 
     def __str__(self):
         """Returns a string representation of the ViewPort."""
@@ -75,3 +76,8 @@ class ViewPort:
 
         return ViewPort(location=self.location + location, size=self.size)
 
+    def match(self, location:Location)-> bool:
+        if location is None:
+            raise ValueError("The location cannot be None")
+
+        return self.top_left().x <= location.x <= self.bottom_right().x and self.top_left().y <= location.y <= self.bottom_right().y
