@@ -2,11 +2,12 @@ from abc import ABC, abstractmethod
 
 from pyretrogui.arranger.layout_manager import LayoutManager
 from pyretrogui.arranger.ui_behaviour import UIBehaviour
+from pyretrogui.events.mouse_event_dispatcher import MousePosition
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
-
+from pyretrogui.widgets.ui_elements.unit import Unit
 
 
 class UIElement(ABC):
@@ -21,6 +22,7 @@ class UIElement(ABC):
           self.border: bool = True
           self.behaviour: UIBehaviour = UIBehaviour()
           self.name : str = ""
+          self.unit : Unit = Unit.Grid16
 
           # The widget manager.
           from pyretrogui.widgets.ui_elements.widget_manager import WidgetManager
@@ -44,5 +46,9 @@ class UIElement(ABC):
           """
           pass
 
+      def match(self, mouse_position: MousePosition) -> bool:
+          if mouse_position is None:
+              raise ValueError("The mouse_position cannot be None")
 
+          return self.top_left().x <= location.x <= self.bottom_right().x and self.top_left().y <= location.y <= self.bottom_right().y
 

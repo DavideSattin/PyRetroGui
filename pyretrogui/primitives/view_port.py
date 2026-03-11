@@ -76,8 +76,3 @@ class ViewPort:
 
         return ViewPort(location=self.location + location, size=self.size)
 
-    def match(self, location:Location)-> bool:
-        if location is None:
-            raise ValueError("The location cannot be None")
-
-        return self.top_left().x <= location.x <= self.bottom_right().x and self.top_left().y <= location.y <= self.bottom_right().y

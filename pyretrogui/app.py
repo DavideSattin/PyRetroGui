@@ -302,8 +302,8 @@ class App(metaclass=SingletonMetaApp):
 
     def _on_mouse_down(self, event_arg: EventArgs) -> None:
         print(f"On MouseDown Event received. Position: {event_arg.payload.position}")
-        mouse_location = Location(event_arg.payload.position[0], event_arg.payload.position[1])
-        element = self.widget_manager.get_element_from_location(mouse_location)
+
+        element = self.widget_manager.get_element_from_location(event_arg.payload.position)
         if  element is None:
             print("Element not found.")
             return

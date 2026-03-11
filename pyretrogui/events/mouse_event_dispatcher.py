@@ -5,11 +5,17 @@
 # Created: 11/03/2026 17:01
 # Description:
 # ==========================================
+from dataclasses import dataclass
 from enum import Enum
 from typing import Callable
 
 from pyretrogui.events.event_dispatcher import EventDispatcher
 from pyretrogui.singleton_meta.singleton_meta_abc import SingletonMetaAbc
+
+@dataclass(frozen=True)
+class MousePosition:
+     x: int
+     y: int
 
 class MouseEventType(Enum):
     NONE = 0
@@ -26,8 +32,8 @@ class MouseButtonType(Enum):
 
 class MousePayload:
     def __init__(self, mouse_button: MouseButtonType, position: tuple[int,int]):
-        self.button : MouseButtonType = mouse_button
-        self.position: tuple[int,int] = position
+        self.button  : MouseButtonType = mouse_button
+        self.position: MousePosition = MousePosition(x=position[0], y=position[1])
 
 class MouseEventDispatcher(EventDispatcher, metaclass=SingletonMetaAbc):
 

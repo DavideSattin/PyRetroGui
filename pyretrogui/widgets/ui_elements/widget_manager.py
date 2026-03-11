@@ -7,6 +7,7 @@
 # ==========================================
 from typing import List, Container
 
+from pyretrogui.events.mouse_event_dispatcher import MousePosition
 from pyretrogui.primitives.location import Location
 from pyretrogui.singleton_meta.singleton_meta_widget_manager import SingletonMetaWidgetManager
 from pyretrogui.widgets.ui_containers.container_panel import ContainerPanel
@@ -77,9 +78,9 @@ class WidgetManager(metaclass=SingletonMetaWidgetManager):
            self.widgets.append(element)
            return element
 
-       def get_element_from_location(self, location:Location) -> UIElement | None:
-           if location is None:
-               raise ValueError("location cannot be None")
+       def get_element_from_location(self, mouse_position:MousePosition) -> UIElement | None:
+           if mouse_position is None:
+               raise ValueError("mouse_position cannot be None")
 
            ordered  = sorted(self.widgets, key=lambda w: w.viewport.z_index, reverse=True)
 
