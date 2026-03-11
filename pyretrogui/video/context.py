@@ -15,7 +15,7 @@ from pyretrogui.video.video_buffer import VideoBuffer, Color
 
 
 class Context:
-      def __init__(self, theme: Theme, size:tuple[int, int], font_size: tuple[int, int], normalized_size:tuple[int, int]):
+      def __init__(self, theme: Theme, size:Size, font_size: Size, normalized_size:Size):
           #TODO: Check None!
 
           self.theme = theme
@@ -26,8 +26,8 @@ class Context:
 
           #We start maybe from the wrong assumption that the size it's static
           #but in the case we have a floating and resizable windows container, the context must be recreated.
-          self.rows = int(normalized_size[1] / font_size[1])
-          self.cols = int(normalized_size[0] / font_size[0])
+          self.rows = int(normalized_size.height / font_size.height)
+          self.cols = int(normalized_size.width / font_size.width)
 
           self.video_buffer : VideoBuffer = VideoBuffer(self.cols, self.rows)
           #self.matrix: list[list[str]] = [[" " for _ in range(self.cols)]for _ in range(self.rows)]

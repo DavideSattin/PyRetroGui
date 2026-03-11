@@ -69,7 +69,7 @@ class TextWidget(UIPanel):
           # if not self.invalidate:
           #     return
 
-          print("DRAW")
+          print("Draw Text")
 
           self.invalidate = False
 

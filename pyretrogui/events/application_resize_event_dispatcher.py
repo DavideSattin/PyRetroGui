@@ -23,5 +23,5 @@ class ApplicationResizeEventDispatcher(EventDispatcher, metaclass=SingletonMetaA
         """
         super().subscribe(subscriber, handler)
 
-    def publish_application_viewport_resize(self, sender, payload:Size = None) :
+    def publish_application_viewport_resize(self, sender, payload:tuple[int,int] = None) :
         super().publish_event(sender=sender, kind=None, payload=payload)

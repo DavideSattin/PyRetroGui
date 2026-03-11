@@ -11,6 +11,7 @@ from typing import Tuple
 from pyretrogui.appearance.theme import Theme
 from pyretrogui.configuration.dto.application_config import ApplicationConfig
 from pyretrogui.io.utils import asset_path
+from pyretrogui.primitives.size import Size
 
 
 class GraphicContext:
@@ -38,8 +39,8 @@ class GraphicContext:
       def _ensure_screen(self):
           assert self.screen is not None, "Window not opened"
 
-      def open_window(self,title: str, normalized_size):
-          self.screen = pygame.display.set_mode(normalized_size,pygame.RESIZABLE)
+      def open_window(self,title: str, normalized_size:Size):
+          self.screen = pygame.display.set_mode((normalized_size.width, normalized_size.height),pygame.RESIZABLE)
           pygame.display.set_caption(title)
 
       def set_clock_tick(self, tick : int):

@@ -5,6 +5,7 @@
 # Created: 04/01/2026 10:45
 # Description: The main application for the user interface.
 # ==========================================
+from ast import Suite
 from typing import Optional
 import pygame
 
@@ -76,12 +77,13 @@ class App(metaclass=SingletonMetaApp):
         self.title = self.config.title
 
         # Set default sizes.
-        self.size = self._set_size_values((100, 200), client_size, self.config.size)
-        self.font_size = self._set_size_values((8, 16), client_font_size, self.config.font.font_size)
+        self.size: Size  = self._set_size_values((100, 200), client_size, self.config.size)
+        self.font_size : Size = self._set_size_values((8, 16), client_font_size, self.config.font.font_size)
 
         # Mouse management.
         self.mouse_enable = self.config.mouse.enabled  # Enable the mouse
         self.mouse_pointer = self.config.mouse.pointer  # Show the mouse pointer.
+        # TODO: Change to Location
         self.mouse_pos: Optional[tuple[int, int]] = None
 
         # Theme loading.
@@ -97,7 +99,7 @@ class App(metaclass=SingletonMetaApp):
         normalized_size = self._calculate_normalized_size(self.font_size, self.size)
 
         # Set root viewport.
-        size = Size(int(normalized_size[0] / self.font_size[0]), int(normalized_size[1] / self.font_size[1]))
+        size = Size(int(normalized_size.width / self.font_size.width), int(normalized_size.height / self.font_size.height))
         self.root.viewport = ViewPort(location=Location(0, 0), size=size)
 
         print(f"Normalized size: {normalized_size}")
@@ -165,7 +167,7 @@ class App(metaclass=SingletonMetaApp):
                 case pygame.KEYDOWN | pygame.KEYUP:
                     self.widget.on_key_event(event, self.context)
                 case pygame.WINDOWSIZECHANGED:
-                    new_size = Size(event.x, event.y)
+                    new_size = (event.x, event.y)
                     ApplicationResizeEventDispatcher().publish_application_viewport_resize(self, new_size)
 
     def update(self):
@@ -207,12 +209,12 @@ class App(metaclass=SingletonMetaApp):
                 return
 
             # Position in video buffer.
-            buffer_pos_x = int(self.mouse_pos[0] / self.font_size[0])
-            buffer_pos_y = int(self.mouse_pos[1] / self.font_size[1])
+            buffer_pos_x = int(self.mouse_pos[0] / self.font_size.width)
+            buffer_pos_y = int(self.mouse_pos[1] / self.font_size.height)
 
             # Normalized mouse position. E.g.: x = 25
-            normalized_pos_x = max(buffer_pos_x, 0) * self.font_size[0]
-            normalized_pos_y = max(buffer_pos_y, 0) * self.font_size[1]
+            normalized_pos_x = max(buffer_pos_x, 0) * self.font_size.width
+            normalized_pos_y = max(buffer_pos_y, 0) * self.font_size.height
 
             normalized_mouse_location = Location(normalized_pos_x, normalized_pos_y)
             buffer_mouse_location = Location(buffer_pos_x, buffer_pos_y)
@@ -224,27 +226,26 @@ class App(metaclass=SingletonMetaApp):
     # PRIVATE HELPER METHODS
     # -----------------------
 
-    def _calculate_normalized_size(self, font_size: tuple[int, int] | None, size: tuple[int, int] | None) -> tuple[
-        int, int]:
+    def _calculate_normalized_size(self, font_size: Size , size: Size) -> Size:
         """
         Calculates perfect dimensions based on font size.
         """
-        width = int(size[0] / font_size[0]) * font_size[0]
-        height = int(size[1] / font_size[1]) * font_size[1]
-        return width, height
+        width = int(size.width / font_size.width) * font_size.width
+        height = int(size.height / font_size.height) * font_size.height
+        return Size(width, height)
 
     def _set_size_values(self, default_size: tuple[int, int] = (8, 16), client_size: tuple[int, int] = None,
-                         config_size: tuple[int, int] = None) -> tuple[int, int]:
+                         config_size: tuple[int, int] = None) -> Size:
         """
         Determines final dimensions choosing between client, configuration, or default.
         """
         if client_size is not None:
-            return client_size
+            return Size(client_size[0], client_size[1])
 
         if config_size is not None:
-            return config_size
+            return Size(config_size[0], config_size[1])
 
-        return default_size
+        return Size(default_size[0], default_size[1])
 
     # -----------------------
     # EVENTS DELEGATE
@@ -261,22 +262,29 @@ class App(metaclass=SingletonMetaApp):
         """
         Delegate for the application resize event.
         """
-        new_size = event_arg.payload
+        new_size = Size(event_arg.payload[0], event_arg.payload[1])
         print("Application Resize Event received.")
         print(f"New size: {new_size})")
         self.size = new_size
 
         # Recalculate normalized size.
         normalized_size = self._calculate_normalized_size(self.font_size, self.size)
-
-        # Set root size.
-        self.root.size = Size(int(normalized_size[0] / self.font_size[0]),
-                              int(normalized_size[1] / self.font_size[1]))
-
         print(f"Normalized size: {normalized_size}")
-        print(self.root.size)
+
+        # Only for Debug.
+        text_size  = Size(int(normalized_size.width/ self.font_size.width),
+                              int(normalized_size.height / self.font_size.width))
+
+
+        print(text_size)
 
         # Recreate context
         self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
 
+        # Set root viewport.
+        size = Size(int(normalized_size.width / self.font_size.width),
+                    int(normalized_size.height / self.font_size.height))
+
+        self.root.viewport = ViewPort(location=Location(0, 0), size=size)
+        self.widget.on_set_layout(self.context)
         self.invalidated = True
