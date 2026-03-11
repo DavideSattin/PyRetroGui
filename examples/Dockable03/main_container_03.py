@@ -5,7 +5,7 @@
 # Created: 22/02/2026 18:09
 # Description: Example of a dockable container with top, bottom and two content panels.
 # ==========================================
-from pyretrogui.widgets.ui_containers import DockableContainer
+from pyretrogui.widgets.ui_containers.dockable_container import DockableContainer
 from pyretrogui.widgets.ui_elements.text_widget import TextWidget
 from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
