@@ -9,7 +9,7 @@ from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
 from pyretrogui.primitives.view_port import ViewPort
 
-
+#TODO: Dismiss this use viewport instead.
 class Area:
     def __init__(self, view_port: ViewPort):
         self.top_left: Location = view_port.location

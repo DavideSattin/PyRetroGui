@@ -10,7 +10,6 @@
 # ==========================================
 
 from typing import TYPE_CHECKING
-
 from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.primitives.location import Location

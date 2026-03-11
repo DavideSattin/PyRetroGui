@@ -101,12 +101,11 @@ class UIPanel(UIElement):
               raise ValueError("The widget_viewport cannot be None.")
 
           # #Get the viewport absolute_location and size.
-          #view_port = self.get_internal_viewport(context)
-
-          current_location = widget_viewport.location.translate_to(self.viewport.location)
+          absolute_text_viewport = widget_viewport.translate(self.viewport.location)
+          current_location = absolute_text_viewport.top_left()
 
           for current_line in text_content.split("\n"):
-            if current_location.y <= widget_viewport.size.height:
+            if current_location.y <= absolute_text_viewport.bottom():
                 context.draw_text(current_location, widget_viewport.size, current_line)
                 current_location = current_location.add_y(1)
 
