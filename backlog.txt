@@ -1,6 +1,7 @@
 Backlog
-    - Create the class LayoutManager
-    - Remove Size and location from UIElement. We use directly the widgetviewport.
+    - Cursor management.
+    - Resize management.
+    - Focus management.
 
 
 
