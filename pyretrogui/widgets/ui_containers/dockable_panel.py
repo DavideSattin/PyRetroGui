@@ -6,8 +6,8 @@
 # Description: This class manage the dockable panel.
 # ==========================================
 from pyretrogui.arranger.layout_manager import LayoutManager
-from pyretrogui.ui_elements.ui_element import UIElement
-from pyretrogui.ui_elements.ui_panel import UIPanel
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_elements.ui_panel import UIPanel
 from pyretrogui.video.context import Context
 from typing import List
 

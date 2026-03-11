@@ -5,30 +5,25 @@
 # Created: 04/01/2026 17:47
 # Description:Base class for UI panels.
 # ==========================================
+from abc import ABC
+
 from pyretrogui.appearance.theme import Color
 from pyretrogui.charset import CHAR_CLASSES
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
 from pyretrogui.primitives.area import Area
 from pyretrogui.primitives.location import Location
-from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
-class UIPanel(UIElement):
+class UIPanel(UIElement, ABC):
 
       def __init__(self,parent: "UIElement" = None):
           super().__init__(parent)
           self.margin = False
           self.border = True
 
-      def draw(self, context: Context):
-          """
-          Draws the panel.
-          The drawing starts at the relative position (0,0), which will be translated
-          by the drawing method into the absolute screen position.
-          :param context: The rendering context.
-          """
-          pass
+
 
       def draw_border(self,context: Context, widget_viewport: ViewPort, foreground_color: tuple[int,int,int] = (255,255,255) , background_color: tuple[int,int,int] = (0,0,0) ) -> None:
 

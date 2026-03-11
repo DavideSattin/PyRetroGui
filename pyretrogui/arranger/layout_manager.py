@@ -19,7 +19,7 @@ from pyretrogui.singleton_meta.singleton_layout_manager import SingletonLayoutMa
 
 # Import only for type checking to avoid circular imports
 if TYPE_CHECKING:
-    from pyretrogui.ui_elements.ui_element import UIElement
+    from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
 class LayoutManager(metaclass=SingletonLayoutManager):

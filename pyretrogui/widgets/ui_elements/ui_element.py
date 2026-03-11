@@ -22,9 +22,8 @@ class UIElement(ABC):
           self.behaviour: UIBehaviour = UIBehaviour()
           self.name : str = ""
 
-
           # The widget manager.
-          from pyretrogui.ui_elements.widget_manager import WidgetManager
+          from pyretrogui.widgets.ui_elements.widget_manager import WidgetManager
           self._widget_manager = WidgetManager()
 
 

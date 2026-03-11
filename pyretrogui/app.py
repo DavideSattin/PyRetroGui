@@ -5,7 +5,6 @@
 # Created: 04/01/2026 10:45
 # Description: The main application for the user interface.
 # ==========================================
-from ast import Suite
 from typing import Optional
 import pygame
 
@@ -17,13 +16,14 @@ from pyretrogui.events.event_args import EventArgs
 from pyretrogui.events.theme_events_dispatcher import ThemeEventsDispatcher
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.singleton_meta.singleton_meta_app import SingletonMetaApp
-from pyretrogui.ui_elements.widget_manager import WidgetManager
+from pyretrogui.widgets.ui_containers.container_panel import ContainerPanel
+from pyretrogui.widgets.ui_elements.widget_manager import WidgetManager
 from pyretrogui.video.context import Context
 from pyretrogui.graphic_context import GraphicContext
 from pyretrogui.primitives.location import Location
 from pyretrogui.primitives.size import Size
-from pyretrogui.ui_elements.ui_panel import UIPanel
-from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_elements.ui_panel import UIPanel
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
 class App(metaclass=SingletonMetaApp):
@@ -90,7 +90,7 @@ class App(metaclass=SingletonMetaApp):
         self.theme = ThemeLoader.load(self.config.theme)
 
         # Virtual Root Widget.
-        self.root = UIPanel(None)
+        self.root = ContainerPanel(None)
         self.root.id = -99
         self.root.margin = False
         self.root.border = False
@@ -113,7 +113,7 @@ class App(metaclass=SingletonMetaApp):
 
         self.running = True
         self.invalidated = True
-        self.widget: Optional[UIElement] = None
+        #self.widget: Optional[UIElement] = None
 
         self.context: Context = Context(self.theme, self.size, self.font_size, normalized_size)
 
@@ -137,10 +137,10 @@ class App(metaclass=SingletonMetaApp):
 
         if not isinstance(startup_widget, UIPanel):
             print(f"Widget Type: {type(startup_widget)}")
-            self.widget = self.widget_manager.element_factory(startup_widget, self.context, self.root)
+            self.widget_manager.element_factory(startup_widget, self.context, self.root)
         else:
             print(f"Instance Widget Type: {type(startup_widget)}")
-            self.widget = self.widget_manager.element_ingestion(startup_widget, self.context, self.root)
+            self.widget_manager.element_ingestion(startup_widget, self.context, self.root)
 
         # Execution cycle (Running Cycle).
         while self.running:
@@ -175,7 +175,7 @@ class App(metaclass=SingletonMetaApp):
         Updates application and widget state.
         """
         if self.invalidated:
-            self.widget.draw(self.context)
+            self.root.draw(self.context)
             self.invalidated = False
 
         self.grp_ctx.enable_pointer(self.mouse_pointer)
@@ -288,5 +288,5 @@ class App(metaclass=SingletonMetaApp):
                     int(normalized_size.height / self.font_size.height))
 
         self.root.viewport = ViewPort(location=Location(0, 0), size=size)
-        self.widget.on_set_layout(self.context)
+        self.root.on_set_layout(self.context)
         self.invalidated = True

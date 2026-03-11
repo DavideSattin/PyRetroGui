@@ -12,8 +12,8 @@ from pyretrogui.arranger.position_behaviour import PositionBehaviour
 from pyretrogui.arranger.resize_behaviour import ResizeBehaviour
 from pyretrogui.primitives.view_port import ViewPort
 from pyretrogui.video.context import Context
-from pyretrogui.ui_containers.dockable_panel import DockablePanel
-from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_containers.dockable_panel import DockablePanel
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
 class DockableContainer(UIElement):

@@ -7,7 +7,7 @@
 # ==========================================
 from typing import List
 
-from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
 class ElementFactory:

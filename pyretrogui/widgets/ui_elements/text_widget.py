@@ -6,8 +6,8 @@ from pyretrogui.io.file_reader import FileReader
 from pyretrogui.primitives.location import Location
 from pyretrogui.video.context import Context
 from pyretrogui.cursor_management import CursorManagement
-from pyretrogui.ui_elements.ui_panel import UIPanel
-from pyretrogui.ui_elements.ui_element import UIElement
+from pyretrogui.widgets.ui_elements.ui_panel import UIPanel
+from pyretrogui.widgets.ui_elements.ui_element import UIElement
 
 
 
