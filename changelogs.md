@@ -19,7 +19,8 @@
 
 ### Fixed
 - Fixed text drawing logic in `UIPanel` and `TextWidget`.
-- Improved stability of `VideoBuffer` with better bounds checking.
+- Improved stability of `VideoBuffer` with better bounds checking in `invalidate` method.
+- Corrected mouse position check in `App` to properly handle negative coordinates.
 
 ## [2026-03-08]
 

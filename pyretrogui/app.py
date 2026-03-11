@@ -205,7 +205,7 @@ class App(metaclass=SingletonMetaApp):
         if self.mouse_enable:
             # Real mouse position. E.g.: x = 24.5
             self.mouse_pos = self.grp_ctx.get_mouse_pos()
-            if self.mouse_pos[0] == 0 and self.mouse_pos[1] == 0:
+            if self.mouse_pos[0] <= 0 and self.mouse_pos[1] <= 0:
                 return
 
             # Position in video buffer.
@@ -221,6 +221,8 @@ class App(metaclass=SingletonMetaApp):
 
             self.context.draw_mouse_pointer(self.grp_ctx, normalized_mouse_location, buffer_mouse_location,
                                             self.theme.pointer)
+
+
 
     # -----------------------
     # PRIVATE HELPER METHODS
