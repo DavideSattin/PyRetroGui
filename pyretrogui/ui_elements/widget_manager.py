@@ -17,6 +17,11 @@ class WidgetManager(metaclass=SingletonMetaWidgetManager):
            # TODO: Dovrebbe essere un dizionario.
            self.widgets : List[UIElement] = []
 
+       def _ensure_element_initialized(self, element: UIElement) -> None:
+            if not element.initialized:
+               element.init()
+               element.initialized = True
+
        def element_factory(self, element, context:Context,root: UIElement = None) -> UIElement:
            if element is None:
                raise ValueError('element cannot be None')
@@ -26,19 +31,37 @@ class WidgetManager(metaclass=SingletonMetaWidgetManager):
 
            ui_element = element(root)
            ui_element.id = len(self.widgets) + 1
-           ui_element.init(context)
+           self._ensure_element_initialized(ui_element)
+           ui_element.on_set_layout(context)
 
            self.widgets.append(ui_element)
            return ui_element
 
-       def element_ingestion(self, element: UIElement, context:Context=None, root: UIElement = None) -> UIElement:
+       def register_element(self, element: UIElement,  root: UIElement = None)-> UIElement:
            if element is None:
                raise ValueError('element cannot be None')
 
            element.id = len(self.widgets) + 1
            element.parent = root
+
+           self.widgets.append(element)
+           return element
+
+       def element_ingestion(self, element: UIElement, context:Context=None, root: UIElement = None) -> UIElement:
+           if element is None:
+               raise ValueError('element cannot be None')
+
+           if context is None:
+              raise ValueError('Context cannot be None')
+
+           element.id = len(self.widgets) + 1
+           element.parent = root
+
+           self._ensure_element_initialized(element)
+
            if context is not None:
-              element.init(context)
+              element.on_set_layout(context)
+
 
            self.widgets.append(element)
            return element

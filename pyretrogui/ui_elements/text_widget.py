@@ -25,21 +25,18 @@ class TextWidget(UIPanel):
 
 
 
-      def init(self,context: Context):
+      def on_set_layout(self, context: Context):
           self.appearance.init_theme()
-
-          # Refactor this!
-          # We need to write the panel absolute_location and size
-          # based on his behaviour  self.position_behaviour = PositionBehaviour.FREE
-          #           self.size_behaviour = WindowSize.DOCK
-
-          super().init(context)
+          super().on_set_layout(context)
 
           #THIS IS TOTALLY WRONG
           #view_port = self.get_internal_viewport()
           # Set the cursor position with the absolute_location of the internal viewport.
           self.cursor_management.location = Location(0,0)
 
+      def init(self):
+         super().init()
+         print("Text Widget initialized.")
 
       # # TODO: Remove this.
       # def on_key_event(self, event: Event,context: Context):

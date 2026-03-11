@@ -15,8 +15,7 @@ class UIElement(ABC):
           self.id : int = 0
           self.visible = True
           self.enabled = True
-          # self.location:Location = Location(0,0)
-          # self.size:Size = Size(0,0)
+          self.initialized = False
           self.viewport = ViewPort(location=Location(0,0), size=Size(0,0))
           self.margin: bool = True
           self.border: bool = True
@@ -29,11 +28,12 @@ class UIElement(ABC):
           self._widget_manager = WidgetManager()
 
 
-      def init(self,context: Context):
+      def on_set_layout(self, context: Context):
           self.viewport = LayoutManager().get_view_port(self)
-          print("Test")
 
 
+      def init(self):
+          self.initialized = True
 
       @abstractmethod
       def draw(self, context: Context):

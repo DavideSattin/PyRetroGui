@@ -24,10 +24,15 @@ class DockablePanel(UIPanel):
           # TODO: Remove this. Use a class for theme.
           self.background = (0, 125, 255)
 
-      def init(self, context: Context):
-          super().init(context)
+      def init(self):
+          super().init()
+          print("Init DockablePanel")
+
+      def on_set_layout(self, context: Context):
+          print("on_set_layout DockablePanel")
+          super().on_set_layout(context)
           for element in self.elements:
-              element.init(context)
+              element.on_set_layout(context)
 
       def draw(self, context: Context):
           """

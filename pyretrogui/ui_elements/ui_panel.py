@@ -85,14 +85,6 @@ class UIPanel(UIElement):
 
 
 
-
-      # I don't like this name, but we have another method with a similar name that give an absolute vieport
-      # It make a lot of confusion. This will be renamed soon.
-      def get_internal_relative_view_port(self) -> ViewPort:
-
-
-          return ViewPort(location=Location(0, 0), size=self.viewport.size)
-
       def draw_text(self,context: Context,  widget_viewport: ViewPort,  text_content:str):
           if context is None:
               raise ValueError("The size cannot be None.")
@@ -108,8 +100,6 @@ class UIPanel(UIElement):
             if current_location.y <= absolute_text_viewport.bottom():
                 context.draw_text(current_location, widget_viewport.size, current_line)
                 current_location = current_location.add_y(1)
-
-
 
       def draw_cursor(self, context: Context, cursor_position):
           if context is None:
@@ -127,8 +117,6 @@ class UIPanel(UIElement):
 
           if viewport is None:
               raise ValueError("The viewport cannot be None.")
-
-
 
           absolute_viewport = viewport.translate(self.viewport.location)
           context.fill_background(absolute_viewport,color)

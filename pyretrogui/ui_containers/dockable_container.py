@@ -140,11 +140,19 @@ class DockableContainer(UIElement):
           container.background = color
           return  container
 
-      def init(self, context:Context):
+      def init(self):
+          print("Init Dockable Container")
+          for container in self.containers:
+              container.init()
 
+      def on_set_layout(self, context:Context):
+          print("on_set_layout Dockable Container")
+          super().on_set_layout(context)
           self._arrange_(LayoutManager().get_view_port(self))
           for container in self.containers:
-              container.init(context)
+              container.on_set_layout(context)
+
+
 
       def draw(self, context: Context):
           """
@@ -163,7 +171,7 @@ class DockableContainer(UIElement):
           if child is None:
               raise ValueError("Cannot add a child of None")
 
-          child = self._widget_manager.element_ingestion(child,root=self)
+          child = self._widget_manager.register_element(child,root=self)
           self.containers.append(child)
 
 
